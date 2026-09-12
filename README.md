@@ -1,9 +1,12 @@
 # 🕹️Acerte a Toupeira (Whack-a-Mole)
 
 
-##### **Projeto Final da disciplina SI401 - Programação Web**  
-##### Plataforma online do clássico jogo "Acerte a Toupeira", desenvolvida do zero, abordando front-end e back-end.
+<p align="center">
+ #### **Projeto Final da disciplina SI401 - Programação Web**  
+ ##### Faculdade de Tecnologia da Universidade Estadual de Campinas (FT/UNICAMP)
+</p>
 
+---
 
 ### 📖 Sobre o Projeto
 Este projeto consiste em uma plataforma web completa onde usuários podem se cadastrar, jogar partidas de Acerte a Toupeira e competir em um ranking global. O jogo acontece diretamente no navegador, com o front-end controlando toda a lógica e temporização da partida, enquanto o back-end em PHP gerencia a segurança, sessões de usuário e persistência de dados.
