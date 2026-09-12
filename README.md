@@ -1,3 +1,7 @@
+<p align="center">
+    <img src="/Whack-a-Mole/Img/unicamp_logo.jpg" height=80px>
+</p>
+
 # 🕹️ Acerte a Toupeira (Whack-a-Mole)
 
 <p align="left">
@@ -47,11 +51,7 @@ Este projeto foi desenvolvido respeitando a restrição de não utilizar framewo
 Este projeto foi desenvolvido por:
 
 **Yasmin Caetano Betioli**      | RA: 296809
-
 **Yasmin Caetano Betioli**      | RA: 296809
-
 **Yasmin Caetano Betioli**      | RA: 296809
-
 **Yasmin Caetano Betioli**      | RA: 296809
-
 **Yasmin Caetano Betioli**      | RA: 296809
