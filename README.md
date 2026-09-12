@@ -2,15 +2,14 @@
   <img src="./Img/unicamp_logo.png" height="80">
 </p>
 
+# 🕹️ Acerte a Toupeira (Whack-a-Mole)
+
 <p align="left">
   <strong>Projeto Final da disciplina SI401 - Programação Web</strong>
   <br>
   Faculdade de Tecnologia da Universidade Estadual de Campinas (FT/UNICAMP)
 </p>
 
-
-
-# 🕹️ Acerte a Toupeira (Whack-a-Mole)
 
 ---
 
