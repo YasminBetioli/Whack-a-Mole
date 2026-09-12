@@ -1,3 +1,8 @@
+<p align="center">
+  <img src="./unicamp_logo.png" height="80">
+</p>
+
+
 # 🕹️Acerte a Toupeira (Whack-a-Mole)
 
 
