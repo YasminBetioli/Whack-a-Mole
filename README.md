@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="./Img/UNICAMP_logo.png" height="200">
-</p>
-
 # 🕹️ Acerte a Toupeira (Whack-a-Mole)
 
 <p align="left">
