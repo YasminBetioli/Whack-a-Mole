@@ -1,7 +1,10 @@
-# 🕹️ Acerte a Toupeira (Whack-a-Mole)
 <p align="center">
-    <img src="./Img/UNICAMP_logo.png">
+    <img src="Img/UNICAMP_logo.png">
 </p>
+
+
+# 🕹️ Acerte a Toupeira (Whack-a-Mole)
+
 
 <p align="left">
   <strong>Projeto Final da disciplina SI401 - Programação Web</strong>
