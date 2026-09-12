@@ -3,7 +3,7 @@
 <p align="left">
   <strong>Projeto Final da disciplina SI401 - Programação Web</strong>
   <br>
-  Faculdade de Tecnologia da Universidade Estadual de Campinas (FT/UNICAMP)
+  <strong>Faculdade de Tecnologia da Universidade Estadual de Campinas (FT/UNICAMP)</strong>
 </p>
 
 ---
@@ -46,12 +46,12 @@ Este projeto foi desenvolvido respeitando a restrição de não utilizar framewo
 ### 👥 Membros do Grupo
 Este projeto foi desenvolvido por:
 
-- **Yasmin Caetano Betioli**      | **RA:** 296809
+* **Yasmin Caetano Betioli**      | **RA:** 296809
 
-- **Yasmin Caetano Betioli**      | **RA:** 296809
+* **Yasmin Caetano Betioli**      | **RA:** 296809
 
-- **Yasmin Caetano Betioli**      | **RA:** 296809
+* **Yasmin Caetano Betioli**      | **RA:** 296809
 
-- **Yasmin Caetano Betioli**      | **RA:** 296809
+* **Yasmin Caetano Betioli**      | **RA:** 296809
 
-- **Yasmin Caetano Betioli**      | **RA:** 296809
+* **Yasmin Caetano Betioli**      | **RA:** 296809
