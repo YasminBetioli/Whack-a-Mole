@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="./Whack-a-Mole/Img/unicamp_logo.jpg" height="80">
+    <img src="/Whack-a-Mole/Img/unicamp_logo.png" height="80">
 </p>
 
 # 🕹️ Acerte a Toupeira (Whack-a-Mole)
