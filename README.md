@@ -1,14 +1,12 @@
 # 🕹️Acerte a Toupeira (Whack-a-Mole)
 
 
-#### **Projeto Final da disciplina SI401 - Programação Web**  
- Plataforma online do clássico jogo "Acerte a Toupeira", desenvolvida do zero, abordando front-end e back-end.
-
+##### **Projeto Final da disciplina SI401 - Programação Web**  
+##### Plataforma online do clássico jogo "Acerte a Toupeira", desenvolvida do zero, abordando front-end e back-end.
 
 
 ### 📖 Sobre o Projeto
 Este projeto consiste em uma plataforma web completa onde usuários podem se cadastrar, jogar partidas de Acerte a Toupeira e competir em um ranking global. O jogo acontece diretamente no navegador, com o front-end controlando toda a lógica e temporização da partida, enquanto o back-end em PHP gerencia a segurança, sessões de usuário e persistência de dados.
-
 
 
 ### 🎮 Modos de Jogo
@@ -17,10 +15,8 @@ O usuário pode definir o tamanho do tabuleiro (de 4 a 64 buracos) e escolher en
   * Explosiva: Toupeiras e bombas surgem aleatoriamente. Acertar toupeiras soma pontos, mas clicar nas bombas aplica penalidades ao placar.
 
 
-
 ### 📈 Sistema de Progressão e Dificuldade
 O jogo é infinito, dividido em níveis com duração fixa de tempo. Para avançar de nível, o jogador deve atingir uma meta de x% de acertos. A cada novo nível, o tempo de exposição da toupeira nos buracos diminui, exigindo reflexos cada vez mais rápidos. A partida encerra quando o jogador não atinge a porcentagem mínima de acertos do nível.
-
 
 
 ### ✨ Funcionalidades
@@ -32,7 +28,6 @@ O jogo é infinito, dividido em níveis com duração fixa de tempo. Para avanç
   * Design Responsivo e Validado: Interface estilizada com CSS puro, aprovada nos validadores da W3C.
 
 
-
 ### 🛠️ Tecnologias Utilizadas
 Este projeto foi desenvolvido respeitando a restrição de não utilizar frameworks (como React, Laravel ou Bootstrap), garantindo o aprendizado dos fundamentos da web:
   * Front-end: HTML5, CSS3, JavaScript (Vanilla / ES6+).
@@ -40,15 +35,13 @@ Este projeto foi desenvolvido respeitando a restrição de não utilizar framewo
   * Banco de Dados: MySQL / MariaDB.
 
 
-
-### 👥 Membros do Grupo 
+### 👥 Integrantes do Grupo 
 Este projeto foi desenvolvido por:
 
-[Yasmin Caetano Betioli] - [RA: 296809]
-
-[Nome do Aluno 2][000000]
-
-[Nome do Aluno 3][000000]
-
-[Nome do Aluno 4][000000]
+#### Nome                   | RA
+Yasmin Caetano Betioli | RA: 296809
+Yasmin Caetano Betioli | RA: 296809
+Yasmin Caetano Betioli | RA: 296809
+Yasmin Caetano Betioli | RA: 296809
+Yasmin Caetano Betioli | RA: 296809
 
