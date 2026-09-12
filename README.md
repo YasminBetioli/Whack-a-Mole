@@ -1,7 +1,3 @@
-<p align="left">
-  <img src="./Img/unicamp_logo.png" height="80">
-</p>
-
 # 🕹️ Acerte a Toupeira (Whack-a-Mole)
 
 <p align="left">
@@ -9,7 +5,6 @@
   <br>
   Faculdade de Tecnologia da Universidade Estadual de Campinas (FT/UNICAMP)
 </p>
-
 
 ---
 
@@ -45,3 +40,18 @@ Este projeto foi desenvolvido respeitando a restrição de não utilizar framewo
 * **Front-end:** HTML5, CSS3, JavaScript (Vanilla / ES6+).
 * **Back-end:** PHP puro.
 * **Banco de Dados:** MySQL / MariaDB.
+
+---
+
+### 👥 Membros do Grupo
+Este projeto foi desenvolvido por:
+
+**Yasmin Caetano Betioli**      | RA: 296809
+
+**Yasmin Caetano Betioli**      | RA: 296809
+
+**Yasmin Caetano Betioli**      | RA: 296809
+
+**Yasmin Caetano Betioli**      | RA: 296809
+
+**Yasmin Caetano Betioli**      | RA: 296809
