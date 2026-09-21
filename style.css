@@ -1,0 +1,46 @@
+#body{
+    background-color: #051218;
+    font-family: "Handjet", sans-serif;
+}
+
+#borda{
+    border: 5px solid #53f2b8;
+    height: 25vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-inline: 30%;
+    margin-top:10%;
+    margin-bottom: 10%;
+    background-color: #051218;
+}
+
+#bordaMenor{
+    border: 5px solid #4d755c;
+    width: 38vw;
+    height: 24vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Handjet", sans-serif;
+    position: relative;
+}
+
+#content h1{
+    color: #dbdad5;
+}
+
+#content{
+    text-align: left;
+    position: static;
+}
+
+.handjet-fonte {
+  font-family: "Handjet", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "ELGR" 1,
+    "ELSH" 2;
+}
