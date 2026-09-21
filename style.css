@@ -28,11 +28,22 @@
 
 #content h1{
     color: #dbdad5;
+    
+    margin-left: auto;
+    margin-top :-170px;
 }
 
 #content{
-    text-align: left;
-    position: static;
+       position: static;
+}
+
+#gameMode{
+    
+    border: 5px solid #4d755c;
+    width: 300px;
+     margin-left: auto;
+     align-items: center;
+     height: 150px;
 }
 
 .handjet-fonte {
