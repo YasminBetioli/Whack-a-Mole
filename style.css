@@ -4,7 +4,7 @@
 }
 
 #borda{
-    border: 5px solid #53f2b8;
+    border: 0.3vw solid #53f2b8;
     height: 25vw;
     display: flex;
     align-items: center;
@@ -16,7 +16,7 @@
 }
 
 #bordaMenor{
-    border: 5px solid #4d755c;
+    border: 0.3vw solid #4d755c;
     width: 38vw;
     height: 24vw;
     display: flex;
@@ -27,24 +27,94 @@
 }
 
 #content h1{
-    color: #dbdad5;
-    
+    color: #dbdad5;  
     margin-left: auto;
-    margin-top :-170px;
+    margin-top :-2vw;
 }
+
 
 #content{
        position: static;
 }
 
 #gameMode{
-    
-    border: 5px solid #4d755c;
-    width: 300px;
+    display: flex;
+    border: 0.3vw solid #4d755c;
+    width: 100vw;
      margin-left: auto;
      align-items: center;
-     height: 150px;
+     height: 100vw;
+      width: fit-content;
+    height: fit-content;
+    color: #dbdad5;
 }
+
+#gameMode button{
+  display: block;
+    width: 12vw;
+    height: 10vw;
+    position: static;
+    display: inline;
+    background-color: #051218;
+    padding: 0;
+    margin: 0;   
+}
+
+#gameMode h2{
+    color: #dbdad5;
+    font-family: "Handjet", sans-serif;
+    font-size: 1.3vw; 
+}
+
+#stalker{
+    width: 8vw;
+    height: 5vw;
+    margin-top: 1vw;
+    font-size: 1.3vw
+}
+
+#xicara{
+    margin-left: 1vw;
+    width: 5vw;
+    margin-top: 1vw;
+}
+
+div#classico:hover{
+    border: solid 0.3vw #53f2b8;
+}
+
+div#explosivo:hover{
+    border: solid 0.3vw #a91414;
+}
+
+#opcoesBaixo{
+    margin-top: 2vw;
+    display: flex;
+    gap: 5vw;
+}
+
+#tabuleiro h2{
+    color: #dbdad5;
+    font-size: 1.5vw;
+}
+
+#tabuleiroSelect{
+    background-color: #dbdad5;
+    border-radius: 0.5vw;
+    width: 15vw;
+    height: 2vw;
+    font-family:"Handjet", sans-serif;
+    font-size: 1vw;
+    font-weight: 800;
+    padding-left: 0.5vw;
+    
+}
+
+#jogar{
+    align-content: center;
+    
+}
+
 
 .handjet-fonte {
   font-family: "Handjet", sans-serif;
