@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="StyleLCP.css">
+    <title> Whack-a-Anomaly | Editar Perfil </title>
+</head>
+
+<body>
+    <div class="editar-perfil-page">
+
+        <div class="container-editar-perfil">
+
+            <div class="secao-foto">
+
+                <div class="foto-perfil">
+                    <img src="/Whack-a-Mole/Img/Foto_Perfil_Login.png" alt="Personagem como foto de perfil">
+                </div>
+            
+            </div>
+
+            <div class="linha-divisora"></div>
+
+            <div class="secao-formulario">
+                <h1> Editar Perfil </h1>
+
+                <form>
+                    <div class="campo-input-texto linha-completa">
+                        <label for="nome"> Nome Completo </label>
+                        <input type="text" id="nome" name="nome">
+                        <img src="/Whack-a-Mole/Img/Icone_Lapis.png" alt="Icone de lapis">
+                    </div>
+
+                    <div class="input-segunda-linha">
+                        <div class="campo-input-texto metade">
+                            <label for="data-nascimento"> Data de Nascimento </label>
+                            <input type="text" id="data-nascimento" name="data-nascimento" placeholder="    /   /   " disabled>
+                            <img src="/Whack-a-Mole/Img/Cadeado_Claro.png" alt="Icone de cadeado">
+                        </div>
+
+                        <div class="campo-input-texto metade input-com-cadeado">
+                            <label for="cpf"> CPF </label>
+                            <input type="text" id="cpf" name="cpf" disabled>
+                            <img src="/Whack-a-Mole/Img/Cadeado_Claro.png" alt="Icone de cadeado">
+                        </div>
+                    </div>
+
+                    <div class="input-terceira-linha">
+                        <div class="campo-input-texto metade">
+                            <label for="telefone"> Telefone </label>
+                            <input type="tel" id="telefone" name="telefone">
+                            <img src="/Whack-a-Mole/Img/Icone_Lapis.png" alt="Icone de lapis">
+                        </div>
+
+                        <div class="campo-input-texto metade">
+                            <label for="email"> E-mail </label>
+                            <input type="email" id="email" name="email">
+                            <img src="/Whack-a-Mole/Img/Icone_Lapis.png" alt="Icone de lapis">
+                        </div>
+                    </div>
+
+                    <div class="input-quarta-linha">
+                        <div class="campo-input-texto metade input-com-cadeado">
+                            <label for="username-cadastro"> Username </label>
+                            <input type="text" id="username-cadastro" name="username-cadastro" disabled>
+                            <img src="/Whack-a-Mole/Img/Cadeado_Claro.png" alt="Icone de cadeado">
+                        </div>
+
+                        <div class="campo-input-texto metade">
+                            <label for="senha-cadastro"> Senha </label>
+                            <input type="password" id="senha-cadastro" name="senha-cadastro">
+                            <img src="/Whack-a-Mole/Img/Icone_Lapis.png" alt="Icone de lapis">
+                        </div>
+                    </div>
+
+                    <button type="submit"> Salvar alterações </button>
+                </form>
+
+            </div>
+            
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'VT323', monospace;
+}
+
+body {
+    background-color: #051218;
+    color: #53f2b8; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.login-page, 
+.cadastro-page, 
+.editar-perfil-page {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container-login, 
+.container-cadastro, 
+.container-editar-perfil {
+    background-color: #051218; 
+    border: 3px solid #53f2b8;
+    padding: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+    max-width: 850px;
+    width: 100%;
+    z-index: 2;
+}
+
+.secao-foto {
+    flex: 0 0 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.foto-login img, 
+.foto-cadastro img, 
+.foto-perfil img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border: 2px solid #000;
+    display: block;
+}
+
+.linha-divisora {
+    width: 2px;
+    background-color: #4ade80;
+    align-self: stretch;
+}
+
+.secao-formulario {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.secao-formulario h1 {
+    font-size: 3rem;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.input-segunda-linha, 
+.input-terceira-linha, 
+.input-quarta-linha {
+    display: flex;
+    gap: 15px;
+}
+
+.metade {
+    flex: 1;
+}
+
+.linha-completa {
+    width: 100%;
+}
+
+.campo-input-texto {
+    display: flex;
+    flex-direction: column;
+    position: relative; /* Permite posicionar o lápis/cadeado dentro do campo */
+}
+
+.campo-input-texto label {
+    font-size: 1.3rem;
+    margin-bottom: 3px;
+    color: #4ade80;
+}
+
+.campo-input-texto input {
+    width: 100%;
+    height: 38px;
+    border-radius: 12px;
+    border: none;
+    background-color: #e5e5e0;
+    padding: 0 35px 0 12px; /* Espaço na direita para o texto não ficar por baixo da imagem do ícone */
+    font-size: 1.1rem;
+    outline: none;
+    color: #000;
+}
+
+.campo-input-texto input:disabled {
+    background-color: #999994; /* Cinza escuro para campos bloqueados */
+    cursor: not-allowed;
+}
+
+.campo-input-texto img {
+    position: absolute;
+    right: 10px;
+    bottom: 8px;
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+button[type="submit"] {
+    background-color: #4ade80;
+    color: #000;
+    border: none;
+    border-radius: 12px;
+    padding: 8px 35px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    align-self: flex-start;
+    margin-top: 10px;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+button[type="submit"]:hover {
+    background-color: #3bcf72;
+}
+
+button[type="submit"]:active {
+    transform: scale(0.97);
+}
+
+.link-cadastro {
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+
+.texto-vermelho-login {
+    color: #ff3333;
+}
+
+.link-cadastro a {
+    color: #4ade80;
+    text-decoration: none;
+}
+
+.link-cadastro a:hover {
+    text-decoration: underline;
+}
+
+.login-page > img, 
+.cadastro-page > img {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 180px;
+    z-index: 1;
+    pointer-events: none;
+}
