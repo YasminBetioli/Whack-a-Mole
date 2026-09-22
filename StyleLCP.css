@@ -113,7 +113,7 @@ form {
 .campo-input-texto {
     display: flex;
     flex-direction: column;
-    position: relative; /* Permite posicionar o lápis/cadeado dentro do campo */
+    position: relative; 
 }
 
 .campo-input-texto label {
@@ -128,14 +128,14 @@ form {
     border-radius: 12px;
     border: none;
     background-color: #dbdad5;
-    padding: 0 35px 0 12px; /* Espaço na direita para o texto não ficar por baixo da imagem do ícone */
+    padding: 0 35px 0 12px; 
     font-size: 1.1rem;
     outline: none;
     color: #000;
 }
 
 .campo-input-texto input:disabled {
-    background-color: #999994; /* Cinza escuro para campos bloqueados */
+    background-color: #a5a4a0; 
     cursor: not-allowed;
 }
 
@@ -189,7 +189,8 @@ button:active {
 }
 
 .login-page > img, 
-.cadastro-page > img {
+.cadastro-page > img,
+.editar-perfil-page > img {
     position: absolute;
     bottom: 0;
     right: 0;
