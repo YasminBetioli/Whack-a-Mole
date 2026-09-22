@@ -56,26 +56,20 @@ body{
     font-size: 4rem;
 }
 
+.tempo img {
+    width: 5rem;
+    height: 5rem;
+    object-fit: contain;
+}
+
 .pontos{
     font-size: 4rem;
 }
 
 .modo {
     margin-left: auto;
-    font-size: 1.4rem;
+    font-size: 2rem;
     color: #b8cfcc;
-}
-
-.pause {
-    width: 70px;
-    height: 70px;
-    margin-left: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    background-color: #143b42;
-    text-decoration: none;
 }
 
 .tabuleiro {
@@ -85,8 +79,7 @@ body{
     border: 1px solid #174b50;
     padding: 55px 70px;
     display: grid; 
-    grid-template-columns: repeat(2, 1fr); /*2 colunas */
-    grid-template-rows: repeat(2, 1fr); /*2 linhas */
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas */
     gap: 35px; /*Espaço entre os itens do tabuleiro*/
     flex: 1; /*Permite que p tabuleiro aumente*/
     max-height: 75vh; /*Altura máxima do tabuleiro*/
@@ -113,4 +106,29 @@ body{
     object-fit: contain;
     user-select: none; /*Evita que a imagem seja selecionada*/
     -webkit-user-drag: none; /*Evita que a imagem seja arrastada*/
+}
+
+.pause {
+    width: 150px;
+    height: 150px;
+    margin-left: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: #143b42;
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+.pause span {
+    width: 1vh;
+    height: 4vh;
+    background-color: #53f2b8;
+    border-radius: 3px;
+    transition: 0.2s;
+}
+
+.pause:hover span {
+    background-color: #32eed5;
 }
