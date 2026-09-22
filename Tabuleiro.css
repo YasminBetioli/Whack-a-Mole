@@ -1,19 +1,27 @@
+
+
+html,
+body { /*Remove a margem e o paddingpadrão do navegador*/
+    margin: 0; 
+    min-height: 100%;
+}
+
 body{
     background-color: #051218;
-    margin: 0;
-    padding: 0;
     display: flex;
     justify-content: center; /*Centraliza os itens na horizontal*/
     align-items: center; /*Centraliza os itens na vertical*/
     min-height: 100vh; /*Altura mínima da tela*/
     color: white;
     cursor: url('img/taser.png'), auto; /*Cursor virar taser*/
+    font-family: Arial, sans-serif;
 }
 
 .tela-tabuleiro {
-    width: 95%; /*Mudar pra % se bugar pra tela fina*/
+    width: 100%;
+    min-height: 100vh; /*Altura mínima da tela*/
     max-width: 2000px; /*Máximo de largura*/
-    padding: 20px; /*Espaçamento interno*/
+    padding: 25px 4vw; /*Espaçamento interno*/
     display: flex; 
     flex-direction: column; /*Itens em coluna*/
     gap: 20px; /*Espacinho entre os itens*/
@@ -21,43 +29,88 @@ body{
 
 .informacoes-topo{
     display: flex;
-    justify-content: space-between; /*Espaço entre os itens*/
+    gap: clamp(30px, 5vw, 75px); /*Espaço entre os itens*/
+    justify-content: space-between; 
     align-items: center;
     font-weight: bold; /*Negrito*/
     padding: 0 10px; /*Espaçinho entre itens*/
+    min-height: 10vh; /*Altura mínima do topo*/
+}
+
+.nivel, .tempo, .pontos, .modo {
+    display: flex;
+    font-weight: bold;
+    align-items: center; 
+    gap: 12px; 
+}
+
+.nivel{
+    font-size: 3.5rem;
+}
+
+.nivel{ 
+    font-size: 3.5rem;
+}
+
+.tempo {
+    font-size: 4rem;
+}
+
+.pontos{
+    font-size: 4rem;
+}
+
+.modo {
+    margin-left: auto;
+    font-size: 1.4rem;
+    color: #b8cfcc;
+}
+
+.pause {
+    width: 70px;
+    height: 70px;
+    margin-left: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: #143b42;
+    text-decoration: none;
 }
 
 .tabuleiro {
     background-color: #13353a;
     border-radius: 12px; /*Arredondamento das bordas do tabuleiro*/
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
-    padding: 20px;
+    border: 1px solid #174b50;
+    padding: 55px 70px;
     display: grid; 
     grid-template-columns: repeat(2, 1fr); /*2 colunas */
     grid-template-rows: repeat(2, 1fr); /*2 linhas */
-    gap: 15px; /*Espaço entre os itens do tabuleiro*/
-    height: 70vh;
+    gap: 35px; /*Espaço entre os itens do tabuleiro*/
+    flex: 1; /*Permite que p tabuleiro aumente*/
+    max-height: 75vh; /*Altura máxima do tabuleiro*/
+    min-height: 570px; /*Altura mínima do tabuleiro*/
+    width: 100%;
+    align-items: center;
+    justify-items: center;
 }
 
 .buraco {
+    width: 100%;
+    max-width: 230px; 
     aspect-ratio: 1 / 1; /*Mantém a proporção do buraco*/
     display: flex;
     justify-content: center;
     align-items: center;
+    min-width: 0;
+    min-height: 0;
 }
 
 .buraco img {
-    max-width: 100%; 
-    max-height: 100%;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
-}
-
-.xicara {
-     z-index: 2; /*Garante que a xícara fique acima do buraco*/
-}
-
-.anomalia {
-    position: absolute;
-    z-index: 2; 
-
+    user-select: none; /*Evita que a imagem seja selecionada*/
+    -webkit-user-drag: none; /*Evita que a imagem seja arrastada*/
 }
