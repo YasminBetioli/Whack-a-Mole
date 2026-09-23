@@ -1,0 +1,363 @@
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "VT323", monospace;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  background-color: #1a2f33;
+
+  color: white;
+
+  font-family: Arial, sans-serif;
+
+  text-align: center;
+}
+
+/* ================================================= */
+/* TÍTULO                                            */
+/* ================================================= */
+
+.jogo h1 {
+  margin: 0;
+
+  font-size: 42px;
+}
+
+/* ================================================= */
+/* BOTÕES DE TESTE                                   */
+/* ================================================= */
+
+.botoes {
+  margin-top: 20px;
+}
+
+.botao {
+  display: inline-block;
+
+  background-color: #555;
+
+  color: white;
+
+  padding: 10px 20px;
+
+  margin: 0 10px;
+
+  text-decoration: none;
+
+  border-radius: 5px;
+
+  font-size: 18px;
+}
+
+.botao:hover {
+  background-color: #777;
+}
+
+/* ================================================= */
+/* QUADRO / FUNDO ESCURO                             */
+/* ================================================= */
+
+.quadro {
+  display: none;
+
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.7);
+
+  justify-content: center;
+  align-items: center;
+
+  z-index: 1000;
+}
+
+.quadro:target {
+  display: flex;
+}
+
+/* PRANCHETA/ QUADRO DE FUNDO DERROTA E VITÓRIA*/
+
+.resultado {
+  position: relative;
+  width: 660px;
+  height: 535px;
+  background-image: url("/Img/Quadro.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 105px 40px 20px 40px;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+}
+/* LINHAS DE PONTUAÇÃO E NÍVEL*/
+
+.linha-dado {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  line-height: 30px;
+  margin-bottom: 34px;
+  padding-top: 20px;
+  font-size: 28pt;
+  margin-left: 20px;
+}
+/**/
+
+/* ================================================= */
+/* ETIQUETAS                                         */
+/* ================================================= */
+
+.etiqueta {
+  white-space: nowrap;
+
+  margin-right: 15px;
+}
+
+/* ================================================= */
+/* CAMPO DA LINHA                                    */
+/* ================================================= */
+
+.campo-linha {
+  flex: 1;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  min-width: 0;
+}
+
+/* ================================================= */
+/* VALOR                                             */
+/* ================================================= */
+
+.valor {
+  font-size: 48pt;
+
+  line-height: 52px;
+
+  margin: 0;
+}
+
+/* ================================================= */
+/* LINHA TRACEJADA                                  */
+/* ================================================= */
+
+.linha-tracejada {
+  width: 70%;
+
+  border-bottom: 2px dashed #1a2f33;
+
+  margin-top: -1px;
+  margin-left: 0px;
+}
+
+/* ================================================= */
+/* DESEMPENHO                                        */
+/* ================================================= */
+
+.bloco-desempenho {
+  text-align: center;
+
+  margin-top: 65px;
+}
+
+/* ================================================= */
+/* TÍTULO DO DESEMPENHO                              */
+/* ================================================= */
+
+.etiqueta-centro {
+  font-size: 32px;
+
+  line-height: 40px;
+
+  margin: 0;
+}
+
+/* ================================================= */
+/* VALOR DO DESEMPENHO                               */
+/* ================================================= */
+
+.valor-centro {
+  font-size: 42px;
+
+  line-height: 50px;
+
+  margin-top: 15px;
+}
+
+/* ================================================= */
+/* LINHA DO DESEMPENHO                               */
+/* ================================================= */
+
+.linha-tracejada-centro {
+  width: 63%;
+
+  border-bottom: 2px dashed #1a2f33;
+
+  margin: 5px auto 0 auto;
+}
+
+/* ================================================= */
+/* CORES                                             */
+/* ================================================= */
+
+.cor-verde {
+  color: #2e8b57;
+}
+
+.cor-azul {
+  color: #0000ff;
+}
+
+.cor-roxa {
+  color: #da70d6;
+}
+
+.cor-vermelha {
+  color: #dc143c;
+}
+
+/* ================================================= */
+/* MENSAGEM DA DERROTA                              */
+/* ================================================= */
+
+.mensagem-derrota {
+  margin-top: 10px;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 18px;
+
+  color: #000;
+}
+.img-perder {
+  position: absolute;
+
+  width: 160px;
+  height: auto;
+
+  right: 5px;
+  bottom: 5px;
+
+  z-index: 10;
+}
+/* ================================================= */
+/* SELO DE TAXA DE ACERTOS                           */
+/* ================================================= */
+
+.selo-acertos {
+  position: absolute;
+
+  top: 60px;
+  right: 50px;
+
+  width: 145px;
+  height: 145px;
+
+  z-index: 10;
+}
+
+/* Imagem do selo */
+
+.imagem-selo {
+  width: 120%;
+  height: 120%;
+
+  display: block;
+}
+
+.porcentagem-acerto {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  top: 8px;
+  left: 8px;
+  width: 100%;
+  font-weight: bold;
+  transform: rotate(8deg);
+  pointer-events: none;
+}
+.porcentagem-acerto p {
+    margin: 0;
+    padding:0;
+}
+.porcentagem-acerto p:first-child {
+    font-size: 23px;
+    line-height: 40px;
+    margin-left: 15px;
+}
+
+.porcentagem-acerto p:last-child {
+    font-size: 70px;
+    line-height: 34px;
+}
+
+
+
+.opcoes {
+  position: relative;
+  width: 800px;
+  height: 400px;
+  background-image: url("/Img/Fundo-Pausa.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 105px 40px 20px 40px;
+  color: #000;
+  display: flex; /* Mantido apenas uma vez */
+  gap: 20px;
+  justify-content: center; 
+  padding: 30px;
+  margin: 100px;
+}
+
+.opcoes a {
+    display: flex;
+    align-items: center; 
+    gap: 10px; 
+    text-decoration: none; 
+    color: #333; 
+}
+
+.opcoes p {
+    margin: 0; 
+    font-size: 95px;
+
+}
+.opcoes a img {
+    width: 45px; /* Mude este valor para ajustar o tamanho do ícone */
+    height: auto; /* Mantém a proporção original da imagem */
+}
+.img-pausa {
+  position: absolute;
+  width: 150px;
+  height: auto;
+  right: -70px;
+  bottom: -40px;
+}
