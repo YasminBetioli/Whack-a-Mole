@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Handjet&display=swap');
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'VT323', monospace;
+    font-family: 'Handjet', sans-serif;
 }
 
 body {
@@ -15,6 +15,10 @@ body {
     align-items: center;
     min-height: 100vh;
 }
+
+/*-------------------------------------------------------------------------------------*/
+
+/* Estilização páginas Login, Cadastro e Edição de perfil */
 
 .login-page, 
 .cadastro-page, 
@@ -55,6 +59,7 @@ body {
     z-index: 2;
 }
 
+
 .secao-foto {
     flex: 0 0 220px;
     display: flex;
@@ -71,11 +76,13 @@ body {
     display: block;
 }
 
+
 .linha-divisora {
     width: 2px;
     background-color: #53f2b8;
     align-self: stretch;
 }
+
 
 .secao-formulario {
     flex: 1;
@@ -149,6 +156,7 @@ form {
     pointer-events: none;
 }
 
+
 button {
     background-color: #53f2b8;
     color: #000;
@@ -170,6 +178,7 @@ button:active {
     transform: scale(0.97);
 }
 
+
 .link-cadastro {
     margin-top: 20px;
     font-size: 1.2rem;
@@ -188,6 +197,7 @@ button:active {
     text-decoration: underline;
 }
 
+
 .login-page > img, 
 .cadastro-page > img,
 .editar-perfil-page > img {
@@ -197,4 +207,104 @@ button:active {
     width: 220px;
     z-index: 1;
     pointer-events: none;
+}
+
+/*-------------------------------------------------------------------------------*/
+
+/* Estilização Tela Inicial*/
+
+.menu-page {
+    background-image: url('/Whack-a-Mole/Img/Background_Tela_Principal.png');
+    background-size: 72%; 
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-color: #011113; 
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+
+.logo-menu {
+    width: 650px;
+    padding: 10px;
+}
+
+
+.menu-botoes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 230px; 
+}
+
+.btn-menu {
+    background-color: #051218; 
+    color: #4d755c; 
+    border: 5px solid #4d755c;
+    border-radius: 0%;
+    font-family: 'Handjet', sans-serif;
+    font-weight: bold;
+    font-size: 32px;
+    width: 100%; 
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding-left: 40px; 
+    padding-right: 10px;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    margin: 0;
+    white-space: nowrap; 
+}
+
+.btn-jogar {
+    font-size: 62px;
+    padding: 12px 15px;
+    margin-bottom: 5px;
+    height: 85px;
+    color:#53f2b8;
+    padding-left: 10px; 
+    padding-right: 0px;
+}
+
+.btn-menu img {
+    position: absolute;
+    left: 5px;
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+}
+
+.btn-menu:hover {
+    background-color: #051218;
+    border-color: #53f2b8;
+    color:#53f2b8;
+    box-shadow: 0 0 18px #4d755c;
+    transform: scale(1.02);
+}
+
+.btn-menu:hover img[src*="Lapis"] {
+    content: url('/Whack-a-Mole/Img/Lapis_Verde_Claro.png');
+}
+
+.btn-menu:hover img[src*="Trofeu"] {
+    content: url('/Whack-a-Mole/Img/Trofeu_Verde_Claro.png');
+}
+
+.btn-menu:hover img[src*="Historico"] {
+    content: url('/Whack-a-Mole/Img/Historico_Verde_Claro.png');
 }
