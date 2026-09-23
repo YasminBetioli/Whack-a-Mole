@@ -25,9 +25,7 @@ body {
   text-align: center;
 }
 
-/* ================================================= */
-/* TÍTULO                                            */
-/* ================================================= */
+
 
 .jogo h1 {
   margin: 0;
@@ -35,9 +33,6 @@ body {
   font-size: 42px;
 }
 
-/* ================================================= */
-/* BOTÕES DE TESTE                                   */
-/* ================================================= */
 
 .botoes {
   margin-top: 20px;
@@ -65,9 +60,7 @@ body {
   background-color: #777;
 }
 
-/* ================================================= */
-/* QUADRO / FUNDO ESCURO                             */
-/* ================================================= */
+
 
 .quadro {
   display: none;
@@ -107,8 +100,6 @@ body {
   display: flex;
   flex-direction: column;
 }
-/* LINHAS DE PONTUAÇÃO E NÍVEL*/
-
 .linha-dado {
   display: flex;
   align-items: flex-end;
@@ -119,22 +110,12 @@ body {
   font-size: 28pt;
   margin-left: 20px;
 }
-/**/
-
-/* ================================================= */
-/* ETIQUETAS                                         */
-/* ================================================= */
 
 .etiqueta {
   white-space: nowrap;
 
   margin-right: 15px;
 }
-
-/* ================================================= */
-/* CAMPO DA LINHA                                    */
-/* ================================================= */
-
 .campo-linha {
   flex: 1;
 
@@ -146,11 +127,6 @@ body {
 
   min-width: 0;
 }
-
-/* ================================================= */
-/* VALOR                                             */
-/* ================================================= */
-
 .valor {
   font-size: 48pt;
 
@@ -158,11 +134,6 @@ body {
 
   margin: 0;
 }
-
-/* ================================================= */
-/* LINHA TRACEJADA                                  */
-/* ================================================= */
-
 .linha-tracejada {
   width: 70%;
 
@@ -171,20 +142,13 @@ body {
   margin-top: -1px;
   margin-left: 0px;
 }
-
-/* ================================================= */
-/* DESEMPENHO                                        */
-/* ================================================= */
-
 .bloco-desempenho {
   text-align: center;
 
   margin-top: 65px;
 }
 
-/* ================================================= */
-/* TÍTULO DO DESEMPENHO                              */
-/* ================================================= */
+
 
 .etiqueta-centro {
   font-size: 32px;
@@ -194,9 +158,7 @@ body {
   margin: 0;
 }
 
-/* ================================================= */
-/* VALOR DO DESEMPENHO                               */
-/* ================================================= */
+
 
 .valor-centro {
   font-size: 42px;
@@ -330,7 +292,7 @@ body {
   background-size: 100% 100%;
   padding: 105px 40px 20px 40px;
   color: #000;
-  display: flex; /* Mantido apenas uma vez */
+  display: flex; 
   gap: 20px;
   justify-content: center; 
   padding: 30px;
@@ -351,9 +313,8 @@ body {
 
 }
 .opcoes a img {
-    width: 45px; /* Mude este valor para ajustar o tamanho do ícone */
-    height: auto; /* Mantém a proporção original da imagem */
-}
+    width: 45px; 
+    height: auto; }
 .img-pausa {
   position: absolute;
   width: 150px;
