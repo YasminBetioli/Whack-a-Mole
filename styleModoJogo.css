@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Handjet&display=swap');
+
 #body{
     background-color: #051218;
     font-family: "Handjet", sans-serif;
@@ -28,6 +30,9 @@
 
 #content{
     color: #dbdad5;  
+    display: flex;
+    flex-direction: column;
+    margin-top: -25px;
 }
 
 #gameMode{
@@ -74,11 +79,17 @@
     margin: 0;
 }
 
-div#classico:hover{
+div#classico, div#explosivo {
+    border: solid 0.3vw transparent; 
+    box-sizing: border-box;
+    display: flex;
+}
+
+div#classico:hover {
     border: solid 0.3vw #53f2b8;
 }
 
-div#explosivo:hover{
+div#explosivo:hover {
     border: solid 0.3vw #a91414;
 }
 
@@ -103,15 +114,13 @@ div#explosivo:hover{
     font-size: 1vw;
     font-weight: 800;
     padding-left: 0.5vw;
-    
 }
 
 #jogar{
     align-content: center;
-  
 }
 
-#btnJogar{
+.btnJogar{
     height: 4vw;
     width: 9vw;
     background-color: #051218;
@@ -122,12 +131,20 @@ div#explosivo:hover{
     font-size: 3vw;
     color: #53f2b8;
     font-weight: bold;
+    padding-bottom: 60px; 
+    padding-left: 12px;
 }
 
-
-#btnJogar:active {
+.btnJogar:active {
     transform: scale(0.95);
 }
+
+.btnJogar:hover {
+    border-color: #53f2b8;
+    box-shadow: 0 0 10px rgba(83, 242, 184, 0.6);
+    text-shadow: 0 0 4px #53f2b8;
+}
+
 .handjet-fonte {
   font-family: "Handjet", sans-serif;
   font-optical-sizing: auto;
