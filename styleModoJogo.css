@@ -93,6 +93,14 @@ div#explosivo:hover {
     border: solid 0.3vw #a91414;
 }
 
+div#classico.selecionado {
+    border: solid 0.3vw #53f2b8;
+}
+
+div#explosivo.selecionado {
+    border: solid 0.3vw #a91414;
+}
+
 #opcoesBaixo{
     display: flex;
     gap: 1vw;
