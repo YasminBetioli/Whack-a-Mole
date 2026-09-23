@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Handjet&display=swap');
+
+#body{
+    background-color: #051218;
+    font-family: "Handjet", sans-serif;
+}
+
+#borda{
+    border: 0.3vw solid #53f2b8;
+    height: 25vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-inline: 30%;
+    margin-top:10%;
+    margin-bottom: 10%;
+    background-color: #051218;
+}
+
+#bordaMenor{
+    border: 0.3vw solid #4d755c;
+    width: 38vw;
+    height: 24vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Handjet", sans-serif;
+    position: relative;
+}
+
+#content{
+    color: #dbdad5;  
+    display: flex;
+    flex-direction: column;
+    margin-top: -25px;
+}
+
+#gameMode{
+    display: flex;
+    border: 0.3vw solid #4d755c;
+    width: 100vw;
+     margin-left: auto;
+     align-items: center;
+     height: 100vw;
+    width: fit-content;
+    height: fit-content;
+    color: #dbdad5;
+}
+
+#gameMode button{
+    width: 12vw;
+    height: 10vw;
+    background-color: #051218;
+    padding: 0;
+    margin: auto;   
+    border: #4d755c 0.2vw solid;
+    color: #dbdad5;        
+    font-family: "Handjet", sans-serif;
+    font-size: 1.3vw;
+    font-weight: 500;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1vw;
+}
+
+#stalker{
+    width: 8vw;
+    height: 5vw;
+    margin-top: 1vw;
+    font-size: 1.3vw
+}
+
+#xicara{
+    height: 6vw;
+    width: 6vw;
+    margin: 0;
+}
+
+div#classico, div#explosivo {
+    border: solid 0.3vw transparent; 
+    box-sizing: border-box;
+    display: flex;
+}
+
+div#classico:hover {
+    border: solid 0.3vw #53f2b8;
+}
+
+div#explosivo:hover {
+    border: solid 0.3vw #a91414;
+}
+
+#opcoesBaixo{
+    display: flex;
+    gap: 1vw;
+}
+
+#tabuleiro h2{
+    color: #dbdad5;
+    font-size: 1.5vw;
+    margin-bottom: auto;
+    margin-top: 2vw;
+}
+
+#tabuleiroSelect{
+    background-color: #dbdad5;
+    border-radius: 0.5vw;
+    width: 15vw;
+    height: 2vw;
+    font-family:"Handjet", sans-serif;
+    font-size: 1vw;
+    font-weight: 800;
+    padding-left: 0.5vw;
+}
+
+#jogar{
+    align-content: center;
+}
+
+.btnJogar{
+    height: 4vw;
+    width: 9vw;
+    background-color: #051218;
+    border: #4d755c 0.3vw solid;
+    margin-top: 2vw;
+    transition: 0.2s ease;
+    font-family:"Handjet", sans-serif ;
+    font-size: 3vw;
+    color: #53f2b8;
+    font-weight: bold;
+    padding-bottom: 60px; 
+    padding-left: 12px;
+}
+
+.btnJogar:active {
+    transform: scale(0.95);
+}
+
+.btnJogar:hover {
+    border-color: #53f2b8;
+    box-shadow: 0 0 10px rgba(83, 242, 184, 0.6);
+    text-shadow: 0 0 4px #53f2b8;
+}
+
+.handjet-fonte {
+  font-family: "Handjet", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "ELGR" 1,
+    "ELSH" 2;
+}
