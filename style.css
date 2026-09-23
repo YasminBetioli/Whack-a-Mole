@@ -26,15 +26,8 @@
     position: relative;
 }
 
-#content h1{
-    color: #dbdad5;  
-    margin-left: auto;
-    margin-top :1vw;
-}
-
-
 #content{
-       position: static;
+    color: #dbdad5;  
 }
 
 #gameMode{
@@ -44,7 +37,7 @@
      margin-left: auto;
      align-items: center;
      height: 100vw;
-      width: fit-content;
+    width: fit-content;
     height: fit-content;
     color: #dbdad5;
 }
@@ -52,18 +45,20 @@
 #gameMode button{
     width: 12vw;
     height: 10vw;
-    position: static;
-    display: inline;
     background-color: #051218;
     padding: 0;
-    margin: 0;   
+    margin: auto;   
     border: #4d755c 0.2vw solid;
-}
-
-#gameMode h2{
-    color: #dbdad5;
+    color: #dbdad5;        
     font-family: "Handjet", sans-serif;
-    font-size: 1.3vw; 
+    font-size: 1.3vw;
+    font-weight: 500;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1vw;
 }
 
 #stalker{
@@ -74,9 +69,9 @@
 }
 
 #xicara{
-    margin-left: 1vw;
-    width: 5vw;
-    margin-top: 1vw;
+    height: 6vw;
+    width: 6vw;
+    margin: 0;
 }
 
 div#classico:hover{
@@ -113,7 +108,7 @@ div#explosivo:hover{
 
 #jogar{
     align-content: center;
-     
+  
 }
 
 #btnJogar{
@@ -123,15 +118,12 @@ div#explosivo:hover{
     border: #4d755c 0.3vw solid;
     margin-top: 2vw;
     transition: 0.2s ease;
-}
-
-#btnJogar h1{
-    margin-top: -0.3vw;
     font-family:"Handjet", sans-serif ;
     font-size: 3vw;
     color: #53f2b8;
     font-weight: bold;
 }
+
 
 #btnJogar:active {
     transform: scale(0.95);
