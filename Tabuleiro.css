@@ -1,7 +1,4 @@
-
-
-html,
-body { /*Remove a margem e o paddingpadrão do navegador*/
+html, body { /*Remove a margem e o paddingpadrão do navegador*/
     margin: 0; 
     min-height: 100%;
 }
@@ -44,12 +41,8 @@ body{
     gap: 12px; 
 }
 
-.nivel{
-    font-size: 3.5rem;
-}
-
 .nivel{ 
-    font-size: 3.5rem;
+    font-size: 4.5rem;
 }
 
 .tempo {
@@ -74,16 +67,16 @@ body{
 
 .tabuleiro {
     background-color: #13353a;
-    border-radius: 12px; /*Arredondamento das bordas do tabuleiro*/
+    border-radius: 6px;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
     border: 1px solid #174b50;
-    padding: 55px 70px;
-    display: grid; 
-    grid-template-columns: repeat(2, 1fr); /* 2 colunas */
-    gap: 35px; /*Espaço entre os itens do tabuleiro*/
-    flex: 1; /*Permite que p tabuleiro aumente*/
-    max-height: 75vh; /*Altura máxima do tabuleiro*/
-    min-height: 570px; /*Altura mínima do tabuleiro*/
+    padding: 35px 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 2 colunas */
+    gap: 30px;
+    flex: 1;
+    max-height: 75vh;
+    min-height: 500px;
     width: 100%;
     align-items: center;
     justify-items: center;
