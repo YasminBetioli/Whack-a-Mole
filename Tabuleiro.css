@@ -1,6 +1,8 @@
-html, body { /*Remove a margem e o paddingpadrão do navegador*/
+html, body { 
     margin: 0; 
-    min-height: 100%;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
 }
 
 body{
@@ -17,20 +19,22 @@ body{
 .tela-tabuleiro {
     width: 100%;
     min-height: 100vh; /*Altura mínima da tela*/
-    max-width: 2000px; /*Máximo de largura*/
+    max-width: 850px; /*Máximo de largura*/
     padding: 25px 4vw; /*Espaçamento interno*/
     display: flex; 
     flex-direction: column; /*Itens em coluna*/
     gap: 20px; /*Espacinho entre os itens*/
+    margin-top: 90px;
 }
 
 .informacoes-topo{
     display: flex;
-    gap: clamp(30px, 5vw, 75px); /*Espaço entre os itens*/
+    gap: clamp(30px, 5vw, 95px); /*Espaço entre os itens*/
     justify-content: space-between; 
     align-items: center;
     font-weight: bold; /*Negrito*/
-    padding: 0 10px; /*Espaçinho entre itens*/
+    padding: 0px; /*Espaçinho entre itens*/
+    box-sizing: border-box;
     min-height: 10vh; /*Altura mínima do topo*/
 }
 
@@ -42,26 +46,32 @@ body{
 }
 
 .nivel{ 
-    font-size: 4.5rem;
+    order: 1;
+    font-size: 2.2rem;
+    white-space: nowrap;
 }
 
 .tempo {
-    font-size: 4rem;
+    order: 2;
+    font-size: 2rem;
 }
 
 .tempo img {
-    width: 5rem;
-    height: 5rem;
+    width: 2.5rem;
+    height: 2.5rem;
     object-fit: contain;
 }
 
 .pontos{
-    font-size: 4rem;
+    order: 3;
+    font-size: 2rem;
 }
 
 .modo {
-    margin-left: auto;
-    font-size: 2rem;
+    order: 4;
+    margin-left: 0;
+    text-align: right;
+    font-size: 1.7rem;
     color: #b8cfcc;
 }
 
@@ -70,13 +80,13 @@ body{
     border-radius: 6px;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
     border: 1px solid #174b50;
-    padding: 35px 50px;
+    padding: 20px 25px;
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 2 colunas */
-    gap: 30px;
+    gap: 15px;
     flex: 1;
-    max-height: 75vh;
-    min-height: 500px;
+    max-height: 65vh;
+    min-height: 380px;
     width: 100%;
     align-items: center;
     justify-items: center;
@@ -84,7 +94,7 @@ body{
 
 .buraco {
     width: 100%;
-    max-width: 230px; 
+    max-width: 120px; 
     aspect-ratio: 1 / 1; /*Mantém a proporção do buraco*/
     display: flex;
     justify-content: center;
@@ -101,22 +111,29 @@ body{
     -webkit-user-drag: none; /*Evita que a imagem seja arrastada*/
 }
 
+.buraco img[src*="xicara"] {
+    transform: scale(0.82); /* Reduz o tamanho da xícara em 18% */
+}
+
 .pause {
-    width: 150px;
-    height: 150px;
-    margin-left: 15px;
+    order: 5;
+    width: 65px;
+    height: 65px;
+    margin-left: auto;
+    margin-right: 0px;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 7px;
     background-color: #143b42;
     text-decoration: none;
     border-radius: 8px;
+
 }
 
 .pause span {
-    width: 1vh;
-    height: 4vh;
+    width: 6px;
+    height: 22px;
     background-color: #53f2b8;
     border-radius: 3px;
     transition: 0.2s;
@@ -125,3 +142,4 @@ body{
 .pause:hover span {
     background-color: #32eed5;
 }
+
