@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title> Whack-a-Anomaly </title>
+
+    <link rel="stylesheet" href="StyleDerrotaVitoria.css" />
+</head>
+
+<body>
+    <main class="jogo">
+        <h1>Resultado</h1>
+
+        <!-- Botões de teste -->
+        <div class="botoes">
+            <a href="#vitoria" class="botao">Vitória</a>
+            <a href="#derrota" class="botao">Derrota</a>
+            <a href="#pause " class="botao">Pausa</a>
+
+        </div>
+
+        <!-- QUADRO DE VITÓRIA-->
+
+
+        <section id="vitoria" class="quadro">
+         
+            <div class="resultado">
+                   <div class="selo-acertos">
+
+                <img src="/Whack-a-Mole/Img/selo.png" alt="Taxa de acertos" class="imagem-selo">
+
+                <span class="porcentagem-acerto" id="porcentagem-acerto">
+                            <p>Taxa de acerto</p>
+                            <p>0%</p>
+                </span>
+
+            </div>
+                <!-- PONTUAÇÃO -->
+                <div class="linha-dado pontuacao">
+                    <span class="etiqueta"> Pontuação: </span>
+
+                    <div class="campo-linha">
+                        <span class="valor cor-verde"> 55 </span>
+
+                        <div class="linha-tracejada"></div>
+                    </div>
+                </div>
+
+                <!-- NÍVEL -->
+                <div class="linha-dado nivel">
+                    <span class="etiqueta"> Nível atingido: </span>
+
+                    <div class="campo-linha">
+                        <span class="valor cor-azul"> 2 </span>
+
+                        <div class="linha-tracejada"></div>
+                    </div>
+                </div>
+
+                <!-- DESEMPENHO -->
+                <div class="bloco-desempenho">
+                    <div class="etiqueta-centro">Desempenho do hospital:</div>
+
+                    <div class="valor-centro cor-roxa">Bom</div>
+
+                    <div class="linha-tracejada-centro"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================= -->
+        <!-- QUADRO DE DERROTA                               -->
+        <!-- ================================================= -->
+
+        <section id="derrota" class="quadro">
+            <div class="resultado">
+                <!-- PONTUAÇÃO -->
+                <div class="linha-dado pontuacao">
+                    <span class="etiqueta"> Pontuação: </span>
+
+                    <div class="campo-linha">
+                        <span class="valor cor-vermelha"> 45 </span>
+
+                        <div class="linha-tracejada"></div>
+                    </div>
+                </div>
+
+                <!-- NÍVEL -->
+                <div class="linha-dado nivel">
+                    <span class="etiqueta"> Nível atingido: </span>
+
+                    <div class="campo-linha">
+                        <span class="valor cor-azul"> 2 </span>
+
+                        <div class="linha-tracejada"></div>
+                    </div>
+                </div>
+
+                <!-- DESEMPENHO -->
+                <div style="margin-top: 10px;" class="bloco-desempenho">
+                    <div class="etiqueta-centro">Desempenho do hospital:</div>
+
+                    <div class="valor-centro cor-vermelha">
+                        Você perdeu <br>tente novamente!
+                    </div>
+                </div>
+                <div class="linha-tracejada-centro"></div>
+                <img class="img-perder" src="/Whack-a-Mole/Img/monstrinho.png" alt="Monstrinho">
+            </div>
+            </div>
+        </section>
+        <section id="pause" class="quadro">
+                <div class="opcoes">
+                    <a href=""> 
+                        <img src="/Whack-a-Mole/Img/pausa.png" alt="pause" srcset="">
+                        <p>Continuar</p>
+                    </a>
+                    <a href="">
+                        <img  src="/Whack-a-Mole/Img/saida.png" alt="" srcset="">
+                        <p class="cor-vermelha">Sair</p>
+                    </a>
+                    <img src="/Whack-a-Mole/Img/monstrinho_pause.png" class="img-pausa" alt="" srcset="">
+                </div>
+               
+        </section>
+    </main>
+</body>
+
+</html>
