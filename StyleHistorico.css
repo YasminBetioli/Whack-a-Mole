@@ -1,0 +1,225 @@
+/* ==========================================================================
+   ARQUIVO: css/historico.css
+   DESCRIÇÃO: Layout do Histórico com margens ajustadas e preenchimento de página
+   ========================================================================== */
+
+/* Esconde os radio buttons de navegação */
+.page-radio {
+    display: none;
+}
+
+/* Container de Tela Cheia */
+.historico-screen {
+    width: 100vw;
+    height: 100vh;
+    background-color: #1a0f07;
+    background-image: url('/Whack-a-Mole/Img/historico2.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Troca de fundo ao ir para a Página 2 */
+#pag-2:checked ~ .historico-screen {
+    background-image: url('/Whack-a-Mole/Img/historico3.jpg');
+}
+
+/* Área útil reduzida na largura (60vw) para não vazar do caderno */
+.notebook-overlay {
+    width: 60vw;
+    height: 75vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+}
+
+/* Controle de exibição das páginas */
+.page-view {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+#pag-1:checked ~ .historico-screen .page-view-1 {
+    display: flex;
+}
+
+#pag-2:checked ~ .historico-screen .page-view-2 {
+    display: flex;
+}
+
+/* Disposição das duas páginas (esquerda e direita) */
+.notebook-spread {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    gap: 4.5vw;
+}
+
+.overlay-left, .overlay-right {
+    /* Largura idêntica nas 4 colunas, independente do conteúdo */
+    flex: 0 0 calc((100% - 4.5vw) / 2);
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Deslocamento horizontal (não mexe no layout, só empurra visualmente) */
+.overlay-left  { left: 35px; }  /* páginas da esquerda: mais para a direita */
+.overlay-right { left: 15px; }  /* páginas da direita: afasta um pouco da lombada */
+
+/* Ajustes da PÁGINA 1 */
+.page-view-1 .overlay-left  { padding-top: 170px; } /* abaixo da Polaroid e do título */
+.page-view-1 .overlay-right { padding-top: 25px; }
+
+/* Ajustes da PÁGINA 2 */
+.page-view-2 .overlay-left,
+.page-view-2 .overlay-right {
+    padding-top: 30px;
+}
+
+/* Estilo das Tabelas
+   table-layout automático: como o cabeçalho e o formato dos dados (datas,
+   modos de jogo, etc.) são os mesmos nas 4 tabelas, o navegador calcula
+   colunas praticamente idênticas em todas elas — sem precisar fixar largura
+   na mão. O que faltava era o mesmo respiro horizontal no th que já existia
+   no td, por isso o cabeçalho parecia "grudado" enquanto os dados tinham
+   espaço entre as colunas. */
+.notebook-table {
+    width: 100%;
+    border-collapse: collapse;
+    flex: 0 0 auto; /* altura baseada só no conteúdo, sem esticar e "abrir" o espaço entre linhas */
+}
+
+.notebook-table th {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #1a1005;
+    padding: 0 6px 8px;
+    border-bottom: 2px solid #1a1005;
+    text-align: center;
+}
+
+.notebook-table td {
+    border-bottom: 1px solid #c9be9f;
+    padding: 10px 6px;
+    font-size: 0.82rem;
+    text-align: center;
+    color: #1a1005;
+    vertical-align: middle;
+}
+
+/* Botões e Setas de Navegação */
+.nav-arrow {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #2b1d0c;
+    background-color: rgba(230, 220, 200, 0.85);
+    border: 1.5px solid #2b1d0c;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    position: absolute;
+    bottom: 10px;
+}
+
+.nav-arrow:hover {
+    background-color: #2b1d0c;
+    color: #ffffff;
+    transform: scale(1.1);
+}
+
+.next-arrow {
+    right: 10px;
+}
+
+.prev-arrow {
+    left: 10px;
+}
+
+/* Nome do usuário na faixa branca do Polaroid (só aparece na página 1) */
+.polaroid-name {
+    position: absolute;
+    left: 28.2%;              /* centro horizontal da faixa branca */
+    top: 26.8%;               /* centro vertical da faixa branca */
+    transform: translate(-50%, -50%) rotate(-8deg); /* mesma inclinação da foto */
+    width: 7vw;
+    text-align: center;
+    font-size: 0.85vw;
+    font-weight: bold;
+    color: #2b1d0c;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;  /* nomes longos ficam com "..." em vez de vazar */
+    pointer-events: none;
+    z-index: 2;
+}
+
+#pag-2:checked ~ .historico-screen .polaroid-name {
+    display: none;
+}
+
+/* Objetos espalhados na mesa (ficam nas laterais, fora das tabelas) */
+.mesa-objetos {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;   /* não atrapalha cliques nas setas */
+    z-index: 1;
+}
+
+.obj {
+    position: absolute;
+    height: auto;
+    filter: drop-shadow(3px 5px 6px rgba(0, 0, 0, 0.35));
+}
+
+/* Lado esquerdo */
+.obj-papel-1 { left: 4%;   top: 8%;  width: 7vw;  transform: rotate(15deg); }
+.obj-caneta  { left: 1.5%; top: 30%; width: 13vw; transform: rotate(20deg); }
+.obj-xicara  { left: 3%;   top: 72%; width: 12vw; transform: rotate(-8deg); }
+
+/* Lado direito */
+.obj-clipes  { left: 86%;  top: 10%; width: 8vw;  transform: rotate(25deg); }
+.obj-papel-2 { left: 91%;  top: 42%; width: 5vw;  transform: rotate(-20deg); }
+.obj-caneta-2 { display: none; } /* reserva, se quiser outra caneta */
+
+
+.btn-voltar {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    background-color: #2b1d0c;
+    color: #ffffff;
+    border: 2px solid #b0b8b8;
+    border-radius: 6px;
+    padding: 8px 18px;
+    font-family: 'The Seasons', 'Playfair Display', Georgia, serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.2s ease;
+}
+
+.btn-voltar:hover {
+    background-color: #e5e8e8;
+    color: #111111;
+    transform: scale(1.05);
+}
+
+.btn-voltar:active {
+    transform: scale(0.95);
+}
