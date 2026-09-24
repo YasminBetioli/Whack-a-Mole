@@ -91,7 +91,7 @@ body {
   position: relative;
   width: 660px;
   height: 535px;
-  background-image: url("/Img/Quadro.png");
+  background-image: url("/Whack-a-Mole/Img/Quadro.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -286,7 +286,7 @@ body {
   position: relative;
   width: 800px;
   height: 400px;
-  background-image: url("/Img/Fundo-Pausa.png");
+  background-image: url("/Whack-a-Mole/Img/Fundo-Pausa.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
