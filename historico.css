@@ -13,7 +13,7 @@
     width: 100vw;
     height: 100vh;
     background-color: #1a0f07;
-    background-image: url('../Img/historico2.jpg');
+    background-image: url('/Whack-a-Mole/Img/historico2.jpg');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 100% 100%;
@@ -25,7 +25,7 @@
 
 /* Troca de fundo ao ir para a Página 2 */
 #pag-2:checked ~ .historico-screen {
-    background-image: url('../Img/historico3.jpg');
+    background-image: url('/Whack-a-Mole/Img/historico3.jpg');
 }
 
 /* Área útil reduzida na largura (60vw) para não vazar do caderno */
@@ -195,3 +195,31 @@
 .obj-clipes  { left: 86%;  top: 10%; width: 8vw;  transform: rotate(25deg); }
 .obj-papel-2 { left: 91%;  top: 42%; width: 5vw;  transform: rotate(-20deg); }
 .obj-caneta-2 { display: none; } /* reserva, se quiser outra caneta */
+
+
+.btn-voltar {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    background-color: #2b1d0c;
+    color: #ffffff;
+    border: 2px solid #b0b8b8;
+    border-radius: 6px;
+    padding: 8px 18px;
+    font-family: 'The Seasons', 'Playfair Display', Georgia, serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.2s ease;
+}
+
+.btn-voltar:hover {
+    background-color: #e5e8e8;
+    color: #111111;
+    transform: scale(1.05);
+}
+
+.btn-voltar:active {
+    transform: scale(0.95);
+}

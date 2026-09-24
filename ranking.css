@@ -14,7 +14,7 @@ body {
 .ranking-board {
     width: 100vw;
     height: 100vh;
-    background: url('../Img/ranking-bg.png') no-repeat center center;
+    background: url('/Whack-a-Mole/Img/ranking-bg.png') no-repeat center center;
     background-size: 100% 100%;
     display: flex;
     justify-content: center;
@@ -189,4 +189,32 @@ body {
     font-size: 1.9rem;
     font-weight: bold;
     color: #3ac97b;
+}
+
+
+.btn-voltar {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    background-color: #2b1d0c;
+    color: #ffffff;
+    border: 2px solid #b0b8b8;
+    border-radius: 6px;
+    padding: 8px 18px;
+    font-family: 'The Seasons', 'Playfair Display', Georgia, serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.2s ease;
+}
+
+.btn-voltar:hover {
+    background-color: #e5e8e8;
+    color: #111111;
+    transform: scale(1.05);
+}
+
+.btn-voltar:active {
+    transform: scale(0.95);
 }

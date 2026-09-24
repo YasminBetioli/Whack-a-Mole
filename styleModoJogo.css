@@ -162,3 +162,26 @@ div#explosivo.selecionado {
     "ELGR" 1,
     "ELSH" 2;
 }
+
+#content {
+    position: relative;
+}
+
+.btn-voltar {
+    position: absolute;
+    top: 10px;
+    left: -65px;
+    background: transparent;
+    border: none;
+    color: #53f2b8; 
+    font-size: 40px;
+    cursor: pointer;
+    transition: transform 0.2s, color 0.2s;
+    font-family: inherit;
+    padding: 0;
+}
+
+.btn-voltar:hover {
+    color: #ffffff;
+    transform: scale(1.1);
+}

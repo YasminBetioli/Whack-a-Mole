@@ -171,7 +171,7 @@ button {
 }
 
 button:hover {
-    background-color: #53f2b8;
+    background-color: #28b48f;
 }
 
 button:active {
@@ -207,6 +207,33 @@ button:active {
     width: 220px;
     z-index: 1;
     pointer-events: none;
+}
+
+
+.botoes-editar-perfil {
+    display: flex;
+    gap: 15px; 
+    margin-top: 10px; 
+}
+
+.botoes-editar-perfil button {
+    padding: 8px 18px;
+    font-size: 1.6rem;
+    white-space: nowrap;
+    transition: background-color 0.2s, transform 0.15s;
+}
+
+.botoes-editar-perfil button:not(.button-vermelho):hover {
+    background-color: #28b48f;
+}
+
+.botoes-editar-perfil .button-vermelho {
+    background-color: #931d1d; 
+    color: #ffffff; 
+}
+
+.botoes-editar-perfil .button-vermelho:hover {
+    background-color: #681616;
 }
 
 /*-------------------------------------------------------------------------------*/
