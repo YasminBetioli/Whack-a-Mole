@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking - Acerte a Toupeira</title>
+    <!-- Folhas de estilo externas -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/ranking.css">
+</head>
+<body>
+
+    <!-- Container do Mural em Tela Cheia -->
+    <main class="ranking-board">
+        
+        <!-- Conteúdo expandido sobre a folha de papel central -->
+        <div class="ranking-paper-content">
+
+            <!-- Barra de Filtros -->
+            <nav class="ranking-filters" aria-label="Filtros do Ranking">
+                <div class="modalities">
+                    <input type="radio" id="mod-geral" name="modalidade" class="radio-filter" checked>
+                    <label for="mod-geral" class="btn-filter">Geral</label>
+
+                    <input type="radio" id="mod-bomba" name="modalidade" class="radio-filter">
+                    <label for="mod-bomba" class="btn-filter">Bomba</label>
+
+                    <input type="radio" id="mod-classico" name="modalidade" class="radio-filter">
+                    <label for="mod-classico" class="btn-filter">Clássico</label>
+                </div>
+                
+                <!-- Seletor do Tabuleiro -->
+                <div class="board-filter">
+                    <label for="select-tabuleiro">Tabuleiro:</label>
+                    <select id="select-tabuleiro" name="tabuleiro">
+                        <option value="todos">Todos</option>
+                        <option value="2x2">2x2</option>
+                        <option value="3x3">3x3</option>
+                        <option value="4x4">4x4</option>
+                        <option value="5x5" selected>5x5</option>
+                        <option value="6x6">6x6</option>
+                        <option value="7x7">7x7</option>
+                        <option value="8x8">8x8</option>
+                    </select>
+                </div>
+            </nav>
+
+            <!-- Tabela com o Top 5 usando os Avatares Polaroid -->
+            <section class="ranking-table-section">
+                <table class="ranking-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">POS</th>
+                            <th scope="col">AVATAR</th>
+                            <th scope="col">NOME</th>
+                            <th scope="col">RECORDE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>01</td>
+                            <td>
+                                <div class="avatar-polaroid">
+                                    <img src="Img/polaroid.png" alt="Avatar Polaroid do Jogador 1">
+                                </div>
+                            </td>
+                            <td>Jogador_1</td>
+                            <td>120</td>
+                        </tr>
+                        <tr>
+                            <td>02</td>
+                            <td>
+                                <div class="avatar-polaroid">
+                                    <img src="Img/polaroid.png" alt="Avatar Polaroid do Jogador 2">
+                                </div>
+                            </td>
+                            <td>Jogador_2</td>
+                            <td>95</td>
+                        </tr>
+                        <tr>
+                            <td>03</td>
+                            <td>
+                                <div class="avatar-polaroid">
+                                    <img src="Img/polaroid.png" alt="Avatar Polaroid do Jogador 3">
+                                </div>
+                            </td>
+                            <td>Jogador_3</td>
+                            <td>80</td>
+                        </tr>
+                        <tr>
+                            <td>04</td>
+                            <td>
+                                <div class="avatar-polaroid">
+                                    <img src="Img/polaroid.png" alt="Avatar Polaroid do Jogador 4">
+                                </div>
+                            </td>
+                            <td>Jogador_4</td>
+                            <td>65</td>
+                        </tr>
+                        <tr>
+                            <td>05</td>
+                            <td>
+                                <div class="avatar-polaroid">
+                                    <img src="Img/polaroid.png" alt="Avatar Polaroid do Jogador 5">
+                                </div>
+                            </td>
+                            <td>Jogador_5</td>
+                            <td>50</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Rodapé do Usuário Logado -->
+            <footer class="user-rank-bar">
+                <div class="user-position">27</div>
+                <div class="user-avatar-box">
+                    <img src="Img/polaroid.png" alt="Avatar Polaroid do Seu_Usuario">
+                </div>
+                <div class="user-name">Seu_Usuario</div>
+                <div class="user-score">30</div>
+            </footer>
+
+        </div>
+
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico de Partidas - Acerte a Toupeira</title>
+    <!-- Folhas de estilo externas -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/historico.css">
+</head>
+<body>
+
+    <!-- Radio Buttons de Paginação (sem JavaScript) -->
+    <input type="radio" id="pag-1" name="historico-pagina" checked class="page-radio">
+    <input type="radio" id="pag-2" name="historico-pagina" class="page-radio">
+
+    <!-- Container em Tela Cheia com Troca Dinâmica do Fundo do Caderno -->
+    <main class="historico-screen">
+      
+        <!-- Objetos decorativos da mesa -->
+        <div class="mesa-objetos" aria-hidden="true">
+            <img src="Img/mesa/papel.png"  alt="" class="obj obj-papel-1">
+            <img src="Img/mesa/caneta.png" alt="" class="obj obj-caneta">
+            <img src="Img/mesa/xicara.png" alt="" class="obj obj-xicara">
+            <img src="Img/mesa/clipes.png" alt="" class="obj obj-clipes">
+            <img src="Img/mesa/papel.png"  alt="" class="obj obj-papel-2">
+        </div>
+
+        <!-- Nome do usuário sobre a faixa branca do Polaroid -->
+<span class="polaroid-name">Seu_Usuario</span>
+
+        <!-- Overlay posicionado sobre as páginas do caderno na imagem -->
+        <div class="notebook-overlay">
+
+            <!-- PÁGINA 1: Fundo historico2.jpg -->
+            <div class="page-view page-view-1">
+                <div class="notebook-spread">
+                    <!-- Lado Esquerdo: Tabela centralizada com linhas espaçadas que preenchem até ao fundo -->
+                    <section class="overlay-left">
+                        <table class="notebook-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Tabuleiro</th>
+                                    <th scope="col">Modo de jogo</th>
+                                    <th scope="col">Pontuação</th>
+                                    <th scope="col">Nível atingido</th>
+                                    <th scope="col">Data</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2x2</td>
+                                    <td>Explosivo</td>
+                                    <td>30</td>
+                                    <td>5</td>
+                                    <td>20/09/2026 Às 21:26</td>
+                                </tr>
+                                <tr>
+                                    <td>4x4</td>
+                                    <td>Clássico</td>
+                                    <td>45</td>
+                                    <td>6</td>
+                                    <td>19/09/2026 Às 18:10</td>
+                                </tr>
+                                <tr>
+                                    <td>3x3</td>
+                                    <td>Explosivo</td>
+                                    <td>12</td>
+                                    <td>2</td>
+                                    <td>18/09/2026 Às 14:05</td>
+                                </tr>
+                                <tr>
+                                    <td>5x5</td>
+                                    <td>Clássico</td>
+                                    <td>50</td>
+                                    <td>6</td>
+                                    <td>17/09/2026 Às 11:30</td>
+                                </tr>
+                                <tr>
+                                    <td>3x3</td>
+                                    <td>Clássico</td>
+                                    <td>28</td>
+                                    <td>4</td>
+                                    <td>16/09/2026 Às 19:40</td>
+                                </tr>
+                                <tr>
+                                    <td>4x4</td>
+                                    <td>Explosivo</td>
+                                    <td>35</td>
+                                    <td>5</td>
+                                    <td>16/09/2026 Às 14:10</td>
+                                </tr>
+                                <tr>
+                                    <td>2x2</td>
+                                    <td>Clássico</td>
+                                    <td>19</td>
+                                    <td>3</td>
+                                    <td>15/09/2026 Às 10:05</td>
+                                </tr>
+                                <tr>
+                                    <td>6x6</td>
+                                    <td>Explosivo</td>
+                                    <td>72</td>
+                                    <td>8</td>
+                                    <td>14/09/2026 Às 22:00</td>
+                                </tr>
+                                <tr>
+                                    <td>3x3</td>
+                                    <td>Explosivo</td>
+                                    <td>24</td>
+                                    <td>3</td>
+                                    <td>14/09/2026 Às 16:30</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <!-- Lado Direito: Tabela preenchendo a página inteira + Seta para Página 2 -->
+                    <section class="overlay-right">
+                        <table class="notebook-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Tabuleiro</th>
+                                    <th scope="col">Modo de jogo</th>
+                                    <th scope="col">Pontuação</th>
+                                    <th scope="col">Nível atingido</th>
+                                    <th scope="col">Data</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>6x6</td>
+                                    <td>Explosivo</td>
+                                    <td>65</td>
+                                    <td>8</td>
+                                    <td>13/09/2026 Às 22:15</td>
+                                </tr>
+                                <tr>
+                                    <td>4x4</td>
+                                    <td>Explosivo</td>
+                                    <td>33</td>
+                                    <td>5</td>
+                                    <td>13/09/2026 Às 16:00</td>
+                                </tr>
+                                <tr>
+                                    <td>2x2</td>
+                                    <td>Clássico</td>
+                                    <td>18</td>
+                                    <td>3</td>
+                                    <td>12/09/2026 Às 10:20</td>
+                                </tr>
+                                <tr>
+                                    <td>7x7</td>
+                                    <td>Explosivo</td>
+                                    <td>80</td>
+                                    <td>9</td>
+                                    <td>11/09/2026 Às 21:05</td>
+                                </tr>
+                                <tr>
+                                    <td>5x5</td>
+                                    <td>Clássico</td>
+                                    <td>42</td>
+                                    <td>5</td>
+                                    <td>10/09/2026 Às 18:50</td>
+                                </tr>
+                                <tr>
+                                    <td>3x3</td>
+                                    <td>Explosivo</td>
+                                    <td>22</td>
+                                    <td>3</td>
+                                    <td>09/09/2026 Às 14:12</td>
+                                </tr>
+                                <tr>
+                                    <td>4x4</td>
+                                    <td>Clássico</td>
+                                    <td>37</td>
+                                    <td>5</td>
+                                    <td>09/09/2026 Às 13:00</td>
+                                </tr>
+                                <tr>
+                                    <td>2x2</td>
+                                    <td>Explosivo</td>
+                                    <td>26</td>
+                                    <td>4</td>
+                                    <td>09/09/2026 Às 11:20</td>
+                                </tr>
+                                <tr>
+                                    <td>5x5</td>
+                                    <td>Explosivo</td>
+                                    <td>55</td>
+                                    <td>6</td>
+                                    <td>09/09/2026 Às 09:05</td>
+                                </tr>
+                                <tr>
+                                    <td>3x3</td>
+                                    <td>Clássico</td>
+                                    <td>31</td>
+                                    <td>4</td>
+                                    <td>08/09/2026 Às 23:10</td>
+                                </tr>
+                                <tr>
+                                    <td>6x6</td>
+                                    <td>Clássico</td>
+                                    <td>58</td>
+                                    <td>7</td>
+                                    <td>08/09/2026 Às 22:05</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <label for="pag-2" class="nav-arrow next-arrow" title="Ir para a página 2">&rarr;</label>
+                    </section>
+                </div>
+            </div>
+
+            <!-- PÁGINA 2: Fundo historico3.jpg -->
+            <div class="page-view page-view-2">
+                <div class="notebook-spread">
+                    <!-- Lado Esquerdo da Página 2 -->
+                    <section class="overlay-left">
+                        <label for="pag-1" class="nav-arrow prev-arrow" title="Voltar para a página 1">&larr;</label>
+                        <table class="notebook-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Tabuleiro</th>
+                                    <th scope="col">Modo de jogo</th>
+                                    <th scope="col">Pontuação</th>
+                                    <th scope="col">Nível atingido</th>
+                                    <th scope="col">Data</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>5x5</td>
+                                    <td>Clássico</td>
+                                    <td>60</td>
+                                    <td>7</td>
+                                    <td>08/09/2026 Às 20:15</td>
+                                </tr>
+                                <tr>
+                                    <td>6x6</td>
+                                    <td>Explosivo</td>
+                                    <td>18</td>
+                                    <td>3</td>
+                                    <td>07/09/2026 Às 15:30</td>
+                                </tr>
+                                <tr>
+                                    <td>4x4</td>
+                                    <td>Explosivo</td>
+                                    <td>25</td>
+                                    <td>4</td>
+                                    <td>06/09/2026 Às 11:45</td>
+                                </tr>
+                                <tr>
+                                    <td>2x2</td>
+                                    <td>Clássico</td>
+                                    <td>15</td>
+                                    <td>2</td>
+                                    <td>05/09/2026 Às 17:10</td>
+                                </tr>
+                                <tr>
+                                    <td>8x8</td>
+                                    <td>Explosivo</td>
+                                    <td>92</td>
+                                    <td>10</td>
+                                    <td>04/09/2026 Às 23:00</td>
+                                </tr>
+                                <tr>
+                                    <td>3x3</td>
+                                    <td>Clássico</td>
+                                    <td>30</td>
+                                    <td>4</td>
+                                    <td>03/09/2026 Às 13:25</td>
+                                </tr>
+                                <tr>
+                                    <td>4x4</td>
+                                    <td>Clássico</td>
+                                    <td>38</td>
+                                    <td>5</td>
+                                    <td>02/09/2026 Às 19:40</td>
+                                </tr>
+                                <tr>
+                                    <td>7x7</td>
+                                    <td>Explosivo</td>
+                                    <td>68</td>
+                                    <td>8</td>
+                                    <td>02/09/2026 Às 16:20</td>
+                                </tr>
+                                <tr>
+                                    <td>3x3</td>
+                                    <td>Explosivo</td>
+                                    <td>21</td>
+                                    <td>3</td>
+                                    <td>02/09/2026 Às 12:05</td>
+                                </tr>
+                                <tr>
+                                    <td>2x2</td>
+                                    <td>Clássico</td>
+                                    <td>17</td>
+                                    <td>2</td>
+                                    <td>02/09/2026 Às 09:30</td>
+                                </tr>
+                                <tr>
+                                    <td>5x5</td>
+                                    <td>Clássico</td>
+                                    <td>46</td>
+                                    <td>6</td>
+                                    <td>01/09/2026 Às 23:40</td
+                                        ></tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <!-- Lado Direito da Página 2 -->
+                    <section class="overlay-right">
+                        <table class="notebook-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Tabuleiro</th>
+                                    <th scope="col">Modo de jogo</th>
+                                    <th scope="col">Pontuação</th>
+                                    <th scope="col">Nível atingido</th>
+                                    <th scope="col">Data</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2x2</td>
+                                    <td>Clássico</td>
+                                    <td>35</td>
+                                    <td>5</td>
+                                    <td>01/09/2026 Às 19:22</td>
+                                </tr>
+                                <tr>
+                                    <td>3x3</td>
+                                    <td>Clássico</td>
+                                    <td>40</td>
+                                    <td>5</td>
+                                    <td>31/08/2026 Às 17:00</td>
+                                </tr>
+                                <tr>
+                                    <td>8x8</td>
+                                    <td>Explosivo</td>
+                                    <td>05</td>
+                                    <td>1</td>
+                                    <td>30/08/2026 Às 10:10</td>
+                                </tr>
+                                <tr>
+                                    <td>5x5</td>
+                                    <td>Explosivo</td>
+                                    <td>48</td>
+                                    <td>6</td>
+                                    <td>29/08/2026 Às 21:15</td>
+                                </tr>
+                                <tr>
+                                    <td>6x6</td>
+                                    <td>Clássico</td>
+                                    <td>52</td>
+                                    <td>7</td>
+                                    <td>28/08/2026 Às 16:30</td>
+                                </tr>
+                                <tr>
+                                    <td>2x2</td>
+                                    <td>Explosivo</td>
+                                    <td>20</td>
+                                    <td>3</td>
+                                    <td>27/08/2026 Às 14:00</td>
+                                </tr>
+                                <tr>
+                                    <td>4x4</td>
+                                    <td>Clássico</td>
+                                    <td>41</td>
+                                    <td>5</td>
+                                    <td>26/08/2026 Às 11:10</td>
+                                <tr>
+                                    <td>4x4</td>
+                                    <td>Explosivo</td>
+                                    <td>29</td>
+                                    <td>4</td>
+                                    <td>25/08/2026 Às 22:10</td>
+                                </tr>
+                                <tr>
+                                    <td>3x3</td>
+                                    <td>Clássico</td>
+                                    <td>34</td>
+                                    <td>4</td>
+                                    <td>25/08/2026 Às 18:30</td>
+                                </tr>
+                                <tr>
+                                    <td>6x6</td>
+                                    <td>Explosivo</td>
+                                    <td>63</td>
+                                    <td>7</td>
+                                    <td>24/08/2026 Às 20:45</td>
+                                </tr>
+                                <tr>
+                                    <td>2x2</td>
+                                    <td>Clássico</td>
+                                    <td>16</td>
+                                    <td>2</td>
+                                    <td>24/08/2026 Às 15:00</td>
+                                </tr>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+</html>

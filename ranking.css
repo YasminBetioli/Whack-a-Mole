@@ -1,0 +1,192 @@
+/* ==========================================================================
+   ARQUIVO: css/ranking.css
+   DESCRIÇÃO: Layout do Ranking expandido em tela cheia com botões em CSS puro
+   ========================================================================== */
+
+body {
+    background-color: #121212;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 1. Container em Tela Cheia */
+.ranking-board {
+    width: 100vw;
+    height: 100vh;
+    background: url('../Img/ranking-bg.png') no-repeat center center;
+    background-size: 100% 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+/* 2. Área do Conteúdo */
+.ranking-paper-content {
+    width: 95%;
+    max-width: 1280px;
+    margin-top: 55px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 3. Barra de Filtros */
+.ranking-filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.modalities {
+    display: flex;
+    gap: 10px;
+}
+
+.radio-filter {
+    display: none;
+}
+
+/* Botões de Filtro de Modo de Jogo */
+.btn-filter {
+    font-family: 'The Seasons', 'Playfair Display', Georgia, serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    background-color: #e5e8e8;
+    border: 1px solid #b0b8b8;
+    color: #111111;
+    padding: 4px 18px;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+    user-select: none;
+    display: inline-block;
+}
+
+.btn-filter:hover {
+    background-color: #d8dddd;
+}
+
+.radio-filter:checked + .btn-filter {
+    background-color: #2b1d0c;
+    color: #ffffff;
+    border-color: #2b1d0c;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* 4. Seletor do Tabuleiro */
+.board-filter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.board-filter label {
+    font-family: 'The Seasons', 'Playfair Display', Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #111111;
+}
+
+.board-filter select {
+    font-family: 'The Seasons', 'Playfair Display', Georgia, serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #111111;
+    background-color: #e5e8e8;
+    border: 1px solid #b0b8b8;
+    border-radius: 3px;
+    padding: 4px 32px 4px 12px;
+    cursor: pointer;
+    
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><polygon points="0,4 24,4 12,20" fill="%23000000"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+.board-filter select:focus {
+    outline: none;
+    border-color: #2b1d0c;
+}
+
+/* 5. Tabela do Ranking Top 5 */
+.ranking-table th {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #2b1d0c;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #2b1d0c;
+    text-align: center;
+}
+
+.ranking-table td {
+    padding: 10px 8px;
+    text-align: center;
+    font-size: 1rem;
+    border-bottom: 1px solid #dcd1be;
+    color: #2b1d0c;
+}
+
+.avatar-polaroid {
+    width: 38px;
+    height: 42px;
+    display: inline-block;
+    vertical-align: middle;
+    filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.2));
+}
+
+.avatar-polaroid img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* 6. Cartão do Usuário no Rodapé */
+.user-rank-bar {
+    margin-top: 15px;
+    background-color: #23180c;
+    color: #ffffff;
+    border-radius: 6px;
+    padding: 12px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-position {
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: #45321f;
+    padding: 4px 18px;
+    border-radius: 4px;
+}
+
+.user-avatar-box {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-avatar-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.user-name {
+    font-size: 1.15rem;
+    font-weight: bold;
+}
+
+.user-score {
+    font-size: 1.9rem;
+    font-weight: bold;
+    color: #3ac97b;
+}
