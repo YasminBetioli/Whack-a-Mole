@@ -48,10 +48,10 @@ Este projeto foi desenvolvido por:
 
 * **Yasmin Caetano Betioli**      | **RA:** 296809
 
-* **Yasmin Caetano Betioli**      | **RA:** 296809
+* **Gabriela Nogueira**           | **RA:** 252156
 
-* **Yasmin Caetano Betioli**      | **RA:** 296809
+* **Beatriz Moreira Cavalcanti**  | **RA:** 222087
 
-* **Yasmin Caetano Betioli**      | **RA:** 296809
+* **Ana Julia Bandeira Maximo**   | **RA:** 219528
 
-* **Yasmin Caetano Betioli**      | **RA:** 296809
+* **Catarine Cardoso Franca**      | **RA:** 218903
