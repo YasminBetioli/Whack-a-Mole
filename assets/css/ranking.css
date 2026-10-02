@@ -14,7 +14,7 @@ body {
 .ranking-board {
     width: 100vw;
     height: 100vh;
-    background: url('/Whack-a-Mole/Img/ranking-bg.png') no-repeat center center;
+    background: url('/Whack-a-Mole/assets/img/ranking-bg.png') no-repeat center center;
     background-size: 100% 100%;
     display: flex;
     justify-content: center;

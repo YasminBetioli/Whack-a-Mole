@@ -246,7 +246,7 @@ button:active {
 /* Estilização Tela Inicial*/
 
 .menu-page {
-    background-image: url('/Whack-a-Mole/Img/Background_Tela_Principal.png');
+    background-image: url('/Whack-a-Mole/assets/img/Background_Tela_Principal.png');
     background-size: 72%; 
     background-position: center;
     background-repeat: no-repeat; 
@@ -330,13 +330,13 @@ button:active {
 }
 
 .btn-menu:hover img[src*="Lapis"] {
-    content: url('/Whack-a-Mole/Img/Lapis_Verde_Claro.png');
+    content: url('/Whack-a-Mole/assets/img/Lapis_Verde_Claro.png');
 }
 
 .btn-menu:hover img[src*="Trofeu"] {
-    content: url('/Whack-a-Mole/Img/Trofeu_Verde_Claro.png');
+    content: url('/Whack-a-Mole/assets/img/Trofeu_Verde_Claro.png');
 }
 
 .btn-menu:hover img[src*="Historico"] {
-    content: url('/Whack-a-Mole/Img/Historico_Verde_Claro.png');
+    content: url('/Whack-a-Mole/assets/img/Historico_Verde_Claro.png');
 }

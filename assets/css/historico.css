@@ -13,7 +13,7 @@
     width: 100vw;
     height: 100vh;
     background-color: #1a0f07;
-    background-image: url('/Whack-a-Mole/Img/historico2.jpg');
+    background-image: url('/Whack-a-Mole/assets/img/historico2.jpg');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 100% 100%;
@@ -25,7 +25,7 @@
 
 /* Troca de fundo ao ir para a Página 2 */
 #pag-2:checked ~ .historico-screen {
-    background-image: url('/Whack-a-Mole/Img/historico3.jpg');
+    background-image: url('/Whack-a-Mole/assets/img/historico3.jpg');
 }
 
 /* Área útil reduzida na largura (60vw) para não vazar do caderno */
