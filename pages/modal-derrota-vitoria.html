@@ -7,7 +7,7 @@
 
     <title> Whack-a-Anomaly </title>
 
-    <link rel="stylesheet" href="../assets/css/derrota-vitoria.css" />
+    
 </head>
 
 <body>
@@ -16,8 +16,8 @@
 
         <!-- Botões de teste -->
         <div class="botoes">
-            <a href="#vitoria" class="botao">Vitória</a>
-            <a href="#derrota" class="botao">Derrota</a>
+            <a href="#vitoria" class="botao" onclick="localStorage.clear()">Vitória</a>
+            <a href="#derrota" class="botao" onclick="localStorage.clear()">Derrota</a>
             <a href="#pause" class="botao">Pausa</a>
 
         </div>
@@ -112,18 +112,19 @@
                 </div>
                 <div class="linha-tracejada-centro"></div>
                     <img class="img-perder" src="../assets/img/monstrinho.png" alt="Monstrinho">
-                </div>
+                
                 <button type="button" class="btn-ok-resultado" onclick="window.location.href='modal-derrota-vitoria.html'"> OK </button> 
             </div>
+
         </section>
 
         <section id="pause" class="quadro">
                 <div class="opcoes">
-                    <a href="tabuleiro.html"> 
+                    <a href="tabuleiro.html?retomar=true"> 
                         <img src="../assets/img/pausa.png" alt="pause" srcset="">
                         <p>Continuar</p>
                     </a>
-                    <a href="modal-modo-jogo.html">
+                    <a href="modal-modo-jogo.html" onclick="localStorage.clear()">
                         <img  src="../assets/img/saida.png" alt="" srcset="">
                         <p class="cor-vermelha">Sair</p>
                     </a>
@@ -132,6 +133,8 @@
                
         </section>
     </main>
+
+    <link rel="stylesheet" href="../assets/css/derrota-vitoria.css" />
 </body>
 
 </html>
