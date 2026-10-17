@@ -145,4 +145,15 @@ body{
 }
 
 
+.estatisticas {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    font-size: 1.2rem;
+    color: #b8cfcc;
+}
+
+.estatisticas p {
+    margin: 0;
+}
 

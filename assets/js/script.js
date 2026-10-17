@@ -1,4 +1,4 @@
-let tempoRestante = 300; 
+let tempoRestante = 150; 
 let intervalo = null;
 let jogoPausado = false;
 let jogoAtivo = false;
@@ -18,7 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
         tempoRestante = parseInt(tempoSalvo);
     } else {
         // Jogo novo (veio do menu, Vitória ou Derrota)
-        tempoRestante = 300;
+        tempoRestante = 150;
         localStorage.removeItem('tempoRestante');
     }
 
