@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Whack-a-Anomaly </title>
+    <link rel="stylesheet" href="../assets/css/derrota-vitoria.css">
     <link rel="stylesheet" href="../assets/css/tabuleiro.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +13,7 @@
     <main class="tela-tabuleiro">
 
         <header class="informacoes-topo">
-            <button class="pause" onclick="window.location.href='modal-derrota-vitoria.html'"><span></span><span></span></button> <!--Cada span é uma barrinha do pause-->
+           <button class="pause" onclick="document.getElementById('pause').style.display = 'flex'; pausarPartida();"><span></span><span></span></button> <!--Cada span é uma barrinha do pause-->
             <div class="nivel">Nível 1</div> 
             <div class="tempo">
                 <img src="../assets/img/relogio.png" alt="Imagem de um relogio">
@@ -72,6 +73,21 @@
         </section>
 
     </main>
-    
+     <!-- Modal para o pause -->
+        <section id="pause" class="quadro" style="display: none;">
+            <div class="opcoes">
+                <a href="javascript:void(0)" onclick="document.getElementById('pause').style.display = 'none'; retomarPartida();"> 
+                    <img src="../assets/img/pausa.png" alt="pause" srcset="">
+                    <p>Continuar</p>
+                </a>
+                
+                <a href="modal-modo-jogo.html" onclick="localStorage.clear()">
+                    <img src="../assets/img/saida.png" alt="" srcset="">
+                    <p class="cor-vermelha">Sair</p>
+                </a>
+                <img src="../assets/img/monstrinho_pause.png" class="img-pausa" alt="" srcset="">
+            </div>
+        </section>
+
 </body>
 </html>
