@@ -32,45 +32,7 @@
             <p>Pontos na partida: <span id="pontos-total">0</span></p>
         </section>
 
-        <section class="tabuleiro">
-
-            <div class="buraco">
-                <img src="../assets/img/xicaraBrancaUnitaria.png" alt="Xícara">
-            </div>
-
-            <div class="buraco">
-                <img src="../assets/img/anomaliaAzul_normal.png" alt="Xícara com anomalia azul">
-            </div>
-
-            <div class="buraco">
-                <img src="../assets/img/xicaraBrancaUnitaria.png" alt="Xícara">
-            </div>
-
-            <div class="buraco">
-                <img src="../assets/img/anomaliaLaranja_normal.png" alt="Xícara com anomalia laranja">
-            </div>
-
-            <div class="buraco">
-                <img src="../assets/img/xicaraBrancaUnitaria.png" alt="Xícara">
-            </div>
-
-            <div class="buraco">
-                <img src="../assets/img/xicaraBrancaUnitaria.png" alt="Xícara">
-            </div>
-
-            <div class="buraco">
-                <img src="../assets/img/xicaraBrancaUnitaria.png" alt="Xícara">
-            </div>
-
-            <div class="buraco">
-                <img src="../assets/img/xicaraBrancaUnitaria.png" alt="Xícara">
-            </div>
-
-            <div class="buraco">
-                <img src="../assets/img/anomaliaVerde_acertada.png" alt="Xícara">
-            </div>
-
-        </section>
+        <section class="tabuleiro" aria-label="Tabuleiro do jogo"></section>
 
     </main>
      <!-- Modal para o pause -->
@@ -81,7 +43,8 @@
                     <p>Continuar</p>
                 </a>
                 
-                <a href="modal-modo-jogo.html" onclick="localStorage.clear()">
+                <!-- Ao sair, volta à home e reabre a seleção do jogo. -->
+                <a href="home.html?abrirModal=true" onclick="localStorage.clear()">
                     <img src="../assets/img/saida.png" alt="" srcset="">
                     <p class="cor-vermelha">Sair</p>
                 </a>

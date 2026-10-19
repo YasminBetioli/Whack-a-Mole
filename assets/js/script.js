@@ -3,7 +3,36 @@ let intervalo = null;
 let jogoPausado = false;
 let jogoAtivo = false;
 
+function criarTabuleiro() {
+    const tabuleiro = document.querySelector('.tabuleiro');
+    if (!tabuleiro) return;
+
+    const dimensao = localStorage.getItem('dimensaoTabuleiro') || '3x3';
+    const [colunas, linhas] = dimensao.split('x').map(Number);
+    if (!Number.isInteger(colunas) || !Number.isInteger(linhas) || colunas < 1 || linhas < 1) {
+        return;
+    }
+
+    tabuleiro.replaceChildren();
+    tabuleiro.style.gridTemplateColumns = `repeat(${colunas}, minmax(0, 1fr))`;
+    tabuleiro.style.gridTemplateRows = `repeat(${linhas}, minmax(0, 1fr))`;
+
+    for (let indice = 0; indice < colunas * linhas; indice++) {
+        const buraco = document.createElement('div');
+        buraco.className = 'buraco';
+
+        const xicara = document.createElement('img');
+        xicara.src = '../assets/img/xicaraBrancaUnitaria.png';
+        xicara.alt = 'Xícara';
+
+        buraco.appendChild(xicara);
+        tabuleiro.appendChild(buraco);
+    }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
+    criarTabuleiro();
+
     const elementoTempo = document.getElementById('time');
     if (!elementoTempo) return;
 
