@@ -85,6 +85,27 @@ body {
   display: flex;
 }
 
+#vitoria.quadro {
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-proximo-nivel {
+  padding: 8px 28px;
+  border: 3px solid #53f2b8;
+  border-radius: 4px;
+  color: #53f2b8;
+  background-color: #143b42;
+  font-family: "VT323", monospace;
+  font-size: 32px;
+  cursor: pointer;
+}
+
+.btn-proximo-nivel:hover {
+  color: #051218;
+  background-color: #53f2b8;
+}
+
 /* PRANCHETA/ QUADRO DE FUNDO DERROTA E VITÓRIA*/
 
 .resultado {
