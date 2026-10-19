@@ -2,7 +2,7 @@
 const REGRAS_PLACAR = {
     pontosPorAcerto: 10,
     penalidadeBomba: 15,
-    metasPorNivel: [100, 150, 200, 300, 500, 1000] 
+    metasPorNivel: [100, 100, 200, 300, 500, 1000]
 };
 
 const placar = {
@@ -56,6 +56,7 @@ function registrarAcerto() {
     atualizarPontuacao();
     atualizarEstatisticas();
     atualizarPainel();
+    return placar.pontosNivel >= metaDoNivel(placar.nivel);
 }
 
 function registrarBomba() {
@@ -74,7 +75,23 @@ function verificarClique(evento) {
     const tipo = buraco.dataset.tipo;
 
     if (tipo === 'anomalia') {
-        registrarAcerto();
+        /* Muda a imagem da xícara para indicar que a anomalia foi acertada */
+        const imagem = buraco.querySelector('img');
+        imagem.src = imagem.src.replace('_normal.png', '_acertada.png');
+        imagem.alt = 'Anomalia acertada';
+        document.body.classList.add('cursor-anomalia');
+        // Restaura o cursor normal após o efeito do clique.
+        setTimeout(() => document.body.classList.remove('cursor-anomalia'), 250);
+        const nivelConcluido = registrarAcerto();
+        buraco.dataset.tipo = 'anomaliaAcertada';
+        clearTimeout(temporizadorAnomalia);
+        temporizadorAnomalia = setTimeout(() => {
+            esconderAnomalia(buraco);
+            if (nivelConcluido) {
+                finalizarPartida('vitoria');
+            }
+        }, 1000);
+        return;
     } else if (tipo === 'bomba') {
         registrarBomba();
     } else {
@@ -97,7 +114,35 @@ function avancarNivel() {
     atualizarPainel();
 }
 
-window.addEventListener('DOMContentLoaded', atualizarPainel);
+function restaurarProximoNivel() {
+    const parametros = new URLSearchParams(window.location.search);
+    if (parametros.get('proximoNivel') !== 'true') return;
+
+    // Recupera o placar e avança antes de atualizar o painel.
+    const placarSalvo = localStorage.getItem('placarParaAvancar');
+    if (placarSalvo) {
+        Object.assign(placar, JSON.parse(placarSalvo));
+        avancarNivel();
+    }
+
+    localStorage.removeItem('placarParaAvancar');
+    localStorage.removeItem('resultadoVitoria');
+}
+
+function atualizarModalVitoria() {
+    const resultado = localStorage.getItem('resultadoVitoria');
+    if (!resultado) return;
+
+    const dados = JSON.parse(resultado);
+    definirTexto('pontuacao-vitoria', dados.pontos);
+    definirTexto('nivel-vitoria', dados.nivel);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    restaurarProximoNivel();
+    atualizarPainel();
+    atualizarModalVitoria();
+});
 
 window.addEventListener('DOMContentLoaded', () => {
     const tabuleiro = document.querySelector('.tabuleiro');

@@ -2,6 +2,10 @@ let tempoRestante = 150;
 let intervalo = null;
 let jogoPausado = false;
 let jogoAtivo = false;
+const tempoExposicaoAnomalia = 5000;
+const intervaloEntreAparicoes = 1000;
+let temporizadorAnomalia = null;
+let ultimaAnomalia = null;
 
 function criarTabuleiro() {
     const tabuleiro = document.querySelector('.tabuleiro');
@@ -42,17 +46,46 @@ function sortearPosicao() { /* Sorteia uma posição aleatória para colocar a a
         '../assets/img/anomaliaLaranja_normal.png',
         '../assets/img/anomaliaVerde_normal.png'
     ];
-    const indiceAnomalia = Math.floor(Math.random() * anomalias.length);
+    const anomaliasDisponiveis = anomalias.filter((anomalia) => anomalia !== ultimaAnomalia);
+    const indiceAnomalia = Math.floor(Math.random() * anomaliasDisponiveis.length);
+    const caminhoAnomalia = anomaliasDisponiveis[indiceAnomalia];
 
     buracoSorteado.dataset.tipo = 'anomalia';
-    imagemAnomalia.src = anomalias[indiceAnomalia];
+    imagemAnomalia.src = caminhoAnomalia;
     imagemAnomalia.alt = 'Xícara com anomalia';
+    ultimaAnomalia = caminhoAnomalia;
+
+    // Esconde a anomalia após cinco segundos de exposição para o NIVEL 1.
+    clearTimeout(temporizadorAnomalia);
+    temporizadorAnomalia = setTimeout(esconderAnomalia, tempoExposicaoAnomalia);
+}
+
+function iniciarAparicoes() {
+    const anomaliaAtiva = document.querySelector('.buraco[data-tipo="anomalia"], .buraco[data-tipo="anomaliaAcertada"]');
+    if (!jogoAtivo || jogoPausado || anomaliaAtiva) return;
+
+    // Sorteia uma nova anomalia somente quando não há outra ativa.
+    sortearPosicao();
+}
+
+function esconderAnomalia(buracoAlvo) {
+    const buraco = buracoAlvo || document.querySelector('.buraco[data-tipo="anomalia"]');
+    if (buraco) {
+        const imagem = buraco.querySelector('img');
+        imagem.src = '../assets/img/xicaraBrancaUnitaria.png';
+        imagem.alt = 'Xícara';
+        buraco.removeAttribute('data-tipo');
+    }
+    temporizadorAnomalia = null;
+
+    // Aguarda um segundo antes de iniciar a próxima aparição.
+    if (jogoAtivo && !jogoPausado) {
+        setTimeout(iniciarAparicoes, intervaloEntreAparicoes);
+    }
 }
 
 window.addEventListener('DOMContentLoaded', () => {
     criarTabuleiro();
-    // Sorteia a primeira anomalia depois de criar os buracos.
-    sortearPosicao();
 
     const elementoTempo = document.getElementById('time');
     if (!elementoTempo) return;
@@ -73,6 +106,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     iniciarTemporizador();
+    iniciarAparicoes();
 });
 
 function iniciarTemporizador() {
@@ -116,6 +150,7 @@ function pausarPartida() {
 
 function retomarPartida() {
     jogoPausado = false;
+    iniciarAparicoes();
 }
 
 function finalizarPartida(resultado) {
@@ -128,6 +163,12 @@ function finalizarPartida(resultado) {
     if (resultado === 'derrota') {
         window.location.href = 'modal-derrota-vitoria.html#derrota';
     } else if (resultado === 'vitoria') {
+        // Guarda o placar para continuar no próximo nível após o pop-up.
+        localStorage.setItem('placarParaAvancar', JSON.stringify(placar));
+        localStorage.setItem('resultadoVitoria', JSON.stringify({
+            pontos: placar.pontosNivel,
+            nivel: placar.nivel
+        }));
         window.location.href = 'modal-derrota-vitoria.html#vitoria';
     }
 }

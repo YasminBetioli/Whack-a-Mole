@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title> Whack-a-Anomaly </title>
+    <script src="../assets/js/placar.js" defer></script>
 
     
 </head>
@@ -43,7 +44,7 @@
                     <span class="etiqueta"> Pontuação: </span>
 
                     <div class="campo-linha">
-                        <span class="valor cor-verde"> 55 </span>
+                        <span class="valor cor-verde" id="pontuacao-vitoria">55</span>
 
                         <div class="linha-tracejada"></div>
                     </div>
@@ -54,7 +55,7 @@
                     <span class="etiqueta"> Nível atingido: </span>
 
                     <div class="campo-linha">
-                        <span class="valor cor-azul"> 2 </span>
+                        <span class="valor cor-azul" id="nivel-vitoria">2</span>
 
                         <div class="linha-tracejada"></div>
                     </div>
@@ -71,7 +72,8 @@
 
             </div>
 
-            <button type="button" class="btn-ok-resultado" onclick="window.location.href='modal-derrota-vitoria.html'"> OK </button>
+            <!-- O OK confirma a vitória e abre o próximo nível. -->
+            <button type="button" class="btn-ok-resultado" onclick="window.location.href='tabuleiro.html?proximoNivel=true'"> OK </button>
         </section>
 
         <!-- ================================================= -->

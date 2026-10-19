@@ -16,6 +16,11 @@ body{
     font-family: Arial, sans-serif;
 }
 
+/* Exibe o taser quando uma anomalia é acertada. */
+body.cursor-anomalia {
+    cursor: url('../img/taser_anomalia.png'), auto;
+}
+
 .tela-tabuleiro {
     width: 100%;
     min-height: 100vh; /*Altura mínima da tela*/
