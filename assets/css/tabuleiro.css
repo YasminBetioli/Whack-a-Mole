@@ -21,6 +21,11 @@ body.cursor-anomalia {
     cursor: url('../img/taser_anomalia.png'), auto;
 }
 
+/* Exibe o taser de bomba pquando clica. */
+body.cursor-bomba {
+    cursor: url('../img/taser_bomba.png'), auto;
+}
+
 .tela-tabuleiro {
     width: 100%;
     min-height: 100vh; /*Altura mínima da tela*/

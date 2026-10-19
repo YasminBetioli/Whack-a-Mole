@@ -93,7 +93,17 @@ function verificarClique(evento) {
         }, 1000);
         return;
     } else if (tipo === 'bomba') {
+        // Mostra o acerto da bomba e aplica a penalidade do modo Explosivo.
+        const imagem = buraco.querySelector('img');
+        imagem.src = '../assets/img/bomba_acertada.png';
+        imagem.alt = 'Bomba acertada';
+        document.body.classList.add('cursor-bomba');
+        setTimeout(() => document.body.classList.remove('cursor-bomba'), 250);
         registrarBomba();
+        buraco.dataset.tipo = 'bombaAcertada';
+        clearTimeout(temporizadorAnomalia);
+        temporizadorAnomalia = setTimeout(() => esconderAnomalia(buraco), 1000);
+        return;
     } else {
         return; 
     }

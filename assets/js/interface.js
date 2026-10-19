@@ -28,7 +28,10 @@ document.getElementById('gameMode').addEventListener('click', (evento) => {
 /* Inicia a partida com o modo de jogo selecionado */
 botaoIniciarPartida.addEventListener('click', () => {
 	const dimensaoTabuleiro = document.getElementById('tabuleiroSelect').value; /* Obtém a dimensão selecionada */
+	const modoSelecionado = document.querySelector('#gameMode .selecionado');
+	const modoJogo = modoSelecionado && modoSelecionado.id === 'explosivo' ? 'explosivo' : 'classico';
 	localStorage.setItem('dimensaoTabuleiro', dimensaoTabuleiro); /* Salva a dimensão*/
+	localStorage.setItem('modoJogo', modoJogo); /* Salva o modo escolhido */
 	window.location.href = 'tabuleiro.html'; /* Redireciona para a página do tabuleiro */
 });
 

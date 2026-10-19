@@ -40,36 +40,45 @@ function sortearPosicao() { /* Sorteia uma posição aleatória para colocar a a
 
     const indiceSorteado = Math.floor(Math.random() * buracos.length); /* Sorteia um índice aleatório para escolher um buraco */
     const buracoSorteado = buracos[indiceSorteado]; 
-    const imagemAnomalia = buracoSorteado.querySelector('img');
-    const anomalias = [
-        '../assets/img/anomaliaAzul_normal.png',
-        '../assets/img/anomaliaLaranja_normal.png',
-        '../assets/img/anomaliaVerde_normal.png'
-    ];
-    const anomaliasDisponiveis = anomalias.filter((anomalia) => anomalia !== ultimaAnomalia);
-    const indiceAnomalia = Math.floor(Math.random() * anomaliasDisponiveis.length);
-    const caminhoAnomalia = anomaliasDisponiveis[indiceAnomalia];
+    const imagem = buracoSorteado.querySelector('img');
+    const modoExplosivo = localStorage.getItem('modoJogo') === 'explosivo';
+    const exibirBomba = modoExplosivo && Math.random() < 0.3;
 
-    buracoSorteado.dataset.tipo = 'anomalia';
-    imagemAnomalia.src = caminhoAnomalia;
-    imagemAnomalia.alt = 'Xícara com anomalia';
-    ultimaAnomalia = caminhoAnomalia;
+    if (exibirBomba) {
+        buracoSorteado.dataset.tipo = 'bomba';
+        imagem.src = '../assets/img/bomba.png';
+        imagem.alt = 'Bomba';
+    } else {
+        const anomalias = [
+            '../assets/img/anomaliaAzul_normal.png',
+            '../assets/img/anomaliaLaranja_normal.png',
+            '../assets/img/anomaliaVerde_normal.png'
+        ];
+        const anomaliasDisponiveis = anomalias.filter((anomalia) => anomalia !== ultimaAnomalia);
+        const indiceAnomalia = Math.floor(Math.random() * anomaliasDisponiveis.length);
+        const caminhoAnomalia = anomaliasDisponiveis[indiceAnomalia];
 
-    // Esconde a anomalia após cinco segundos de exposição para o NIVEL 1.
+        buracoSorteado.dataset.tipo = 'anomalia';
+        imagem.src = caminhoAnomalia;
+        imagem.alt = 'Xícara com anomalia';
+        ultimaAnomalia = caminhoAnomalia;
+    }
+
+    // Esconde a aparição após cinco segundos de exposição no primeiro nível.
     clearTimeout(temporizadorAnomalia);
     temporizadorAnomalia = setTimeout(esconderAnomalia, tempoExposicaoAnomalia);
 }
 
 function iniciarAparicoes() {
-    const anomaliaAtiva = document.querySelector('.buraco[data-tipo="anomalia"], .buraco[data-tipo="anomaliaAcertada"]');
-    if (!jogoAtivo || jogoPausado || anomaliaAtiva) return;
+    const aparicaoAtiva = document.querySelector('.buraco[data-tipo="anomalia"], .buraco[data-tipo="anomaliaAcertada"], .buraco[data-tipo="bomba"], .buraco[data-tipo="bombaAcertada"]');
+    if (!jogoAtivo || jogoPausado || aparicaoAtiva) return;
 
-    // Sorteia uma nova anomalia somente quando não há outra ativa.
+    // Sorteia uma nova aparição somente quando não há outra ativa.
     sortearPosicao();
 }
 
 function esconderAnomalia(buracoAlvo) {
-    const buraco = buracoAlvo || document.querySelector('.buraco[data-tipo="anomalia"]');
+    const buraco = buracoAlvo || document.querySelector('.buraco[data-tipo="anomalia"], .buraco[data-tipo="bomba"]');
     if (buraco) {
         const imagem = buraco.querySelector('img');
         imagem.src = '../assets/img/xicaraBrancaUnitaria.png';
@@ -86,6 +95,11 @@ function esconderAnomalia(buracoAlvo) {
 
 window.addEventListener('DOMContentLoaded', () => {
     criarTabuleiro();
+    const modoJogo = localStorage.getItem('modoJogo') || 'classico';
+    const indicadorModo = document.querySelector('.modo');
+    if (indicadorModo) {
+        indicadorModo.textContent = modoJogo === 'explosivo' ? 'Explosivo' : 'Clássico';
+    }
 
     const elementoTempo = document.getElementById('time');
     if (!elementoTempo) return;
