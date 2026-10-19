@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Whack-a-Anomaly | Início </title>
+    
     <link rel="stylesheet" href="../assets/css/login-cadastro-perfil-home.css">
+    <script src="../assets/js/interface.js" defer></script>
+    <link rel="stylesheet" href="../assets/css/modo-jogo.css">
 </head>
 
 <body>
@@ -16,7 +19,7 @@
             
             <div class="menu-botoes">
                 
-                <button type="button" class="btn-menu btn-jogar" onclick="window.location.href='modal-modo-jogo.html'"> Jogar </button>
+                <button type="button" class="btn-menu btn-jogar" id="abrir-selecao-jogo">Jogar</button>
                 
                 <button type="button" class="btn-menu" onclick="window.location.href='editar-perfil.html'">
                     <img src="../assets/img/Lapis_Verde_Escuro.png" alt="Editar Perfil">
@@ -36,5 +39,50 @@
             </div>
         </div>
     </div>
+
+    <dialog id="selecao-jogo" aria-label="Escolha do modo de jogo">
+        <div id="borda">
+            <div id="bordaMenor">
+                <div id="content">
+                    <button type="button" class="btn-voltar" aria-label="Fechar seleção">←</button>
+
+                    <h1>Escolha o modo de jogo</h1>
+                    <div id="gameMode">
+                        <div id="classico">
+                            <button id="modoClassicoBtn" type="button">
+                                <img src="../assets/img/xicaraBranca.png" alt="imagem png de três xícaras" id="xicara">
+                                Clássico
+                            </button>
+                        </div>
+                        <div id="explosivo">
+                            <button id="modoExplosivoBtn" type="button">
+                                <img src="../assets/img/stalker.png" id="stalker" alt="">
+                                Explosivo
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="opcoesBaixo">
+                        <div id="tabuleiro">
+                            <h2>Escolha seu tabuleiro</h2>
+                            <select name="tabuleiro" id="tabuleiroSelect">
+                                <option value="">2x2</option>
+                                <option value="">3x3</option>
+                                <option value="">4x4</option>
+                                <option value="">5x5</option>
+                                <option value="">6x6</option>
+                                <option value="">7x7</option>
+                                <option value="">8x8</option>
+                            </select>
+                        </div>
+
+                        <div class="jogar">
+                            <button class="btnJogar" type="button" onclick="window.location.href='tabuleiro.html'">Jogar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </dialog>
 </body>
 </html>
