@@ -30,8 +30,29 @@ function criarTabuleiro() {
     }
 }
 
+function sortearPosicao() { /* Sorteia uma posição aleatória para colocar a anomalia, substituindo as imagens*/
+    const buracos = document.querySelectorAll('.buraco'); /* Seleciona todos os buracos do tabuleiro e se não tiver buracos não faz nada*/
+    if (buracos.length === 0) return; 
+
+    const indiceSorteado = Math.floor(Math.random() * buracos.length); /* Sorteia um índice aleatório para escolher um buraco */
+    const buracoSorteado = buracos[indiceSorteado]; 
+    const imagemAnomalia = buracoSorteado.querySelector('img');
+    const anomalias = [
+        '../assets/img/anomaliaAzul_normal.png',
+        '../assets/img/anomaliaLaranja_normal.png',
+        '../assets/img/anomaliaVerde_normal.png'
+    ];
+    const indiceAnomalia = Math.floor(Math.random() * anomalias.length);
+
+    buracoSorteado.dataset.tipo = 'anomalia';
+    imagemAnomalia.src = anomalias[indiceAnomalia];
+    imagemAnomalia.alt = 'Xícara com anomalia';
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     criarTabuleiro();
+    // Sorteia a primeira anomalia depois de criar os buracos.
+    sortearPosicao();
 
     const elementoTempo = document.getElementById('time');
     if (!elementoTempo) return;
