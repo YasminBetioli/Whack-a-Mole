@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Whack-a-Anomaly </title>
+       <link rel="stylesheet" href="../assets/css/derrota-vitoria.css">
+    <link rel="stylesheet" href="../assets/css/tabuleiro.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+    <main class="tela-tabuleiro">
+
+        <header class="informacoes-topo">
+        <button class="pause" onclick="document.getElementById('pause').style.display = 'flex'; pausarPartida();"><span></span><span></span></button>  <!--Cada span é uma barrinha do pause-->
+            <div class="nivel">Nível 1</div> 
+            <div class="tempo">
+                <img src="/assets/img/relogio.png" alt="Imagem de um relogio">
+                 <div id="time"><strong>00:00:00</strong></div>
+            </div>
+
+            <script src="../assets/js/script.js"></script>
+            <div class="pontos"><strong>55/50</strong></div>
+            <div class="modo">Clássico</div>
+        </header>
+
+        <section class="tabuleiro">
+
+            <div class="buraco">
+                <img src="/assets/img/xicaraBrancaUnitaria.png" alt="Xícara">
+            </div>
+
+            <div class="buraco">
+                <img src="/assets/img/anomaliaAzul_normal.png" alt="Xícara com anomalia azul">
+            </div>
+
+            <div class="buraco">
+                <img src="/assets/img/xicaraBrancaUnitaria.png" alt="Xícara">
+            </div>
+
+            <div class="buraco">
+                <img src="/assets/img/anomaliaLaranja_normal.png" alt="Xícara com anomalia laranja">
+            </div>
+
+            <div class="buraco">
+                <img src="/assets/img/xicaraBrancaUnitaria.png" alt="Xícara">
+            </div>
+
+            <div class="buraco">
+                <img src="/assets/img/xicaraBrancaUnitaria.png" alt="Xícara">
+            </div>
+
+            <div class="buraco">
+                <img src="/assets/img/xicaraBrancaUnitaria.png" alt="Xícara">
+            </div>
+
+            <div class="buraco">
+                <img src="/assets/img/xicaraBrancaUnitaria.png" alt="Xícara">
+            </div>
+
+            <div class="buraco">
+                <img src="/assets/img/anomaliaVerde_acertada.png" alt="Xícara">
+            </div>
+
+        </section>
+        <section id="pause" class="quadro" style="display: none;">
+            <div class="opcoes">
+                <a href="javascript:void(0)" onclick="document.getElementById('pause').style.display = 'none'; retomarPartida();"> 
+                    <img src="/assets/img/pausa.png" alt="pause" srcset="">
+                    <p>Continuar</p>
+                </a>
+                
+                <!-- Ao sair, volta à home e reabre a seleção do jogo. -->
+                <a href="home.html?abrirModal=true" onclick="localStorage.clear()">
+                    <img src="/assets/img/saida.png" alt="" srcset="">
+                    <p class="cor-vermelha">Sair</p>
+                </a>
+                <img src="/assets/img/monstrinho_pause.png" class="img-pausa" alt="" srcset="">
+            </div>
+        </section>
+    </main>
+        <script src="/assets/js/tabuleiro.js"></script>
+        <script src="/assets/js/progressao.js"></script>
+
+</body>
+</html>
