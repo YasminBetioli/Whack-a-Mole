@@ -1,4 +1,4 @@
-let tempoRestante = 150; 
+let tempoRestante = 150; // Altere para 300 se o tempo padrão da fase for 5 minutos
 let intervalo = null;
 let jogoPausado = false;
 let jogoAtivo = false;
@@ -34,11 +34,11 @@ function criarTabuleiro() {
     }
 }
 
-function sortearPosicao() { /* Sorteia uma posição aleatória para colocar a anomalia, substituindo as imagens*/
-    const buracos = document.querySelectorAll('.buraco'); /* Seleciona todos os buracos do tabuleiro e se não tiver buracos não faz nada*/
+function sortearPosicao() {
+    const buracos = document.querySelectorAll('.buraco');
     if (buracos.length === 0) return; 
 
-    const indiceSorteado = Math.floor(Math.random() * buracos.length); /* Sorteia um índice aleatório para escolher um buraco */
+    const indiceSorteado = Math.floor(Math.random() * buracos.length);
     const buracoSorteado = buracos[indiceSorteado]; 
     const imagem = buracoSorteado.querySelector('img');
     const modoExplosivo = localStorage.getItem('modoJogo') === 'explosivo';
@@ -64,7 +64,6 @@ function sortearPosicao() { /* Sorteia uma posição aleatória para colocar a a
         ultimaAnomalia = caminhoAnomalia;
     }
 
-    // Esconde a aparição após cinco segundos de exposição no primeiro nível.
     clearTimeout(temporizadorAnomalia);
     temporizadorAnomalia = setTimeout(esconderAnomalia, tempoExposicaoAnomalia);
 }
@@ -73,7 +72,6 @@ function iniciarAparicoes() {
     const aparicaoAtiva = document.querySelector('.buraco[data-tipo="anomalia"], .buraco[data-tipo="anomaliaAcertada"], .buraco[data-tipo="bomba"], .buraco[data-tipo="bombaAcertada"]');
     if (!jogoAtivo || jogoPausado || aparicaoAtiva) return;
 
-    // Sorteia uma nova aparição somente quando não há outra ativa.
     sortearPosicao();
 }
 
@@ -87,7 +85,6 @@ function esconderAnomalia(buracoAlvo) {
     }
     temporizadorAnomalia = null;
 
-    // Aguarda um segundo antes de iniciar a próxima aparição.
     if (jogoAtivo && !jogoPausado) {
         setTimeout(iniciarAparicoes, intervaloEntreAparicoes);
     }
@@ -95,6 +92,7 @@ function esconderAnomalia(buracoAlvo) {
 
 window.addEventListener('DOMContentLoaded', () => {
     criarTabuleiro();
+    
     const modoJogo = localStorage.getItem('modoJogo') || 'classico';
     const indicadorModo = document.querySelector('.modo');
     if (indicadorModo) {
@@ -104,17 +102,13 @@ window.addEventListener('DOMContentLoaded', () => {
     const elementoTempo = document.getElementById('time');
     if (!elementoTempo) return;
 
-    // Lê se a URL está pedindo para retomar (ex: tabuleiro.html?retomar=true)
     const urlParams = new URLSearchParams(window.location.search);
     const deveRetomar = urlParams.get('retomar');
-    
     const tempoSalvo = localStorage.getItem('tempoRestante');
 
     if (deveRetomar === 'true' && tempoSalvo !== null) {
-        // Veio do botão "Continuar": usa estritamente o tempo salvo
         tempoRestante = parseInt(tempoSalvo);
     } else {
-        // Jogo novo (veio do menu, Vitória ou Derrota)
         tempoRestante = 150;
         localStorage.removeItem('tempoRestante');
     }
@@ -138,7 +132,11 @@ function iniciarTemporizador() {
                 atualizarTempo();
                 localStorage.setItem('tempoRestante', tempoRestante);
             } else {
-                finalizarPartida('derrota');
+                if (typeof verificarProgressao === "function") {
+                    verificarProgressao();
+                } else {
+                    finalizarPartida("derrota");
+                }
             }
         }
     }, 1000);
@@ -160,11 +158,16 @@ function atualizarTempo() {
 function pausarPartida() {
     jogoPausado = true;
     localStorage.setItem('tempoRestante', tempoRestante);
+    if (typeof pararAparicoes === "function") {
+        pararAparicoes();
+    }
 }
 
 function retomarPartida() {
     jogoPausado = false;
-    iniciarAparicoes();
+    if (typeof iniciarAparicoes === "function") {
+        iniciarAparicoes();
+    }
 }
 
 function finalizarPartida(resultado) {
@@ -177,19 +180,20 @@ function finalizarPartida(resultado) {
     if (resultado === 'derrota') {
         window.location.href = 'modal-derrota-vitoria.html#derrota';
     } else if (resultado === 'vitoria') {
-        // Guarda o placar para continuar no próximo nível após o pop-up.
-        localStorage.setItem('placarParaAvancar', JSON.stringify(placar));
-        localStorage.setItem('resultadoVitoria', JSON.stringify({
-            pontos: placar.pontosNivel,
-            nivel: placar.nivel
-        }));
+        if (typeof placar !== 'undefined') {
+            localStorage.setItem('placarParaAvancar', JSON.stringify(placar));
+            localStorage.setItem('resultadoVitoria', JSON.stringify({
+                pontos: placar.pontosNivel,
+                nivel: placar.nivel
+            }));
+        }
         window.location.href = 'modal-derrota-vitoria.html#vitoria';
     }
 }
 
 function reiniciarPartida() {
     localStorage.removeItem('tempoRestante');
-    tempoRestante = 300;
+    tempoRestante = 150;
     atualizarTempo();
     iniciarTemporizador();
 }
