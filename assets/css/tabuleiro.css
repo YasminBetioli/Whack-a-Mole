@@ -149,15 +149,21 @@ body.cursor-bomba {
 
 .btn-sair:hover,
 .btn-sair:focus {
-    border-color: #a91414;
-    color: #53f2b8;
+    border-color: #c22020;
+    color: #c22020;
     box-shadow: 0 0 10px rgba(255, 70, 70, 0.6);
-    text-shadow: 0 0 8px rgba(83, 242, 184, 0.8);
+    text-shadow: 0 0 8px rgba(255, 70, 70, 0.6);
     transform: scale(1.05);
 }
 
 .btn-sair:active {
-    transform: scale(0.95);
+    transform: scale(0.90);
+}
+
+.btn-sair .seta-voltar {
+    display: inline-block;
+    transform: translateY(-2px);
+    margin-left: -6px;
 }
 
 .estatisticas {

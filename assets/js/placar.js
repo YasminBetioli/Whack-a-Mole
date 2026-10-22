@@ -2,29 +2,58 @@
 
 /* -------------------------- Configurações do Placar -------------------------- */
 const REGRAS_PLACAR = {
-    pontosPorAcerto: 10,   // Pontos ganhos por anomalia
-    penalidadeBomba: 15,   // Pontos perdidos por bomba
-    metasPorNivel: [100, 100, 200, 300, 500, 1000]
+    porcentagemMinimaNivel: 75, // 75% de acertos necessários para avançar de nível
+    pontosPorAcerto: 10,        // Pontos ganhos por toupeira
+    penalidadeBomba: 15         // Pontos perdidos por bomba (Modo Explosivo)
 };
 
 const placar = {
     nivel: 1,
 
+    // Métricas do Nível Atual
+    toupeirasExibidasNivel: 0,
     acertosNivel: 0,
     bombasNivel: 0,
     pontosNivel: 0,
 
+    // Métricas Acumuladas de Níveis Concluídos
+    toupeirasConcluidas: 0,
     acertosConcluidos: 0,
     pontosConcluidos: 0,
 
+    // Métricas Totais do Jogo
+    toupeirasExibidasTotal: 0,
     acertosTotal: 0,
     pontosTotal: 0
 };
 
-/* -------------------------- Funções Auxiliares -------------------------- */
-function metaDoNivel(nivel) {
-    const metas = REGRAS_PLACAR.metasPorNivel;
-    return metas[Math.min(nivel, metas.length) - 1];
+/* -------------------------- Funções de Cálculo -------------------------- */
+
+/* Calcula a taxa de acerto do nível atual em porcentagem (0 a 100%) */
+function calcularTaxaAcertoNivel() {
+    if (placar.toupeirasExibidasNivel === 0) return 0;
+    const taxa = (placar.acertosNivel / placar.toupeirasExibidasNivel) * 100;
+    return Math.max(0, Math.round(taxa));
+}
+
+/* Calcula a taxa de acerto acumulada da partida inteira (0 a 100%) */
+function calcularTaxaAcertoTotal() {
+    if (placar.toupeirasExibidasTotal === 0) return 0;
+    const taxa = (placar.acertosTotal / placar.toupeirasExibidasTotal) * 100;
+    return Math.max(0, Math.round(taxa));
+}
+
+/* Atualiza os pontos do nível (permite pontuação negativa se houver mais bombas) */
+function atualizarPontuacao() {
+    placar.pontosNivel = (placar.acertosNivel * REGRAS_PLACAR.pontosPorAcerto) -
+                        (placar.bombasNivel * REGRAS_PLACAR.penalidadeBomba);
+}
+
+/* Atualiza os acumulados totais da partida */
+function atualizarEstatisticas() {
+    placar.toupeirasExibidasTotal = placar.toupeirasConcluidas + placar.toupeirasExibidasNivel;
+    placar.acertosTotal = placar.acertosConcluidos + placar.acertosNivel;
+    placar.pontosTotal = placar.pontosConcluidos + placar.pontosNivel;
 }
 
 function definirTexto(id, valor) {
@@ -34,47 +63,48 @@ function definirTexto(id, valor) {
     }
 }
 
-/* Calcula os pontos: soma os acertos e subtrai as bombas */
-function atualizarPontuacao() {
-    placar.pontosNivel = (placar.acertosNivel * REGRAS_PLACAR.pontosPorAcerto) -
-                        (placar.bombasNivel * REGRAS_PLACAR.penalidadeBomba);
-}
-
-function atualizarEstatisticas() {
-    placar.acertosTotal = placar.acertosConcluidos + placar.acertosNivel;
-    placar.pontosTotal = placar.pontosConcluidos + placar.pontosNivel;
-}
+/* -------------------------- Atualização do Painel / HUD -------------------------- */
 
 function atualizarPainel() {
-    definirTexto('nivel-atual', placar.nivel);
+    const taxaNivel = calcularTaxaAcertoNivel();
+    const taxaTotal = calcularTaxaAcertoTotal();
+
+    // 1. Topo da tela: Exibe apenas os pontos atuais (ex: 40 / 100)
     definirTexto('pontos-nivel', placar.pontosNivel);
-    definirTexto('meta-nivel', metaDoNivel(placar.nivel));
+    definirTexto('meta-nivel', 100); 
+
+    // 2. Estatísticas do jogo
+    definirTexto('nivel-atual', placar.nivel);
+    definirTexto('pontos-total', placar.pontosTotal);
     definirTexto('acertos-nivel', placar.acertosNivel);
     definirTexto('acertos-total', placar.acertosTotal);
-    definirTexto('pontos-total', placar.pontosTotal);
+    
+    // 3. Porcentagens calculadas nos bastidores (exibidas só na prancheta de final de fase)
+    definirTexto('taxa-acerto-nivel', taxaNivel + '%');
+    definirTexto('porcentagem-vitoria', taxaTotal + '%');
+    definirTexto('porcentagem-derrota', taxaTotal + '%');
 }
 
 /* -------------------------- Registros de Eventos -------------------------- */
 
-/* Chamado ao clicar na ANOMALIA (+10 pontos) */
+/* Chamado no tabuleiro.js a cada nova toupeira que sobe no buraco */
+function registrarAparicaoToupeira() {
+    placar.toupeirasExibidasNivel++;
+    atualizarEstatisticas();
+    atualizarPainel();
+}
+
+/* Chamado ao clicar na TOUPEIRA (+10 pontos) */
 function registrarAcerto(info) {
     placar.acertosNivel++;
     atualizarPontuacao();
     atualizarEstatisticas();
     atualizarPainel();
 
-    // Efeito visual no cursor
     document.body.classList.add('cursor-anomalia');
     setTimeout(() => document.body.classList.remove('cursor-anomalia'), 250);
 
     localStorage.setItem('placarAtual', JSON.stringify(placar));
-
-    const bateuMeta = placar.pontosNivel >= metaDoNivel(placar.nivel);
-    if (bateuMeta && typeof finalizarPartida === 'function') {
-        finalizarPartida('vitoria');
-    }
-
-    return bateuMeta;
 }
 
 /* Chamado ao clicar na BOMBA (-15 pontos) */
@@ -84,21 +114,42 @@ function registrarBomba(info) {
     atualizarEstatisticas();
     atualizarPainel();
 
-    // Efeito visual no cursor
     document.body.classList.add('cursor-bomba');
     setTimeout(() => document.body.classList.remove('cursor-bomba'), 250);
 
     localStorage.setItem('placarAtual', JSON.stringify(placar));
 }
 
+/* -------------------------- Avaliação de Fim de Nível -------------------------- */
+
+/* Chamada quando o tempo 't' do nível expira */
+function avaliarFimDoNivel() {
+    const taxaAlcancada = calcularTaxaAcertoNivel();
+    const passouDeNivel = taxaAlcancada >= REGRAS_PLACAR.porcentagemMinimaNivel;
+
+    if (passouDeNivel) {
+        if (typeof finalizarPartida === 'function') {
+            finalizarPartida('vitoria');
+        }
+    } else {
+        if (typeof finalizarPartida === 'function') {
+            finalizarPartida('derrota');
+        }
+    }
+    return passouDeNivel;
+}
+
 /* -------------------------- Progressão de Nível -------------------------- */
 function avancarNivel() {
+    placar.toupeirasConcluidas += placar.toupeirasExibidasNivel;
     placar.acertosConcluidos += placar.acertosNivel;
     placar.pontosConcluidos += placar.pontosNivel;
 
     placar.nivel++;
+    placar.toupeirasExibidasNivel = 0;
     placar.acertosNivel = 0;
     placar.bombasNivel = 0;
+    placar.pontosNivel = 0;
 
     atualizarPontuacao();
     atualizarEstatisticas();
@@ -130,12 +181,20 @@ function restaurarEstadoPlacar() {
 }
 
 function atualizarModalVitoria() {
-    const resultado = localStorage.getItem('resultadoVitoria');
+    const resultado = localStorage.getItem('resultadoVitoria') || localStorage.getItem('resultadoDerrota');
     if (!resultado) return;
 
     const dados = JSON.parse(resultado);
+    const textoTaxa = (dados.taxa !== undefined ? dados.taxa : 0) + '%';
+
     definirTexto('pontuacao-vitoria', dados.pontos);
+    definirTexto('pontuacao-derrota', dados.pontos);
     definirTexto('nivel-vitoria', dados.nivel);
+    definirTexto('nivel-derrota', dados.nivel);
+
+    definirTexto('porcentagem-vitoria', textoTaxa);
+    definirTexto('porcentagem-derrota', textoTaxa);
+    definirTexto('taxa-acerto-modal', textoTaxa);
 }
 
 /* -------------------------- Inicialização -------------------------- */

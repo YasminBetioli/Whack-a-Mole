@@ -17,22 +17,15 @@ body {
 
 body {
   background-color: #1a2f33;
-
   color: white;
-
   font-family: Arial, sans-serif;
-
   text-align: center;
 }
 
-
-
 .jogo h1 {
   margin: 0;
-
   font-size: 42px;
 }
-
 
 .botoes {
   margin-top: 20px;
@@ -40,19 +33,12 @@ body {
 
 .botao {
   display: inline-block;
-
   background-color: #555;
-
   color: white;
-
   padding: 10px 20px;
-
   margin: 0 10px;
-
   text-decoration: none;
-
   border-radius: 5px;
-
   font-size: 18px;
 }
 
@@ -60,24 +46,20 @@ body {
   background-color: #777;
 }
 
-
+/* ================================================= */
+/* MODAIS E QUADROS                                  */
+/* ================================================= */
 
 .quadro {
   display: none;
-
   position: fixed;
-
   top: 0;
   left: 0;
-
   width: 100%;
   height: 100%;
-
   background-color: rgba(0, 0, 0, 0.7);
-
   justify-content: center;
   align-items: center;
-
   z-index: 1000;
 }
 
@@ -85,28 +67,43 @@ body {
   display: flex;
 }
 
-#vitoria.quadro {
+#vitoria.quadro,
+#derrota.quadro {
   flex-direction: column;
-  gap: 12px;
+  gap: 20px;
 }
 
-.btn-proximo-nivel {
+/* ESTILO PADRÃO DOS BOTÕES DE AÇÃO DOS MODAIS (Vitória e Derrota) */
+.btn-proximo-nivel,
+.btn-tentar-novamente,
+#btn-tentar-novamente {
   padding: 8px 28px;
   border: 3px solid #53f2b8;
-  border-radius: 4px;
+  border-radius: 15px;
   color: #53f2b8;
-  background-color: #143b42;
+  background-color: #051218 ;
   font-family: "VT323", monospace;
   font-size: 32px;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s ease-in-out;
+  max-width: 280px;              /* Trava a largura para não ficar muito comprido */
+  width: 100%;                   /* Permite que ele se ajuste até o limite da max-width */
+  margin-top: 10px;
 }
 
-.btn-proximo-nivel:hover {
-  color: #051218;
-  background-color: #53f2b8;
+.btn-proximo-nivel:hover,
+.btn-tentar-novamente:hover,
+#btn-tentar-novamente:hover {
+    border-color: #53f2b8 !important;             
+    box-shadow: 0 0 16px rgba(83, 242, 184, 0.6);   
+    text-shadow: 0 0 14px rgba(83, 242, 184, 0.8);  
+    transform: scale(1.02);
 }
 
-/* PRANCHETA/ QUADRO DE FUNDO DERROTA E VITÓRIA*/
+
+/* PRANCHETA / QUADRO DE FUNDO DERROTA E VITÓRIA */
 
 .resultado {
   position: relative;
@@ -121,6 +118,7 @@ body {
   display: flex;
   flex-direction: column;
 }
+
 .linha-dado {
   display: flex;
   align-items: flex-end;
@@ -134,58 +132,44 @@ body {
 
 .etiqueta {
   white-space: nowrap;
-
   margin-right: 15px;
 }
+
 .campo-linha {
   flex: 1;
-
   display: flex;
-
   flex-direction: column;
-
   align-items: center;
-
   min-width: 0;
 }
+
 .valor {
   font-size: 48pt;
-
   line-height: 52px;
-
   margin: 0;
 }
+
 .linha-tracejada {
   width: 70%;
-
   border-bottom: 2px dashed #1a2f33;
-
   margin-top: -1px;
   margin-left: 0px;
 }
+
 .bloco-desempenho {
   text-align: center;
-
   margin-top: 65px;
 }
 
-
-
 .etiqueta-centro {
   font-size: 32px;
-
   line-height: 40px;
-
   margin: 0;
 }
 
-
-
 .valor-centro {
   font-size: 42px;
-
   line-height: 50px;
-
   margin-top: 15px;
 }
 
@@ -195,9 +179,7 @@ body {
 
 .linha-tracejada-centro {
   width: 63%;
-
   border-bottom: 2px dashed #1a2f33;
-
   margin: 5px auto 0 auto;
 }
 
@@ -222,42 +204,35 @@ body {
 }
 
 /* ================================================= */
-/* MENSAGEM DA DERROTA                              */
+/* MENSAGEM DA DERROTA                               */
 /* ================================================= */
 
 .mensagem-derrota {
   margin-top: 10px;
-
   font-family: Arial, sans-serif;
-
   font-size: 18px;
-
   color: #000;
 }
+
 .img-perder {
   position: absolute;
-
   width: 160px;
   height: auto;
-
   right: 5px;
   bottom: 5px;
-
   z-index: 10;
 }
+
 /* ================================================= */
 /* SELO DE TAXA DE ACERTOS                           */
 /* ================================================= */
 
 .selo-acertos {
   position: absolute;
-
   top: 60px;
   right: 50px;
-
   width: 145px;
   height: 145px;
-
   z-index: 10;
 }
 
@@ -266,7 +241,6 @@ body {
 .imagem-selo {
   width: 120%;
   height: 120%;
-
   display: block;
 }
 
@@ -286,22 +260,26 @@ body {
   transform: rotate(8deg);
   pointer-events: none;
 }
+
 .porcentagem-acerto p {
-    margin: 0;
-    padding:0;
+  margin: 0;
+  padding: 0;
 }
+
 .porcentagem-acerto p:first-child {
-    font-size: 23px;
-    line-height: 40px;
-    margin-left: 15px;
+  font-size: 23px;
+  line-height: 40px;
+  margin-left: 15px;
 }
 
 .porcentagem-acerto p:last-child {
-    font-size: 70px;
-    line-height: 34px;
+  font-size: 70px;
+  line-height: 34px;
 }
 
-
+/* ================================================= */
+/* PAUSA E OPÇÕES                                    */
+/* ================================================= */
 
 .opcoes {
   position: relative;
@@ -311,31 +289,32 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  padding: 105px 40px 20px 40px;
-  color: #000;
-  display: flex; 
-  gap: 20px;
-  justify-content: center; 
   padding: 30px;
+  color: #000;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
   margin: 100px;
 }
 
 .opcoes a {
-    display: flex;
-    align-items: center; 
-    gap: 10px; 
-    text-decoration: none; 
-    color: #333; 
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #333;
 }
 
 .opcoes p {
-    margin: 0; 
-    font-size: 95px;
-
+  margin: 0;
+  font-size: 95px;
 }
+
 .opcoes a img {
-    width: 45px; 
-    height: auto; }
+  width: 45px;
+  height: auto;
+}
+
 .img-pausa {
   position: absolute;
   width: 150px;

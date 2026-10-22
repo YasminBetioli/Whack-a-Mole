@@ -50,7 +50,12 @@ function iniciarTemporizador() {
                 atualizarTempo();
                 localStorage.setItem('tempoRestante', tempoRestante);
             } else {
-                finalizarPartida('derrota');
+                // Avalia se atingiu a porcentagem de acertos em vez de forçar derrota
+                if (typeof avaliarFimDoNivel === 'function') {
+                    avaliarFimDoNivel();
+                } else {
+                    finalizarPartida('derrota');
+                }
             }
         }
     }, 1000);
@@ -98,15 +103,24 @@ function finalizarPartida(resultado) {
 
     localStorage.removeItem('tempoRestante');
 
+    if (typeof placar !== 'undefined') {
+        const taxaCalculada = typeof calcularTaxaAcertoTotal === 'function' ? calcularTaxaAcertoTotal() : 0;
+
+        const dadosResultado = {
+            pontos: placar.pontosTotal,
+            nivel: placar.nivel || 1,
+            taxa: taxaCalculada
+        };
+
+        localStorage.setItem('resultadoVitoria', JSON.stringify(dadosResultado));
+        localStorage.setItem('resultadoDerrota', JSON.stringify(dadosResultado));
+    }
+
     if (resultado === 'derrota') {
         window.location.href = 'modal-derrota-vitoria.html#derrota';
     } else if (resultado === 'vitoria') {
         if (typeof placar !== 'undefined') {
             localStorage.setItem('placarParaAvancar', JSON.stringify(placar));
-            localStorage.setItem('resultadoVitoria', JSON.stringify({
-                pontos: placar.pontosNivel || 0,
-                nivel: placar.nivel || 1
-            }));
         }
         window.location.href = 'modal-derrota-vitoria.html#vitoria';
     }

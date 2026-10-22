@@ -177,6 +177,11 @@ function mostrarAnomalia(indice) {
   } else {
     img.src = CAMINHO_IMG + "anomalia" + cor + "_normal.png";
     img.alt = "Anomalia " + cor.toLowerCase();
+
+    /* Registra a aparição da toupeira para permitir o cálculo correto da % de acertos */
+    if (typeof registrarAparicaoToupeira === "function") {
+      registrarAparicaoToupeira();
+    }
   }
 
   buracos[indice].dataset.tipo = tipo;

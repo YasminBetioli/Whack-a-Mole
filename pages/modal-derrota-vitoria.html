@@ -12,29 +12,22 @@
 
 <body>
     <main class="jogo">
-        <h1>Resultado</h1>
-
-        <!-- Botões de teste -->
-        <div class="botoes">
-            <a href="#vitoria" class="botao">Vitória</a>
-            <a href="#derrota" class="botao">Derrota</a>
-            <a href="#pause" class="botao">Pausa</a>
-        </div>
 
         <!-- ================================================= -->
         <!-- QUADRO DE VITÓRIA                                 -->
         <!-- ================================================= -->
         <section id="vitoria" class="quadro">
             <div class="resultado">
+                <!-- SELO DE TAXA DE ACERTO -->
                 <div class="selo-acertos">
                     <img src="../assets/img/selo.png" alt="Taxa de acertos" class="imagem-selo">
-                    <span class="porcentagem-acerto" id="porcentagem-acerto">
+                    <span class="porcentagem-acerto">
                         <p>Taxa de acerto</p>
-                        <p id="taxa-porcentagem">0%</p>
+                        <p id="porcentagem-vitoria">0%</p>
                     </span>
                 </div>
 
-                <!-- PONTUAÇÃO -->
+                <!-- PONTUAÇÃO TOTAL -->
                 <div class="linha-dado pontuacao">
                     <span class="etiqueta"> Pontuação: </span>
                     <div class="campo-linha">
@@ -43,7 +36,7 @@
                     </div>
                 </div>
 
-                <!-- NÍVEL -->
+                <!-- NÍVEL ALCANÇADO -->
                 <div class="linha-dado nivel">
                     <span class="etiqueta"> Nível atingido: </span>
                     <div class="campo-linha">
@@ -55,12 +48,12 @@
                 <!-- DESEMPENHO -->
                 <div class="bloco-desempenho">
                     <div class="etiqueta-centro">Desempenho do hospital:</div>
-                    <div class="valor-centro cor-roxa">Bom</div>
+                    <div class="valor-centro cor-roxa" id="desempenho-vitoria">Bom</div>
                     <div class="linha-tracejada-centro"></div>
                 </div>
             </div>
 
-            <!-- Avança para o próximo nível após a vitória -->
+            <!-- BOTAO PARA AVANÇAR DE NÍVEL -->
             <button type="button" id="btn-proximo-nivel" class="btn-proximo-nivel" onclick="window.location.href='tabuleiro.html?proximoNivel=true'">Próximo nível -&gt;</button>
         </section>
 
@@ -69,6 +62,14 @@
         <!-- ================================================= -->
         <section id="derrota" class="quadro">
             <div class="resultado">
+                <div class="selo-acertos">
+                    <img src="../assets/img/selo.png" alt="Taxa de acertos" class="imagem-selo">
+                    <span class="porcentagem-acerto">
+                        <p>Taxa de acerto</p>
+                        <p id="porcentagem-derrota">0%</p>
+                    </span>
+                </div>
+
                 <!-- PONTUAÇÃO -->
                 <div class="linha-dado pontuacao">
                     <span class="etiqueta"> Pontuação: </span>
@@ -97,25 +98,10 @@
                 <div class="linha-tracejada-centro"></div>
                 <img class="img-perder" src="../assets/img/monstrinho.png" alt="Monstrinho">
                 
-                <button type="button" id="btn-tentar-novamente" class="btn-ok-resultado" onclick="localStorage.clear(); window.location.href='home.html?abrirModal=true'"> OK </button> 
             </div>
-        </section>
 
-        <!-- ================================================= -->
-        <!-- QUADRO DE PAUSA                                   -->
-        <!-- ================================================= -->
-        <section id="pause" class="quadro">
-            <div class="opcoes">
-                <a href="tabuleiro.html?retomar=true"> 
-                    <img src="../assets/img/pausa.png" alt="pause">
-                    <p>Continuar</p>
-                </a>
-                <a href="home.html?abrirModal=true">
-                    <img src="../assets/img/saida.png" alt="sair">
-                    <p class="cor-vermelha">Sair</p>
-                </a>
-                <img src="../assets/img/monstrinho_pause.png" class="img-pausa" alt="monstrinho na pausa">
-            </div>
+            <button type="button" id="btn-tentar-novamente" class="btn-tentar-novamente" onclick="localStorage.clear(); window.location.href='home.html?abrirModal=true'"> Tentar novamente </button> 
+            
         </section>
     </main>
 
