@@ -8,7 +8,6 @@ let jogoAtivo = false;
 
 /* -------------------------- Inicialização do Jogo -------------------------- */
 window.addEventListener('DOMContentLoaded', () => {
-    // 1. Atualiza o texto do modo no topo
     const modoJogo = localStorage.getItem('modoJogo') || sessionStorage.getItem('modo') || 'classico';
     const indicadorModo = document.querySelector('.modo');
     if (indicadorModo) {
@@ -18,7 +17,6 @@ window.addEventListener('DOMContentLoaded', () => {
     const elementoTempo = document.getElementById('time');
     if (!elementoTempo) return;
 
-    // 2. Verifica se deve retomar a partida salva
     const urlParams = new URLSearchParams(window.location.search);
     const deveRetomar = urlParams.get('retomar');
     const tempoSalvo = localStorage.getItem('tempoRestante');
@@ -30,7 +28,7 @@ window.addEventListener('DOMContentLoaded', () => {
         localStorage.removeItem('tempoRestante');
     }
 
-    // 3. Inicia o relógio
+    // Inicia o relógio
     iniciarTemporizador();
 });
 

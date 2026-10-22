@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (containerDerrota) containerDerrota.style.display = 'none';
         carregarEstatisticasVitoria();
     } else {
-        // Padrão ou #derrota
+        // Padrão ou derrota
         if (containerVitoria) containerVitoria.style.display = 'none';
         if (containerDerrota) containerDerrota.style.display = 'flex';
         carregarEstatisticasDerrota();
@@ -50,14 +50,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* -------------------------- Ações dos Botões -------------------------- */
 
-    // 1. Avançar para o próximo nível (Vitória)
+    // Avançar para o próximo nível (Vitória)
     if (btnProximoNivel) {
         btnProximoNivel.addEventListener('click', () => {
             window.location.href = 'tabuleiro.html?proximoNivel=true';
         });
     }
 
-    // 2. Reiniciar o jogo (Derrota)
+    // Reiniciar o jogo (Derrota)
     if (btnTentarNovamente) {
         btnTentarNovamente.addEventListener('click', () => {
             localStorage.removeItem('tempoRestante');
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. Voltar ao Menu Principal (Presente em ambos os modais)
+    // Voltar ao Menu Principal (Presente em ambos os modais)
     botoesMenuPrincipal.forEach((btn) => {
         btn.addEventListener('click', () => {
             localStorage.removeItem('tempoRestante');

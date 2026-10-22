@@ -69,10 +69,10 @@ function atualizarPainel() {
     const taxaNivel = calcularTaxaAcertoNivel();
     const taxaTotal = calcularTaxaAcertoTotal();
 
-    // 1. Topo da tela: Exibe apenas a pontuação do nível atual
+    // Topo da tela: Exibe apenas a pontuação do nível atual
     definirTexto('pontos-nivel', placar.pontosNivel);
 
-    // 2. Estatísticas do jogo
+    // Estatísticas do jogo
     definirTexto('nivel-atual', placar.nivel);
     definirTexto('pontos-total', placar.pontosTotal);
     definirTexto('acertos-nivel', placar.acertosNivel);

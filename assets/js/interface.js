@@ -48,19 +48,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const modoSelecionado = document.querySelector('#gameMode .selecionado');
             const modoJogo = (modoSelecionado && modoSelecionado.id === 'explosivo') ? 'explosivo' : 'classico';
 
-            // 1. Salva no localStorage (para script.js e placar.js)
+            // Salva no localStorage (para script.js e placar.js)
             localStorage.setItem('dimensaoTabuleiro', dimensaoTabuleiro);
             localStorage.setItem('modoJogo', modoJogo);
 
-            // 2. Salva no sessionStorage (para tabuleiro.js)
+            // Salva no sessionStorage (para tabuleiro.js)
             sessionStorage.setItem('tamanho', tamanhoUnico);
             sessionStorage.setItem('modo', modoJogo);
 
-            // 3. Limpa partidas anteriores salvas para iniciar um jogo do zero
+            // Limpa partidas anteriores salvas para iniciar um jogo do zero
             localStorage.removeItem('tempoRestante');
             localStorage.removeItem('placarAtual');
 
-            // 4. Redireciona para o tabuleiro
+            // Redireciona para o tabuleiro
             window.location.href = 'tabuleiro.html';
         });
     }
