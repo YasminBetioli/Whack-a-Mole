@@ -210,3 +210,8 @@ window.addEventListener('DOMContentLoaded', () => {
     atualizarPainel();
     atualizarModalVitoria();
 });
+
+function metaDoNivel(nivel) {
+    return REGRAS_PLACAR.porcentagemMinimaNivel || 70;
+}
+

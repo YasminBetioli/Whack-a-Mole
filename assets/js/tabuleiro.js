@@ -41,8 +41,14 @@ function limitarLado(valor) {
 
 function lerConfiguracaoSalva() {
   try {
-    var modo = sessionStorage.getItem("modo") || localStorage.getItem("modo");
-    var tamanho = sessionStorage.getItem("tamanho") || localStorage.getItem("tamanho");
+    // Aceita tanto 'modo' quanto 'modoJogo'
+    var modo = sessionStorage.getItem("modo") || localStorage.getItem("modo") ||
+               sessionStorage.getItem("modoJogo") || localStorage.getItem("modoJogo");
+               
+    // Aceita tanto 'tamanho' quanto 'tamanhoTabuleiro'
+    var tamanho = sessionStorage.getItem("tamanho") || localStorage.getItem("tamanho") ||
+                  sessionStorage.getItem("tamanhoTabuleiro") || localStorage.getItem("tamanhoTabuleiro");
+
     if (modo === "classico" || modo === "explosivo") {
       configTabuleiro.modo = modo;
     }
@@ -50,7 +56,7 @@ function lerConfiguracaoSalva() {
       configTabuleiro.lado = limitarLado(tamanho);
     }
   } catch (erro) {
-    
+    console.warn("Erro ao ler configurações:", erro);
   }
 }
 
