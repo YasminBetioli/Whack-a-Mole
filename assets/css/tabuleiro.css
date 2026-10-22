@@ -35,7 +35,7 @@ body.cursor-bomba {
     display: flex; 
     flex-direction: column; 
     gap: 20px; 
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 
@@ -99,11 +99,9 @@ body.cursor-bomba {
     height: 480px;
     box-sizing: border-box;
     margin: 0 auto;
-
     grid-template-columns: repeat(var(--colunas, 3), 1fr);
     grid-template-rows: repeat(var(--colunas, 3), 1fr);
     gap: var(--espaco, 10px);
-
     place-items: center;
     place-content: center;
 }

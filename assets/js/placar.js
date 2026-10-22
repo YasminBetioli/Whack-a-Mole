@@ -2,7 +2,7 @@
 
 /* -------------------------- Configurações do Placar -------------------------- */
 const REGRAS_PLACAR = {
-    porcentagemMinimaNivel: 75, // 75% de acertos necessários para avançar de nível
+    porcentagemMinimaNivel: 70, // 70% de acertos necessários para avançar de nível
     pontosPorAcerto: 10,        // Pontos ganhos por toupeira
     penalidadeBomba: 15         // Pontos perdidos por bomba (Modo Explosivo)
 };
