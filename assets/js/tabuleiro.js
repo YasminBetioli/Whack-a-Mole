@@ -6,27 +6,27 @@ var CAMINHO_IMG = "../assets/img/";
 
 var IMG_XICARA = CAMINHO_IMG + "xicaraBrancaUnitaria.png";
 var IMG_BOMBA = CAMINHO_IMG + "bomba.png";
-var IMG_EXPLOSAO = CAMINHO_IMG + "bomba_acertada.png"; // Sprite exibido ao clicar na bomba
+var IMG_EXPLOSAO = CAMINHO_IMG + "bomba_acertada.png";
 var CORES_ANOMALIA = ["Azul", "Laranja", "Verde"];
 
 var configTabuleiro = {
-  lado: 3, // tabuleiro lado x lado (2 a 8 => 4 a 64 buracos)
-  modo: "classico", // 'classico' ou 'explosivo'
-  tempoExposicao: 1200, // ms que a anomalia fica visível
-  intervaloAparicao: 700, // ms entre tentativas de aparição
-  chanceBomba: 0.3, // só vale no modo explosivo
-  maxSimultaneas: 1, // calculado em alterarTamanhoTabuleiro()
-  ativo: false, // true enquanto as anomalias estão aparecendo
+  lado: 3,
+  modo: "classico",
+  tempoExposicao: 1200,
+  intervaloAparicao: 700,
+  chanceBomba: 0.3,
+  maxSimultaneas: 1,
+  ativo: false,
 };
 
 var LADO_MIN = 2;
 var LADO_MAX = 8;
-var TEMPO_FEEDBACK = 300; // ms que a anomalia/explosão fica na tela ao ser clicada
+var TEMPO_FEEDBACK = 300;
 
-/* Estado interno (não mexer de fora) */
+/* Estado interno */
 var elTabuleiro = null;
-var buracos = []; // elementos .buraco, na ordem
-var anomaliasAtivas = new Map(); // indice -> { tipo, cor, timeoutId, acertada }
+var buracos = [];
+var anomaliasAtivas = new Map();
 var timeoutAparicao = null;
 
 /* ------------------------------ Utilitários ------------------------------- */
@@ -41,11 +41,9 @@ function limitarLado(valor) {
 
 function lerConfiguracaoSalva() {
   try {
-    // Aceita tanto 'modo' quanto 'modoJogo'
     var modo = sessionStorage.getItem("modo") || localStorage.getItem("modo") ||
                sessionStorage.getItem("modoJogo") || localStorage.getItem("modoJogo");
                
-    // Aceita tanto 'tamanho' quanto 'tamanhoTabuleiro'
     var tamanho = sessionStorage.getItem("tamanho") || localStorage.getItem("tamanho") ||
                   sessionStorage.getItem("tamanhoTabuleiro") || localStorage.getItem("tamanhoTabuleiro");
 
@@ -62,10 +60,10 @@ function lerConfiguracaoSalva() {
 
 /* ------------------------------ Tabuleiro --------------------------------- */
 
-/* Gera lado x lado buracos dentro de .tabuleiro. */
 function criarTabuleiro(lado) {
   elTabuleiro = document.querySelector(".tabuleiro");
   if (!elTabuleiro) {
+    console.error("Elemento .tabuleiro não encontrado no HTML!");
     return;
   }
 
@@ -111,11 +109,9 @@ function alterarTamanhoTabuleiro(lado, jaCriado) {
   configTabuleiro.lado = novoLado;
   if (elTabuleiro) {
     elTabuleiro.style.setProperty("--colunas", novoLado);
-    /* tabuleiros grandes precisam de menos espaço entre os buracos */
     elTabuleiro.style.setProperty("--espaco", novoLado >= 6 ? "6px" : "15px");
   }
 
-  /* mais buracos => mais anomalias ao mesmo tempo (3x3 = 1, 8x8 = 7) */
   configTabuleiro.maxSimultaneas = Math.max(
     1,
     Math.floor((novoLado * novoLado) / 9),
@@ -123,32 +119,26 @@ function alterarTamanhoTabuleiro(lado, jaCriado) {
 }
 
 function sairDoJogo() {
-    // 1. Interrompe o loop de aparições de anomalias
-    pararAparicoes();
+  pararAparicoes();
 
-    // 2. Salva o tempo restante no localStorage (se a variável existir)
-    if (typeof tempoRestante !== 'undefined') {
-        localStorage.setItem('tempoRestante', tempoRestante);
-    }
+  if (typeof tempoRestante !== 'undefined') {
+    localStorage.setItem('tempoRestante', tempoRestante);
+  }
 
-    // 3. Salva o placar atual (se a variável existir)
-    if (typeof placar !== 'undefined') {
-        localStorage.setItem('placarAtual', JSON.stringify(placar));
-    }
+  if (typeof placar !== 'undefined') {
+    localStorage.setItem('placarAtual', JSON.stringify(placar));
+  }
 
-    // 4. Limpa o intervalo do temporizador principal
-    if (typeof intervalo !== 'undefined' && intervalo) {
-        clearInterval(intervalo);
-        intervalo = null;
-    }
+  if (typeof intervalo !== 'undefined' && intervalo) {
+    clearInterval(intervalo);
+    intervalo = null;
+  }
 
-    // 5. Redireciona para a home
-    window.location.href = 'home.html?abrirModal=true';
+  window.location.href = 'home.html?abrirModal=true';
 }
 
 /* --------------------------- Aparição das anomalias ----------------------- */
 
-/* Sorteia um buraco que NÃO esteja com anomalia. Retorna o índice, ou -1. */
 function sortearPosicao() {
   var livres = [];
   for (var i = 0; i < buracos.length; i++) {
@@ -162,7 +152,6 @@ function sortearPosicao() {
   return livres[Math.floor(Math.random() * livres.length)];
 }
 
-/* Mostra uma toupeira (ou bomba, no modo explosivo) no buraco indicado. */
 function mostrarAnomalia(indice) {
   if (indice < 0 || indice >= buracos.length || anomaliasAtivas.has(indice)) {
     return;
@@ -184,7 +173,6 @@ function mostrarAnomalia(indice) {
     img.src = CAMINHO_IMG + "anomalia" + cor + "_normal.png";
     img.alt = "Anomalia " + cor.toLowerCase();
 
-    /* Registra a aparição da toupeira para permitir o cálculo correto da % de acertos */
     if (typeof registrarAparicaoToupeira === "function") {
       registrarAparicaoToupeira();
     }
@@ -204,21 +192,10 @@ function mostrarAnomalia(indice) {
   });
 }
 
-/* A anomalia sumiu sozinha (ninguém clicou). Toupeira que escapou conta como
-   perdida na % de acertos; bomba que some não penaliza nem conta. */
 function aoExpirarAnomalia(indice) {
-  var anomalia = anomaliasAtivas.get(indice);
-  if (
-    anomalia &&
-    anomalia.tipo === "toupeira" &&
-    typeof contabilizarResultado === "function"
-  ) {
-    contabilizarResultado("perdida");
-  }
   esconderAnomalia(indice);
 }
 
-/* Remove a anomalia do buraco e devolve a xícara vazia. */
 function esconderAnomalia(indice) {
   var anomalia = anomaliasAtivas.get(indice);
   if (anomalia) {
@@ -230,6 +207,8 @@ function esconderAnomalia(indice) {
   if (!buraco) {
     return;
   }
+
+  buraco.style.pointerEvents = "auto";
   var img = buraco.querySelector("img");
   img.src = IMG_XICARA;
   img.alt = "Xícara";
@@ -240,7 +219,6 @@ function esconderTodasAnomalias() {
   Array.from(anomaliasAtivas.keys()).forEach(esconderAnomalia);
 }
 
-/* Liga a sequência de aparições. Pode ser chamada de novo após pausa. */
 function iniciarAparicoes() {
   if (configTabuleiro.ativo || buracos.length === 0) {
     return;
@@ -277,6 +255,7 @@ function atualizarVelocidade(tempoExposicaoMs) {
 }
 
 /* ------------------------------ Cliques ----------------------------------- */
+
 function verificarClique(evento) {
   if (!configTabuleiro.ativo) {
     return;
@@ -289,9 +268,11 @@ function verificarClique(evento) {
   var indice = parseInt(buraco.dataset.indice, 10);
   var anomalia = anomaliasAtivas.get(indice);
   if (!anomalia || anomalia.acertada) {
-    return; // clicou em xícara vazia ou repetiu o clique
+    return;
   }
+
   anomalia.acertada = true;
+  buraco.style.pointerEvents = "none";
   clearTimeout(anomalia.timeoutId);
 
   var info = { indice: indice, tipo: anomalia.tipo, cor: anomalia.cor };
@@ -300,39 +281,26 @@ function verificarClique(evento) {
     buraco.querySelector("img").src =
       CAMINHO_IMG + "anomalia" + anomalia.cor + "_acertada.png";
 
-    if (typeof contabilizarResultado === "function") {
-      contabilizarResultado("acerto");
-    }
     if (typeof registrarAcerto === "function") {
       registrarAcerto(info);
-    } else if (typeof placar !== "undefined" && typeof placar.registrarAcerto === "function") {
-      placar.registrarAcerto(info);
     }
   } else {
-    /* 1. Troca o sprite para a imagem da explosão */
     buraco.querySelector("img").src = IMG_EXPLOSAO;
     buraco.querySelector("img").alt = "Explosão";
 
-    /* 2. Executa a contabilização e penalidade no placar */
-    if (typeof contabilizarResultado === "function") {
-      contabilizarResultado("bomba");
-    }
     if (typeof registrarBomba === "function") {
       registrarBomba(info);
-    } else if (typeof placar !== "undefined" && typeof placar.registrarBomba === "function") {
-      placar.registrarBomba(info);
-    } else if (typeof placar !== "undefined" && typeof placar.removerPontos === "function") {
-      placar.removerPontos(10);
     }
   }
 
-  /* Mantém a imagem de acerto/explosão visível durante o tempo de feedback */
   anomalia.timeoutId = setTimeout(function () {
     esconderAnomalia(indice);
   }, TEMPO_FEEDBACK);
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+/* ------------------------------ Inicialização Segura --------------------- */
+
+function inicializarJogo() {
   lerConfiguracaoSalva();
   criarTabuleiro(configTabuleiro.lado);
 
@@ -341,4 +309,11 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   iniciarAparicoes();
-});
+}
+
+// Garante que renderiza imediatamente, mesmo se o DOM já tiver sido carregado
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", inicializarJogo);
+} else {
+  inicializarJogo();
+}

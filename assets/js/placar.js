@@ -199,7 +199,6 @@ function atualizarModalVitoria() {
 
     definirTexto('porcentagem-vitoria', textoTaxa);
     definirTexto('porcentagem-derrota', textoTaxa);
-    definirTexto('taxa-acerto-modal', textoTaxa);
 }
 
 /* -------------------------- Inicialização -------------------------- */

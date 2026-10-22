@@ -3,11 +3,11 @@
 /* -------------------------- Configuração de Dificuldade por Nível -------------------------- */
 const CONFIG_DIFICULDADE = {
     tempoExposicaoBase: 1600,   // Duração inicial da anomalia no Nível 1 (ms)
-    reducaoPorNivel: 80,      // Tempo subtraído a cada nível ganho (ms)
-    tempoExposicaoMinimo: 450  // Limite mínimo para o jogo permanecer jogável (ms)
+    reducaoPorNivel: 80,        // Tempo subtraído a cada nível ganho (ms)
+    tempoExposicaoMinimo: 450   // Limite mínimo para o jogo permanecer jogável (ms)
 };
 
-/* -------------------------- Lógica de Progressão e Dificuldade -------------------------- */
+/* -------------------------- Lógica de Dificuldade -------------------------- */
 
 /**
  * Calcula e aplica os tempos de exposição e intervalo de aparição no tabuleiro
@@ -25,30 +25,6 @@ function aplicarDificuldadeDoNivel() {
     // Aplica a nova velocidade na mecânica do tabuleiro.js
     if (typeof atualizarVelocidade === 'function') {
         atualizarVelocidade(tempoExposicao);
-    }
-}
-
-/**
- * Checa se a pontuação atual do nível atingiu ou superou a meta definida.
- * @returns {boolean}
- */
-function verificarMetaConcluida() {
-    if (typeof placar === 'undefined' || typeof metaDoNivel !== 'function') {
-        return false;
-    }
-
-    const meta = metaDoNivel(placar.nivel);
-    return placar.pontosNivel >= meta;
-}
-
-/**
- * Avalia se o jogador pode avançar e dispara a transição de vitória.
- */
-function verificarProgressao() {
-    if (verificarMetaConcluida()) {
-        if (typeof finalizarPartida === 'function') {
-            finalizarPartida('vitoria');
-        }
     }
 }
 

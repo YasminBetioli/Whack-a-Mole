@@ -46,9 +46,6 @@ body {
   background-color: #777;
 }
 
-/* ================================================= */
-/* MODAIS E QUADROS                                  */
-/* ================================================= */
 
 .quadro {
   display: none;
@@ -73,7 +70,6 @@ body {
   gap: 20px;
 }
 
-/* ESTILO PADRÃO DOS BOTÕES DE AÇÃO DOS MODAIS (Vitória e Derrota) */
 .btn-proximo-nivel,
 .btn-tentar-novamente,
 #btn-tentar-novamente {
@@ -88,8 +84,8 @@ body {
   text-decoration: none;
   display: inline-block;
   transition: all 0.2s ease-in-out;
-  max-width: 280px;              /* Trava a largura para não ficar muito comprido */
-  width: 100%;                   /* Permite que ele se ajuste até o limite da max-width */
+  max-width: 280px;              
+  width: 100%;                   
   margin-top: 10px;
 }
 
@@ -102,9 +98,7 @@ body {
     transform: scale(1.02);
 }
 
-
-/* PRANCHETA / QUADRO DE FUNDO DERROTA E VITÓRIA */
-
+/*fundo de vitória e derrota*/
 .resultado {
   position: relative;
   width: 660px;
@@ -177,19 +171,11 @@ body {
   margin-top: 15px;
 }
 
-/* ================================================= */
-/* LINHA DO DESEMPENHO                               */
-/* ================================================= */
-
 .linha-tracejada-centro {
   width: 63%;
   border-bottom: 2px dashed #1a2f33;
   margin: 5px auto 0 auto;
 }
-
-/* ================================================= */
-/* CORES                                             */
-/* ================================================= */
 
 .cor-verde {
   color: #2e8b57;
@@ -207,10 +193,7 @@ body {
   color: #dc143c;
 }
 
-/* ================================================= */
-/* MENSAGEM DA DERROTA                               */
-/* ================================================= */
-
+/*derrota*/
 .mensagem-derrota {
   margin-top: 10px;
   font-family: Arial, sans-serif;
@@ -227,10 +210,7 @@ body {
   z-index: 10;
 }
 
-/* ================================================= */
-/* SELO DE TAXA DE ACERTOS                           */
-/* ================================================= */
-
+/*selo com a taxa de acertos*/
 .selo-acertos {
   position: absolute;
   top: 60px;
@@ -239,8 +219,6 @@ body {
   height: 145px;
   z-index: 10;
 }
-
-/* Imagem do selo */
 
 .imagem-selo {
   width: 120%;
@@ -281,48 +259,3 @@ body {
   line-height: 34px;
 }
 
-/* ================================================= */
-/* PAUSA E OPÇÕES                                    */
-/* ================================================= */
-
-.opcoes {
-  position: relative;
-  width: 800px;
-  height: 400px;
-  background-image: url("../img/Fundo-Pausa.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  padding: 30px;
-  color: #000;
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  margin: 100px;
-}
-
-.opcoes a {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  color: #333;
-}
-
-.opcoes p {
-  margin: 0;
-  font-size: 95px;
-}
-
-.opcoes a img {
-  width: 45px;
-  height: auto;
-}
-
-.img-pausa {
-  position: absolute;
-  width: 150px;
-  height: auto;
-  right: -70px;
-  bottom: -40px;
-}
