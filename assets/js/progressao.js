@@ -2,9 +2,9 @@
 
 /* -------------------------- Configuração de Dificuldade por Nível -------------------------- */
 const CONFIG_DIFICULDADE = {
-    tempoExposicaoBase: 1200,   // Duração inicial da anomalia no Nível 1 (ms)
-    reducaoPorNivel: 120,      // Tempo subtraído a cada nível ganho (ms)
-    tempoExposicaoMinimo: 350  // Limite mínimo para o jogo permanecer jogável (ms)
+    tempoExposicaoBase: 1600,   // Duração inicial da anomalia no Nível 1 (ms)
+    reducaoPorNivel: 80,      // Tempo subtraído a cada nível ganho (ms)
+    tempoExposicaoMinimo: 450  // Limite mínimo para o jogo permanecer jogável (ms)
 };
 
 /* -------------------------- Lógica de Progressão e Dificuldade -------------------------- */
