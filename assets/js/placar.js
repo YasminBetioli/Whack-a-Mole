@@ -69,9 +69,8 @@ function atualizarPainel() {
     const taxaNivel = calcularTaxaAcertoNivel();
     const taxaTotal = calcularTaxaAcertoTotal();
 
-    // 1. Topo da tela: Exibe apenas os pontos atuais (ex: 40 / 100)
+    // 1. Topo da tela: Exibe apenas a pontuação do nível atual
     definirTexto('pontos-nivel', placar.pontosNivel);
-    definirTexto('meta-nivel', 100); 
 
     // 2. Estatísticas do jogo
     definirTexto('nivel-atual', placar.nivel);
@@ -79,10 +78,16 @@ function atualizarPainel() {
     definirTexto('acertos-nivel', placar.acertosNivel);
     definirTexto('acertos-total', placar.acertosTotal);
     
-    // 3. Porcentagens calculadas nos bastidores (exibidas só na prancheta de final de fase)
+    // 3. Taxa de acerto (exibida no canto do tabuleiro e nos modais)
     definirTexto('taxa-acerto-nivel', taxaNivel + '%');
     definirTexto('porcentagem-vitoria', taxaTotal + '%');
     definirTexto('porcentagem-derrota', taxaTotal + '%');
+
+    // 4. Cor dinâmica da taxa: Verde se estiver atingindo a meta (>=70%), Vermelho se estiver abaixo
+    const elTaxa = document.getElementById('taxa-acerto-nivel');
+    if (elTaxa) {
+        elTaxa.style.color = taxaNivel >= 70 ? '#53f2b8' : '#ff6b6b';
+    }
 }
 
 /* -------------------------- Registros de Eventos -------------------------- */

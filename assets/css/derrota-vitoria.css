@@ -130,6 +130,10 @@ body {
   margin-left: 20px;
 }
 
+.linha-dado.pontuacao {
+  padding-right: 180px; 
+}
+
 .etiqueta {
   white-space: nowrap;
   margin-right: 15px;
