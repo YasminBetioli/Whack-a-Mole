@@ -2,8 +2,8 @@
 
 /* -------------------------- Configurações do Placar -------------------------- */
 const REGRAS_PLACAR = {
-    pontosPorAcerto: 10,
-    penalidadeBomba: 15,
+    pontosPorAcerto: 10,   // Pontos ganhos por anomalia
+    penalidadeBomba: 15,   // Pontos perdidos por bomba
     metasPorNivel: [100, 100, 200, 300, 500, 1000]
 };
 
@@ -34,12 +34,10 @@ function definirTexto(id, valor) {
     }
 }
 
+/* Calcula os pontos: soma os acertos e subtrai as bombas */
 function atualizarPontuacao() {
-    // Garante que a pontuação do nível não fique menor que zero (opcional, adicione Math.max se quiser barrar negativos)
-    placar.pontosNivel = Math.max(0, 
-        (placar.acertosNivel * REGRAS_PLACAR.pontosPorAcerto) -
-        (placar.bombasNivel * REGRAS_PLACAR.penalidadeBomba)
-    );
+    placar.pontosNivel = (placar.acertosNivel * REGRAS_PLACAR.pontosPorAcerto) -
+                        (placar.bombasNivel * REGRAS_PLACAR.penalidadeBomba);
 }
 
 function atualizarEstatisticas() {
@@ -57,6 +55,8 @@ function atualizarPainel() {
 }
 
 /* -------------------------- Registros de Eventos -------------------------- */
+
+/* Chamado ao clicar na ANOMALIA (+10 pontos) */
 function registrarAcerto(info) {
     placar.acertosNivel++;
     atualizarPontuacao();
@@ -67,10 +67,8 @@ function registrarAcerto(info) {
     document.body.classList.add('cursor-anomalia');
     setTimeout(() => document.body.classList.remove('cursor-anomalia'), 250);
 
-    // Salva o estado atualizado para permitir salvamento no Sair
     localStorage.setItem('placarAtual', JSON.stringify(placar));
 
-    // Retorna true se bateu ou ultrapassou a meta do nível
     const bateuMeta = placar.pontosNivel >= metaDoNivel(placar.nivel);
     if (bateuMeta && typeof finalizarPartida === 'function') {
         finalizarPartida('vitoria');
@@ -79,6 +77,7 @@ function registrarAcerto(info) {
     return bateuMeta;
 }
 
+/* Chamado ao clicar na BOMBA (-15 pontos) */
 function registrarBomba(info) {
     placar.bombasNivel++;
     atualizarPontuacao();
@@ -89,7 +88,6 @@ function registrarBomba(info) {
     document.body.classList.add('cursor-bomba');
     setTimeout(() => document.body.classList.remove('cursor-bomba'), 250);
 
-    // Salva o estado atualizado
     localStorage.setItem('placarAtual', JSON.stringify(placar));
 }
 
@@ -110,7 +108,6 @@ function avancarNivel() {
 function restaurarEstadoPlacar() {
     const parametros = new URLSearchParams(window.location.search);
     
-    // 1. Caso esteja avançando para o próximo nível vindo da tela de Vitória
     if (parametros.get('proximoNivel') === 'true') {
         const placarSalvo = localStorage.getItem('placarParaAvancar');
         if (placarSalvo) {
@@ -122,14 +119,12 @@ function restaurarEstadoPlacar() {
         return;
     }
 
-    // 2. Caso esteja retomando uma partida onde clicou em "Sair"
     if (parametros.get('retomar') === 'true') {
         const placarSalvo = localStorage.getItem('placarAtual');
         if (placarSalvo) {
             Object.assign(placar, JSON.parse(placarSalvo));
         }
     } else {
-        // Partida completamente nova: limpa dados antigos de salvamento
         localStorage.removeItem('placarAtual');
     }
 }
@@ -146,6 +141,8 @@ function atualizarModalVitoria() {
 /* -------------------------- Inicialização -------------------------- */
 window.addEventListener('DOMContentLoaded', () => {
     restaurarEstadoPlacar();
+    atualizarPontuacao();
+    atualizarEstatisticas();
     atualizarPainel();
     atualizarModalVitoria();
 });

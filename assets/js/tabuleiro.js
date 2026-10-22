@@ -1,13 +1,12 @@
-
-
 "use strict";
 
 /* ------------------------------ Configuração ------------------------------ */
 
-var CAMINHO_IMG = "/assets/img/";
+var CAMINHO_IMG = "../assets/img/";
 
 var IMG_XICARA = CAMINHO_IMG + "xicaraBrancaUnitaria.png";
 var IMG_BOMBA = CAMINHO_IMG + "bomba.png";
+var IMG_EXPLOSAO = CAMINHO_IMG + "bomba_acertada.png"; // Sprite exibido ao clicar na bomba
 var CORES_ANOMALIA = ["Azul", "Laranja", "Verde"];
 
 var configTabuleiro = {
@@ -22,7 +21,7 @@ var configTabuleiro = {
 
 var LADO_MIN = 2;
 var LADO_MAX = 8;
-var TEMPO_FEEDBACK = 250; // ms que a anomalia acertada fica na tela
+var TEMPO_FEEDBACK = 300; // ms que a anomalia/explosão fica na tela ao ser clicada
 
 /* Estado interno (não mexer de fora) */
 var elTabuleiro = null;
@@ -40,11 +39,10 @@ function limitarLado(valor) {
   return Math.min(LADO_MAX, Math.max(LADO_MIN, n));
 }
 
-
 function lerConfiguracaoSalva() {
   try {
-    var modo = sessionStorage.getItem("modo");
-    var tamanho = sessionStorage.getItem("tamanho");
+    var modo = sessionStorage.getItem("modo") || localStorage.getItem("modo");
+    var tamanho = sessionStorage.getItem("tamanho") || localStorage.getItem("tamanho");
     if (modo === "classico" || modo === "explosivo") {
       configTabuleiro.modo = modo;
     }
@@ -92,7 +90,6 @@ function criarTabuleiro(lado) {
   alterarTamanhoTabuleiro(configTabuleiro.lado, true);
 }
 
-
 function alterarTamanhoTabuleiro(lado, jaCriado) {
   var novoLado = limitarLado(lado);
 
@@ -118,7 +115,6 @@ function alterarTamanhoTabuleiro(lado, jaCriado) {
     Math.floor((novoLado * novoLado) / 9),
   );
 }
-
 
 function sairDoJogo() {
     // 1. Interrompe o loop de aparições de anomalias
@@ -254,7 +250,6 @@ function agendarProximaAparicao() {
   }, configTabuleiro.intervaloAparicao);
 }
 
-
 function pararAparicoes() {
   configTabuleiro.ativo = false;
   clearTimeout(timeoutAparicao);
@@ -293,36 +288,46 @@ function verificarClique(evento) {
   if (anomalia.tipo === "toupeira") {
     buraco.querySelector("img").src =
       CAMINHO_IMG + "anomalia" + anomalia.cor + "_acertada.png";
+
     if (typeof contabilizarResultado === "function") {
       contabilizarResultado("acerto");
     }
-    /* contabiliza o acerto, se já estiver pronta */
     if (typeof registrarAcerto === "function") {
       registrarAcerto(info);
+    } else if (typeof placar !== "undefined" && typeof placar.registrarAcerto === "function") {
+      placar.registrarAcerto(info);
     }
   } else {
+    /* 1. Troca o sprite para a imagem da explosão */
+    buraco.querySelector("img").src = IMG_EXPLOSAO;
+    buraco.querySelector("img").alt = "Explosão";
+
+    /* 2. Executa a contabilização e penalidade no placar */
     if (typeof contabilizarResultado === "function") {
       contabilizarResultado("bomba");
     }
-    /* aplica a penalidade, se já estiver pronta */
     if (typeof registrarBomba === "function") {
       registrarBomba(info);
+    } else if (typeof placar !== "undefined" && typeof placar.registrarBomba === "function") {
+      placar.registrarBomba(info);
+    } else if (typeof placar !== "undefined" && typeof placar.removerPontos === "function") {
+      placar.removerPontos(10);
     }
   }
 
-
+  /* Mantém a imagem de acerto/explosão visível durante o tempo de feedback */
   anomalia.timeoutId = setTimeout(function () {
     esconderAnomalia(indice);
   }, TEMPO_FEEDBACK);
 }
 
-
 document.addEventListener("DOMContentLoaded", function () {
   lerConfiguracaoSalva();
   criarTabuleiro(configTabuleiro.lado);
 
-  elTabuleiro.addEventListener("click", verificarClique);
-
+  if (elTabuleiro) {
+    elTabuleiro.addEventListener("click", verificarClique);
+  }
 
   iniciarAparicoes();
 });
