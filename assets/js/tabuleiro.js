@@ -121,24 +121,26 @@ function alterarTamanhoTabuleiro(lado, jaCriado) {
 
 
 function sairDoJogo() {
-    // 1. Salva o tempo restante no localStorage
-    localStorage.setItem('tempoRestante', tempoRestante);
+    // 1. Interrompe o loop de aparições de anomalias
+    pararAparicoes();
 
-    // 2. Se houver placar/pontuação para salvar, guarda também
+    // 2. Salva o tempo restante no localStorage (se a variável existir)
+    if (typeof tempoRestante !== 'undefined') {
+        localStorage.setItem('tempoRestante', tempoRestante);
+    }
+
+    // 3. Salva o placar atual (se a variável existir)
     if (typeof placar !== 'undefined') {
         localStorage.setItem('placarAtual', JSON.stringify(placar));
     }
 
-    // 3. Limpa os contadores em execução para evitar travamentos
-    if (intervalo) {
+    // 4. Limpa o intervalo do temporizador principal
+    if (typeof intervalo !== 'undefined' && intervalo) {
         clearInterval(intervalo);
         intervalo = null;
     }
-    if (typeof temporizadorAnomalia !== 'undefined' && temporizadorAnomalia) {
-        clearTimeout(temporizadorAnomalia);
-    }
 
-    // 4. Redireciona na hora para a home abrindo o modal de seleção
+    // 5. Redireciona para a home
     window.location.href = 'home.html?abrirModal=true';
 }
 

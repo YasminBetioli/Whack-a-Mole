@@ -1,4 +1,6 @@
+"use strict";
 
+/* -------------------------- Configurações do Placar -------------------------- */
 const REGRAS_PLACAR = {
     pontosPorAcerto: 10,
     penalidadeBomba: 15,
@@ -19,6 +21,7 @@ const placar = {
     pontosTotal: 0
 };
 
+/* -------------------------- Funções Auxiliares -------------------------- */
 function metaDoNivel(nivel) {
     const metas = REGRAS_PLACAR.metasPorNivel;
     return metas[Math.min(nivel, metas.length) - 1];
@@ -32,9 +35,11 @@ function definirTexto(id, valor) {
 }
 
 function atualizarPontuacao() {
-    placar.pontosNivel =
-        placar.acertosNivel * REGRAS_PLACAR.pontosPorAcerto -
-        placar.bombasNivel * REGRAS_PLACAR.penalidadeBomba;
+    // Garante que a pontuação do nível não fique menor que zero (opcional, adicione Math.max se quiser barrar negativos)
+    placar.pontosNivel = Math.max(0, 
+        (placar.acertosNivel * REGRAS_PLACAR.pontosPorAcerto) -
+        (placar.bombasNivel * REGRAS_PLACAR.penalidadeBomba)
+    );
 }
 
 function atualizarEstatisticas() {
@@ -51,66 +56,44 @@ function atualizarPainel() {
     definirTexto('pontos-total', placar.pontosTotal);
 }
 
-function registrarAcerto() {
+/* -------------------------- Registros de Eventos -------------------------- */
+function registrarAcerto(info) {
     placar.acertosNivel++;
     atualizarPontuacao();
     atualizarEstatisticas();
     atualizarPainel();
-    return placar.pontosNivel >= metaDoNivel(placar.nivel);
+
+    // Efeito visual no cursor
+    document.body.classList.add('cursor-anomalia');
+    setTimeout(() => document.body.classList.remove('cursor-anomalia'), 250);
+
+    // Salva o estado atualizado para permitir salvamento no Sair
+    localStorage.setItem('placarAtual', JSON.stringify(placar));
+
+    // Retorna true se bateu ou ultrapassou a meta do nível
+    const bateuMeta = placar.pontosNivel >= metaDoNivel(placar.nivel);
+    if (bateuMeta && typeof finalizarPartida === 'function') {
+        finalizarPartida('vitoria');
+    }
+
+    return bateuMeta;
 }
 
-function registrarBomba() {
+function registrarBomba(info) {
     placar.bombasNivel++;
     atualizarPontuacao();
     atualizarEstatisticas();
     atualizarPainel();
+
+    // Efeito visual no cursor
+    document.body.classList.add('cursor-bomba');
+    setTimeout(() => document.body.classList.remove('cursor-bomba'), 250);
+
+    // Salva o estado atualizado
+    localStorage.setItem('placarAtual', JSON.stringify(placar));
 }
 
-function verificarClique(evento) {
-    const buraco = evento.target.closest('.buraco');
-    if (!buraco) {
-        return;
-    }
-
-    const tipo = buraco.dataset.tipo;
-
-    if (tipo === 'anomalia') {
-        /* Muda a imagem da xícara para indicar que a anomalia foi acertada */
-        const imagem = buraco.querySelector('img');
-        imagem.src = imagem.src.replace('_normal.png', '_acertada.png');
-        imagem.alt = 'Anomalia acertada';
-        document.body.classList.add('cursor-anomalia');
-        // Restaura o cursor normal após o efeito do clique.
-        setTimeout(() => document.body.classList.remove('cursor-anomalia'), 250);
-        const nivelConcluido = registrarAcerto();
-        buraco.dataset.tipo = 'anomaliaAcertada';
-        clearTimeout(temporizadorAnomalia);
-        temporizadorAnomalia = setTimeout(() => {
-            esconderAnomalia(buraco);
-            if (nivelConcluido) {
-                finalizarPartida('vitoria');
-            }
-        }, 1000);
-        return;
-    } else if (tipo === 'bomba') {
-        // Mostra o acerto da bomba e aplica a penalidade do modo Explosivo.
-        const imagem = buraco.querySelector('img');
-        imagem.src = '../assets/img/bomba_acertada.png';
-        imagem.alt = 'Bomba acertada';
-        document.body.classList.add('cursor-bomba');
-        setTimeout(() => document.body.classList.remove('cursor-bomba'), 250);
-        registrarBomba();
-        buraco.dataset.tipo = 'bombaAcertada';
-        clearTimeout(temporizadorAnomalia);
-        temporizadorAnomalia = setTimeout(() => esconderAnomalia(buraco), 1000);
-        return;
-    } else {
-        return; 
-    }
-
-    buraco.dataset.tipo = 'clicado';
-}
-
+/* -------------------------- Progressão de Nível -------------------------- */
 function avancarNivel() {
     placar.acertosConcluidos += placar.acertosNivel;
     placar.pontosConcluidos += placar.pontosNivel;
@@ -124,19 +107,31 @@ function avancarNivel() {
     atualizarPainel();
 }
 
-function restaurarProximoNivel() {
+function restaurarEstadoPlacar() {
     const parametros = new URLSearchParams(window.location.search);
-    if (parametros.get('proximoNivel') !== 'true') return;
-
-    // Recupera o placar e avança antes de atualizar o painel.
-    const placarSalvo = localStorage.getItem('placarParaAvancar');
-    if (placarSalvo) {
-        Object.assign(placar, JSON.parse(placarSalvo));
-        avancarNivel();
+    
+    // 1. Caso esteja avançando para o próximo nível vindo da tela de Vitória
+    if (parametros.get('proximoNivel') === 'true') {
+        const placarSalvo = localStorage.getItem('placarParaAvancar');
+        if (placarSalvo) {
+            Object.assign(placar, JSON.parse(placarSalvo));
+            avancarNivel();
+        }
+        localStorage.removeItem('placarParaAvancar');
+        localStorage.removeItem('resultadoVitoria');
+        return;
     }
 
-    localStorage.removeItem('placarParaAvancar');
-    localStorage.removeItem('resultadoVitoria');
+    // 2. Caso esteja retomando uma partida onde clicou em "Sair"
+    if (parametros.get('retomar') === 'true') {
+        const placarSalvo = localStorage.getItem('placarAtual');
+        if (placarSalvo) {
+            Object.assign(placar, JSON.parse(placarSalvo));
+        }
+    } else {
+        // Partida completamente nova: limpa dados antigos de salvamento
+        localStorage.removeItem('placarAtual');
+    }
 }
 
 function atualizarModalVitoria() {
@@ -148,15 +143,9 @@ function atualizarModalVitoria() {
     definirTexto('nivel-vitoria', dados.nivel);
 }
 
+/* -------------------------- Inicialização -------------------------- */
 window.addEventListener('DOMContentLoaded', () => {
-    restaurarProximoNivel();
+    restaurarEstadoPlacar();
     atualizarPainel();
     atualizarModalVitoria();
-});
-
-window.addEventListener('DOMContentLoaded', () => {
-    const tabuleiro = document.querySelector('.tabuleiro');
-    if (tabuleiro) {
-        tabuleiro.addEventListener('click', verificarClique);
-    }
 });

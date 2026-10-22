@@ -1,101 +1,15 @@
+"use strict";
+
+/* -------------------------- Variáveis Globais de Tempo -------------------------- */
 let tempoRestante = 150; 
 let intervalo = null;
 let jogoPausado = false;
 let jogoAtivo = false;
-const tempoExposicaoAnomalia = 5000;
-const intervaloEntreAparicoes = 1000;
-let temporizadorAnomalia = null;
-let ultimaAnomalia = null;
 
-function criarTabuleiro() {
-    const tabuleiro = document.querySelector('.tabuleiro');
-    if (!tabuleiro) return;
-
-    const dimensao = localStorage.getItem('dimensaoTabuleiro') || '3x3';
-    const [colunas, linhas] = dimensao.split('x').map(Number);
-    if (!Number.isInteger(colunas) || !Number.isInteger(linhas) || colunas < 1 || linhas < 1) {
-        return;
-    }
-
-    tabuleiro.replaceChildren();
-    tabuleiro.style.gridTemplateColumns = `repeat(${colunas}, minmax(0, 1fr))`;
-    tabuleiro.style.gridTemplateRows = `repeat(${linhas}, minmax(0, 1fr))`;
-
-    for (let indice = 0; indice < colunas * linhas; indice++) {
-        const buraco = document.createElement('div');
-        buraco.className = 'buraco';
-
-        const xicara = document.createElement('img');
-        xicara.src = '../assets/img/xicaraBrancaUnitaria.png';
-        xicara.alt = 'Xícara';
-
-        buraco.appendChild(xicara);
-        tabuleiro.appendChild(buraco);
-    }
-}
-
-function sortearPosicao() { /* Sorteia uma posição aleatória para colocar a anomalia, substituindo as imagens*/
-    const buracos = document.querySelectorAll('.buraco'); /* Seleciona todos os buracos do tabuleiro e se não tiver buracos não faz nada*/
-    if (buracos.length === 0) return; 
-
-    const indiceSorteado = Math.floor(Math.random() * buracos.length); /* Sorteia um índice aleatório para escolher um buraco */
-    const buracoSorteado = buracos[indiceSorteado]; 
-    const imagem = buracoSorteado.querySelector('img');
-    const modoExplosivo = localStorage.getItem('modoJogo') === 'explosivo';
-    const exibirBomba = modoExplosivo && Math.random() < 0.3;
-
-    if (exibirBomba) {
-        buracoSorteado.dataset.tipo = 'bomba';
-        imagem.src = '../assets/img/bomba.png';
-        imagem.alt = 'Bomba';
-    } else {
-        const anomalias = [
-            '../assets/img/anomaliaAzul_normal.png',
-            '../assets/img/anomaliaLaranja_normal.png',
-            '../assets/img/anomaliaVerde_normal.png'
-        ];
-        const anomaliasDisponiveis = anomalias.filter((anomalia) => anomalia !== ultimaAnomalia);
-        const indiceAnomalia = Math.floor(Math.random() * anomaliasDisponiveis.length);
-        const caminhoAnomalia = anomaliasDisponiveis[indiceAnomalia];
-
-        buracoSorteado.dataset.tipo = 'anomalia';
-        imagem.src = caminhoAnomalia;
-        imagem.alt = 'Xícara com anomalia';
-        ultimaAnomalia = caminhoAnomalia;
-    }
-
-    // Esconde a aparição após cinco segundos de exposição no primeiro nível.
-    clearTimeout(temporizadorAnomalia);
-    temporizadorAnomalia = setTimeout(esconderAnomalia, tempoExposicaoAnomalia);
-}
-
-function iniciarAparicoes() {
-    const aparicaoAtiva = document.querySelector('.buraco[data-tipo="anomalia"], .buraco[data-tipo="anomaliaAcertada"], .buraco[data-tipo="bomba"], .buraco[data-tipo="bombaAcertada"]');
-    if (!jogoAtivo || jogoPausado || aparicaoAtiva) return;
-
-    // Sorteia uma nova aparição somente quando não há outra ativa.
-    sortearPosicao();
-}
-
-function esconderAnomalia(buracoAlvo) {
-    const buraco = buracoAlvo || document.querySelector('.buraco[data-tipo="anomalia"], .buraco[data-tipo="bomba"]');
-    if (buraco) {
-        const imagem = buraco.querySelector('img');
-        imagem.src = '../assets/img/xicaraBrancaUnitaria.png';
-        imagem.alt = 'Xícara';
-        buraco.removeAttribute('data-tipo');
-    }
-    temporizadorAnomalia = null;
-
-    // Aguarda um segundo antes de iniciar a próxima aparição.
-    if (jogoAtivo && !jogoPausado) {
-        setTimeout(iniciarAparicoes, intervaloEntreAparicoes);
-    }
-}
-
+/* -------------------------- Inicialização do Jogo -------------------------- */
 window.addEventListener('DOMContentLoaded', () => {
-    criarTabuleiro();
-    const modoJogo = localStorage.getItem('modoJogo') || 'classico';
+    // 1. Atualiza o texto do modo no topo
+    const modoJogo = localStorage.getItem('modoJogo') || sessionStorage.getItem('modo') || 'classico';
     const indicadorModo = document.querySelector('.modo');
     if (indicadorModo) {
         indicadorModo.textContent = modoJogo === 'explosivo' ? 'Explosivo' : 'Clássico';
@@ -104,25 +18,23 @@ window.addEventListener('DOMContentLoaded', () => {
     const elementoTempo = document.getElementById('time');
     if (!elementoTempo) return;
 
-    // Lê se a URL está pedindo para retomar (ex: tabuleiro.html?retomar=true)
+    // 2. Verifica se deve retomar a partida salva
     const urlParams = new URLSearchParams(window.location.search);
     const deveRetomar = urlParams.get('retomar');
-    
     const tempoSalvo = localStorage.getItem('tempoRestante');
 
     if (deveRetomar === 'true' && tempoSalvo !== null) {
-        // Veio do botão "Continuar": usa estritamente o tempo salvo
-        tempoRestante = parseInt(tempoSalvo);
+        tempoRestante = parseInt(tempoSalvo, 10);
     } else {
-        // Jogo novo (veio do menu, Vitória ou Derrota)
         tempoRestante = 150;
         localStorage.removeItem('tempoRestante');
     }
 
+    // 3. Inicia o relógio
     iniciarTemporizador();
-    iniciarAparicoes();
 });
 
+/* -------------------------- Controle do Temporizador -------------------------- */
 function iniciarTemporizador() {
     if (intervalo) return;
     
@@ -157,39 +69,55 @@ function atualizarTempo() {
     }
 }
 
+/* -------------------------- Fluxo de Estado da Partida -------------------------- */
 function pausarPartida() {
     jogoPausado = true;
     localStorage.setItem('tempoRestante', tempoRestante);
+    if (typeof pararAparicoes === 'function') {
+        pararAparicoes();
+    }
 }
 
 function retomarPartida() {
     jogoPausado = false;
-    iniciarAparicoes();
+    if (typeof iniciarAparicoes === 'function') {
+        iniciarAparicoes();
+    }
 }
 
 function finalizarPartida(resultado) {
     jogoAtivo = false;
-    clearInterval(intervalo);
-    intervalo = null;
+    if (intervalo) {
+        clearInterval(intervalo);
+        intervalo = null;
+    }
     
+    if (typeof pararAparicoes === 'function') {
+        pararAparicoes();
+    }
+
     localStorage.removeItem('tempoRestante');
 
     if (resultado === 'derrota') {
         window.location.href = 'modal-derrota-vitoria.html#derrota';
     } else if (resultado === 'vitoria') {
-        // Guarda o placar para continuar no próximo nível após o pop-up.
-        localStorage.setItem('placarParaAvancar', JSON.stringify(placar));
-        localStorage.setItem('resultadoVitoria', JSON.stringify({
-            pontos: placar.pontosNivel,
-            nivel: placar.nivel
-        }));
+        if (typeof placar !== 'undefined') {
+            localStorage.setItem('placarParaAvancar', JSON.stringify(placar));
+            localStorage.setItem('resultadoVitoria', JSON.stringify({
+                pontos: placar.pontosNivel || 0,
+                nivel: placar.nivel || 1
+            }));
+        }
         window.location.href = 'modal-derrota-vitoria.html#vitoria';
     }
 }
 
 function reiniciarPartida() {
     localStorage.removeItem('tempoRestante');
-    tempoRestante = 300;
+    tempoRestante = 150;
     atualizarTempo();
     iniciarTemporizador();
+    if (typeof iniciarAparicoes === 'function') {
+        iniciarAparicoes();
+    }
 }
