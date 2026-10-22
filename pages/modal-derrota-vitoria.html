@@ -2,11 +2,11 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Whack-a-Anomaly</title>
-    <link rel="stylesheet" href="../assets/css/derrota-vitoria.css" />
+    <link rel="stylesheet" href="../assets/css/derrota-vitoria.css">
     <script src="../assets/js/placar.js" defer></script>
 </head>
 
@@ -16,22 +16,22 @@
         <!-- ================================================= -->
         <!-- QUADRO DE VITÓRIA                                 -->
         <!-- ================================================= -->
-        <section id="vitoria" class="quadro">
+        <div id="vitoria" class="quadro">
             <div class="resultado">
                 <!-- SELO DE TAXA DE ACERTO -->
                 <div class="selo-acertos">
                     <img src="../assets/img/selo.png" alt="Taxa de acertos" class="imagem-selo">
-                    <span class="porcentagem-acerto">
+                    <div class="porcentagem-acerto">
                         <p>Taxa de acerto</p>
                         <p id="porcentagem-vitoria">0%</p>
-                    </span>
+                    </div>
                 </div>
 
                 <!-- PONTUAÇÃO TOTAL -->
                 <div class="linha-dado pontuacao">
                     <span class="etiqueta"> Pontuação: </span>
                     <div class="campo-linha">
-                        <span class="valor cor-verde" id="pontuacao-vitoria">0</span>
+                        <div class="valor cor-verde" id="pontuacao-vitoria">0</div>
                         <div class="linha-tracejada"></div>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                 <div class="linha-dado nivel">
                     <span class="etiqueta"> Nível atingido: </span>
                     <div class="campo-linha">
-                        <span class="valor cor-azul" id="nivel-vitoria">1</span>
+                        <div class="valor cor-azul" id="nivel-vitoria">1</div>
                         <div class="linha-tracejada"></div>
                     </div>
                 </div>
@@ -55,33 +55,33 @@
 
             <!-- BOTAO PARA AVANÇAR DE NÍVEL -->
             <button type="button" id="btn-proximo-nivel" class="btn-proximo-nivel" onclick="window.location.href='tabuleiro.html?proximoNivel=true'">Próximo nível -&gt;</button>
-        </section>
+        </div>
 
         <!-- ================================================= -->
         <!-- QUADRO DE DERROTA                                 -->
         <!-- ================================================= -->
-        <section id="derrota" class="quadro">
+        <div id="derrota" class="quadro" >
             <div class="resultado">
                 <div class="selo-acertos">
                     <img src="../assets/img/selo.png" alt="Taxa de acertos" class="imagem-selo">
-                    <span class="porcentagem-acerto">
+                    <div class="porcentagem-acerto">
                         <p>Taxa de acerto</p>
                         <p id="porcentagem-derrota">0%</p>
-                    </span>
+                    </div>
                 </div>
 
                 <!-- PONTUAÇÃO -->
                 <div class="linha-dado pontuacao">
-                    <span class="etiqueta"> Pontuação: </span>
+                    <div class="etiqueta"> Pontuação: </div>
                     <div class="campo-linha">
-                        <span class="valor cor-vermelha" id="pontuacao-derrota">0</span>
+                        <div class="valor cor-vermelha" id="pontuacao-derrota">0</div>
                         <div class="linha-tracejada"></div>
                     </div>
                 </div>
 
                 <!-- NÍVEL -->
                 <div class="linha-dado nivel">
-                    <span class="etiqueta"> Nível atingido: </span>
+                    <div class="etiqueta"> Nível atingido: </div>
                     <div class="campo-linha">
                         <span class="valor cor-azul" id="nivel-derrota">1</span>
                         <div class="linha-tracejada"></div>
@@ -102,7 +102,7 @@
 
             <button type="button" id="btn-tentar-novamente" class="btn-tentar-novamente" onclick="localStorage.clear(); window.location.href='home.html?abrirModal=true'"> Tentar novamente </button> 
             
-        </section>
+        </div>
     </main>
 
     <script src="../assets/js/derrota-vitoria.js"></script>
