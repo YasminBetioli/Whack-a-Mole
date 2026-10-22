@@ -31,11 +31,16 @@
             <p>Pontos na partida: <span id="pontos-total">0</span></p>
         </section>
 
-        <section class="tabuleiro" aria-label="Tabuleiro do jogo"></section>
+        <div class="tabuleiro-container">
+            <section class="tabuleiro" aria-label="Tabuleiro do jogo"></section>
+            
+            <div class="indicador-taxa-inferior">
+                Taxa de acertos: <span id="taxa-acerto-nivel">0%</span> / 75%
+            </div>
+        </div>
 
     </main>
 
-    <!-- Scripts organizados no final do body -->
     <script src="../assets/js/script.js"></script>
     <script src="../assets/js/placar.js"></script>
     <script src="../assets/js/tabuleiro.js"></script>
