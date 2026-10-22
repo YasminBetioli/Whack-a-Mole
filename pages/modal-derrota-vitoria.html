@@ -5,10 +5,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title> Whack-a-Anomaly </title>
+    <title>Whack-a-Anomaly</title>
+    <link rel="stylesheet" href="../assets/css/derrota-vitoria.css" />
     <script src="../assets/js/placar.js" defer></script>
-
-    
 </head>
 
 <body>
@@ -17,35 +16,29 @@
 
         <!-- Botões de teste -->
         <div class="botoes">
-            <a href="#vitoria" class="botao" onclick="localStorage.clear()">Vitória</a>
-            <a href="#derrota" class="botao" onclick="localStorage.clear()">Derrota</a>
+            <a href="#vitoria" class="botao">Vitória</a>
+            <a href="#derrota" class="botao">Derrota</a>
             <a href="#pause" class="botao">Pausa</a>
-
         </div>
 
-        <!-- QUADRO DE VITÓRIA-->
-
-
+        <!-- ================================================= -->
+        <!-- QUADRO DE VITÓRIA                                 -->
+        <!-- ================================================= -->
         <section id="vitoria" class="quadro">
-         
             <div class="resultado">
-                   <div class="selo-acertos">
+                <div class="selo-acertos">
+                    <img src="../assets/img/selo.png" alt="Taxa de acertos" class="imagem-selo">
+                    <span class="porcentagem-acerto" id="porcentagem-acerto">
+                        <p>Taxa de acerto</p>
+                        <p id="taxa-porcentagem">0%</p>
+                    </span>
+                </div>
 
-                <img src="../assets/img/selo.png" alt="Taxa de acertos" class="imagem-selo">
-
-                <span class="porcentagem-acerto" id="porcentagem-acerto">
-                            <p>Taxa de acerto</p>
-                            <p>0%</p>
-                </span>
-
-            </div>
                 <!-- PONTUAÇÃO -->
                 <div class="linha-dado pontuacao">
                     <span class="etiqueta"> Pontuação: </span>
-
                     <div class="campo-linha">
-                        <span class="valor cor-verde" id="pontuacao-vitoria">55</span>
-
+                        <span class="valor cor-verde" id="pontuacao-vitoria">0</span>
                         <div class="linha-tracejada"></div>
                     </div>
                 </div>
@@ -53,10 +46,8 @@
                 <!-- NÍVEL -->
                 <div class="linha-dado nivel">
                     <span class="etiqueta"> Nível atingido: </span>
-
                     <div class="campo-linha">
-                        <span class="valor cor-azul" id="nivel-vitoria">2</span>
-
+                        <span class="valor cor-azul" id="nivel-vitoria">1</span>
                         <div class="linha-tracejada"></div>
                     </div>
                 </div>
@@ -64,31 +55,25 @@
                 <!-- DESEMPENHO -->
                 <div class="bloco-desempenho">
                     <div class="etiqueta-centro">Desempenho do hospital:</div>
-
                     <div class="valor-centro cor-roxa">Bom</div>
-
                     <div class="linha-tracejada-centro"></div>
                 </div>
-
             </div>
 
-            <!-- Avança para o próximo nível após a vitória. -->
-            <button type="button" class="btn-proximo-nivel" onclick="window.location.href='tabuleiro.html?proximoNivel=true'">Próximo nível -&gt;</button>
+            <!-- Avança para o próximo nível após a vitória -->
+            <button type="button" id="btn-proximo-nivel" class="btn-proximo-nivel" onclick="window.location.href='tabuleiro.html?proximoNivel=true'">Próximo nível -&gt;</button>
         </section>
 
         <!-- ================================================= -->
-        <!-- QUADRO DE DERROTA                               -->
+        <!-- QUADRO DE DERROTA                                 -->
         <!-- ================================================= -->
-
         <section id="derrota" class="quadro">
             <div class="resultado">
                 <!-- PONTUAÇÃO -->
                 <div class="linha-dado pontuacao">
                     <span class="etiqueta"> Pontuação: </span>
-
                     <div class="campo-linha">
-                        <span class="valor cor-vermelha"> 45 </span>
-
+                        <span class="valor cor-vermelha" id="pontuacao-derrota">0</span>
                         <div class="linha-tracejada"></div>
                     </div>
                 </div>
@@ -96,10 +81,8 @@
                 <!-- NÍVEL -->
                 <div class="linha-dado nivel">
                     <span class="etiqueta"> Nível atingido: </span>
-
                     <div class="campo-linha">
-                        <span class="valor cor-azul"> 2 </span>
-
+                        <span class="valor cor-azul" id="nivel-derrota">1</span>
                         <div class="linha-tracejada"></div>
                     </div>
                 </div>
@@ -107,36 +90,36 @@
                 <!-- DESEMPENHO -->
                 <div style="margin-top: 10px;" class="bloco-desempenho">
                     <div class="etiqueta-centro">Desempenho do hospital:</div>
-
                     <div class="valor-centro cor-vermelha">
                         Você perdeu <br>tente novamente!
                     </div>
                 </div>
                 <div class="linha-tracejada-centro"></div>
-                    <img class="img-perder" src="../assets/img/monstrinho.png" alt="Monstrinho">
+                <img class="img-perder" src="../assets/img/monstrinho.png" alt="Monstrinho">
                 
-                <button type="button" class="btn-ok-resultado" onclick="window.location.href='modal-derrota-vitoria.html'"> OK </button> 
+                <button type="button" id="btn-tentar-novamente" class="btn-ok-resultado" onclick="localStorage.clear(); window.location.href='home.html?abrirModal=true'"> OK </button> 
             </div>
-
         </section>
 
+        <!-- ================================================= -->
+        <!-- QUADRO DE PAUSA                                   -->
+        <!-- ================================================= -->
         <section id="pause" class="quadro">
-                <div class="opcoes">
-                    <a href="tabuleiro.html?retomar=true"> 
-                        <img src="../assets/img/pausa.png" alt="pause" srcset="">
-                        <p>Continuar</p>
-                    </a>
-                    <a href="modal-modo-jogo.html" onclick="localStorage.clear()">
-                        <img  src="../assets/img/saida.png" alt="" srcset="">
-                        <p class="cor-vermelha">Sair</p>
-                    </a>
-                    <img src="../assets/img/monstrinho_pause.png" class="img-pausa" alt="" srcset="">
-                </div>
-               
+            <div class="opcoes">
+                <a href="tabuleiro.html?retomar=true"> 
+                    <img src="../assets/img/pausa.png" alt="pause">
+                    <p>Continuar</p>
+                </a>
+                <a href="home.html?abrirModal=true">
+                    <img src="../assets/img/saida.png" alt="sair">
+                    <p class="cor-vermelha">Sair</p>
+                </a>
+                <img src="../assets/img/monstrinho_pause.png" class="img-pausa" alt="monstrinho na pausa">
+            </div>
         </section>
     </main>
 
-    <link rel="stylesheet" href="../assets/css/derrota-vitoria.css" />
+    <script src="../assets/js/derrota-vitoria.js"></script>
 </body>
 
 </html>

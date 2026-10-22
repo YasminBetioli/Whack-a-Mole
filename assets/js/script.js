@@ -1,7 +1,7 @@
 "use strict";
 
 /* -------------------------- Variáveis Globais de Tempo -------------------------- */
-let tempoRestante = 150; 
+let tempoRestante = 50; 
 let intervalo = null;
 let jogoPausado = false;
 let jogoAtivo = false;
@@ -26,7 +26,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if (deveRetomar === 'true' && tempoSalvo !== null) {
         tempoRestante = parseInt(tempoSalvo, 10);
     } else {
-        tempoRestante = 150;
+        tempoRestante = 50;
         localStorage.removeItem('tempoRestante');
     }
 
@@ -114,7 +114,7 @@ function finalizarPartida(resultado) {
 
 function reiniciarPartida() {
     localStorage.removeItem('tempoRestante');
-    tempoRestante = 150;
+    tempoRestante = 50;
     atualizarTempo();
     iniciarTemporizador();
     if (typeof iniciarAparicoes === 'function') {
