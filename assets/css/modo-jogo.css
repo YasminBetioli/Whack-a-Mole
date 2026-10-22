@@ -31,11 +31,12 @@
 
 #borda{
     border: 0.3vw solid #53f2b8;
+    padding: 0.5vw;
     height: 25vw;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-inline: 30%;
+    margin-inline: auto;
     margin-top:10%;
     margin-bottom: 10%;
     background-color: #051218;
@@ -44,7 +45,7 @@
 #bordaMenor{
     border: 0.3vw solid #4d755c;
     width: 38vw;
-    height: 24vw;
+    height: 23.5vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -56,19 +57,21 @@
     color: #dbdad5;  
     display: flex;
     flex-direction: column;
-    margin-top: -25px;
+    margin-top: -15px;
+    align-items: center;
 }
 
 #gameMode{
     display: flex;
     border: 0.3vw solid #4d755c;
+    padding: 0.3vw;
     width: 100vw;
-     margin-left: auto;
-     align-items: center;
-     height: 100vw;
+    margin-left: auto;
+    align-items: center;
     width: fit-content;
     height: fit-content;
     color: #dbdad5;
+    margin-top: 15px;
 }
 
 #gameMode button{
@@ -110,23 +113,28 @@ div#classico, div#explosivo {
 
 div#classico:hover {
     border: solid 0.3vw #53f2b8;
+    border-radius: 18px;
 }
 
 div#explosivo:hover {
     border: solid 0.3vw #a91414;
+    border-radius: 18px;
 }
 
 div#classico.selecionado {
     border: solid 0.3vw #53f2b8;
+    border-radius: 18px;
 }
 
 div#explosivo.selecionado {
     border: solid 0.3vw #a91414;
+    border-radius: 18px;
 }
 
 #opcoesBaixo{
     display: flex;
     gap: 1vw;
+    margin-top: -12px;
 }
 
 #tabuleiro h2{
@@ -169,14 +177,17 @@ div#explosivo.selecionado {
     justify-content: center;
 }
 
-.btnJogar:active {
-    transform: scale(0.95);
+.btnJogar:hover,
+.btnJogar:focus {
+    background-color: #051218 !important;         
+    border-color: #53f2b8 !important;             
+    box-shadow: 0 0 12px rgba(83, 242, 184, 0.6);   
+    text-shadow: 0 0 10px rgba(83, 242, 184, 0.8);  
+    color: #53f2b8 !important;                     
 }
 
-.btnJogar:hover {
-    border-color: #53f2b8;
-    box-shadow: 0 0 10px rgba(83, 242, 184, 0.6);
-    text-shadow: 0 0 4px #53f2b8;
+.btnJogar:active {
+    transform: scale(0.95);
 }
 
 .handjet-fonte {
@@ -195,21 +206,33 @@ div#explosivo.selecionado {
 
 .btn-voltar {
     position: absolute;
-    top: 1px;
-    left: -65px;
+    top: -15px;
+    left: -70px;
     margin: 0;
     background: transparent;
     border: none;
     color: #53f2b8; 
-    font-size: 40px;
+    font-size: 48px;
     cursor: pointer;
-    transition: transform 0.2s, color 0.2s;
+    transition: text-shadow 0.2s ease, transform 0.2s ease;
     font-family: inherit;
     padding: 0;
+    outline: none;
+    z-index: 10; 
+    -webkit-tap-highlight-color: transparent;
 }
 
-.btn-voltar:hover {
-    color: #ffffff;
-    transform: scale(1.1);
+.btn-voltar:hover,
+.btn-voltar:focus,
+.btn-voltar:active {
+    background: transparent;
+    outline: none ;
+    border: none;
+    box-shadow: none;
+    color: #53f2b8; 
+    text-shadow: 0 0 10px rgba(83, 242, 184, 0.8), 0 0 20px rgba(83, 242, 184, 0.4); 
+    transform: scale(1.1); 
 }
+
+
 
