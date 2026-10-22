@@ -119,6 +119,29 @@ function alterarTamanhoTabuleiro(lado, jaCriado) {
   );
 }
 
+
+function sairDoJogo() {
+    // 1. Salva o tempo restante no localStorage
+    localStorage.setItem('tempoRestante', tempoRestante);
+
+    // 2. Se houver placar/pontuação para salvar, guarda também
+    if (typeof placar !== 'undefined') {
+        localStorage.setItem('placarAtual', JSON.stringify(placar));
+    }
+
+    // 3. Limpa os contadores em execução para evitar travamentos
+    if (intervalo) {
+        clearInterval(intervalo);
+        intervalo = null;
+    }
+    if (typeof temporizadorAnomalia !== 'undefined' && temporizadorAnomalia) {
+        clearTimeout(temporizadorAnomalia);
+    }
+
+    // 4. Redireciona na hora para a home abrindo o modal de seleção
+    window.location.href = 'home.html?abrirModal=true';
+}
+
 /* --------------------------- Aparição das anomalias ----------------------- */
 
 /* Sorteia um buraco que NÃO esteja com anomalia. Retorna o índice, ou -1. */
