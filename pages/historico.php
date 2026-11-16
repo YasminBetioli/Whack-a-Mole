@@ -1,391 +1,143 @@
-<?php require_once __DIR__ . '/../config/verificar_sessao.php'; ?>
+<?php
+require_once __DIR__ . '/../config/verificar_sessao.php';
+require_once __DIR__ . '/../config/conexao.php';
+
+function escapar($valor): string
+{
+    return htmlspecialchars((string) $valor, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+}
+
+function renderizarTabela(array $partidas, bool $mostrarMensagemVazia = false): void
+{
+    ?>
+    <table class="notebook-table">
+        <thead>
+            <tr>
+                <th scope="col">Tabuleiro</th>
+                <th scope="col">Modo de jogo</th>
+                <th scope="col">Pontuação</th>
+                <th scope="col">Nível atingido</th>
+                <th scope="col">Data</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (!$partidas && $mostrarMensagemVazia): ?>
+                <tr>
+                    <td colspan="5">Nenhuma partida registrada.</td>
+                </tr>
+            <?php endif; ?>
+            <?php foreach ($partidas as $partida): ?>
+                <tr>
+                    <td><?= escapar($partida['linhas']) ?>x<?= escapar($partida['colunas']) ?></td>
+                    <td><?= $partida['modalidade'] === 'classica' ? 'Clássico' : 'Explosivo' ?></td>
+                    <td><?= escapar($partida['pontuacao']) ?></td>
+                    <td><?= escapar($partida['nivel_atingido']) ?></td>
+                    <td><?= escapar(date('d/m/Y \à\s H:i', strtotime($partida['data_hora']))) ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <?php
+}
+
+$itensPorLado = 9;
+$itensPorPagina = $itensPorLado * 2;
+$paginaSolicitada = filter_input(INPUT_GET, 'pagina', FILTER_VALIDATE_INT);
+$pagina = ($paginaSolicitada === false || $paginaSolicitada === null || $paginaSolicitada < 1)
+    ? 1
+    : $paginaSolicitada;
+$partidas = [];
+$totalPartidas = 0;
+$totalPaginas = 1;
+$erroHistorico = null;
+
+$conexao = conectar();
+try {
+    $usuarioId = (int) $_SESSION['usuario_id'];
+
+    $consultaTotal = $conexao->prepare(
+        'SELECT COUNT(*) AS total FROM partidas WHERE usuario_id = ?'
+    );
+    $consultaTotal->bind_param('i', $usuarioId);
+    $consultaTotal->execute();
+    $totalPartidas = (int) $consultaTotal->get_result()->fetch_assoc()['total'];
+    $consultaTotal->close();
+
+    $totalPaginas = max(1, (int) ceil($totalPartidas / $itensPorPagina));
+    $pagina = min($pagina, $totalPaginas);
+    $limite = $itensPorPagina;
+    $offset = ($pagina - 1) * $itensPorPagina;
+
+    $consultaPartidas = $conexao->prepare(
+        'SELECT linhas, colunas, modalidade, pontuacao, nivel_atingido, data_hora
+         FROM partidas
+         WHERE usuario_id = ?
+         ORDER BY data_hora DESC, id DESC
+         LIMIT ? OFFSET ?'
+    );
+    $consultaPartidas->bind_param('iii', $usuarioId, $limite, $offset);
+    $consultaPartidas->execute();
+    $partidas = $consultaPartidas->get_result()->fetch_all(MYSQLI_ASSOC);
+    $consultaPartidas->close();
+} catch (mysqli_sql_exception $erro) {
+    error_log('Falha ao carregar o histórico de partidas: ' . $erro->getMessage());
+    http_response_code(500);
+    $erroHistorico = 'Não foi possível carregar o histórico. Tente novamente mais tarde.';
+} finally {
+    $conexao->close();
+}
+
+$nomeJogador = $_SESSION['nome'] ?? $_SESSION['username'] ?? '';
+$partidasEsquerda = array_slice($partidas, 0, $itensPorLado);
+$partidasDireita = array_slice($partidas, $itensPorLado, $itensPorLado);
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Whach-a-Anomaly | Hitórico </title>
-    <!-- Folhas de estilo externas -->
+    <title>Whack-a-Anomaly | Histórico</title>
     <link rel="stylesheet" href="../assets/css/base.css">
     <link rel="stylesheet" href="../assets/css/historico.css">
 </head>
 <body>
+    <main class="historico-screen <?= $pagina % 2 === 0 ? 'pagina-par' : 'pagina-impar' ?>">
+        <button type="button" class="btn-voltar" onclick="window.location.href='home.php'">← Voltar</button>
 
-    <!-- Radio Buttons de Paginação (sem JavaScript) -->
-    <input type="radio" id="pag-1" name="historico-pagina" checked class="page-radio">
-    <input type="radio" id="pag-2" name="historico-pagina" class="page-radio">
-
-    <!-- Container em Tela Cheia com Troca Dinâmica do Fundo do Caderno -->
-    <main class="historico-screen">
-
-        <button type="button" class="btn-voltar" onclick="window.location.href='home.php'"> ← Voltar </button>
-      
-        <!-- Objetos decorativos da mesa -->
         <div class="mesa-objetos" aria-hidden="true">
-            <img src="../assets/img/papel.png"  alt="" class="obj obj-papel-1">
+            <img src="../assets/img/papel.png" alt="" class="obj obj-papel-1">
             <img src="../assets/img/caneta.png" alt="" class="obj obj-caneta">
             <img src="../assets/img/xicara.png" alt="" class="obj obj-xicara">
             <img src="../assets/img/clipes.png" alt="" class="obj obj-clipes">
-            <img src="../assets/img/papel.png"  alt="" class="obj obj-papel-2">
+            <img src="../assets/img/papel.png" alt="" class="obj obj-papel-2">
         </div>
 
-        <!-- Nome do usuário sobre a faixa branca do Polaroid -->
-<span class="polaroid-name">Seu_Usuario</span>
+        <img src="../assets/img/foto_historico.png" alt="Foto de perfil" class="polaroid-foto">
+        <span class="polaroid-name"><?= escapar($nomeJogador) ?></span>
 
-        <!-- Overlay posicionado sobre as páginas do caderno na imagem -->
         <div class="notebook-overlay">
-
-            <!-- PÁGINA 1: Fundo historico2.jpg -->
-            <div class="page-view page-view-1">
+            <?php if ($erroHistorico !== null): ?>
+                <p class="historico-mensagem" role="alert"><?= escapar($erroHistorico) ?></p>
+            <?php else: ?>
                 <div class="notebook-spread">
-                    <!-- Lado Esquerdo: Tabela centralizada com linhas espaçadas que preenchem até ao fundo -->
-                        <div class="overlay-left">
-                        <table class="notebook-table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Tabuleiro</th>
-                                    <th scope="col">Modo de jogo</th>
-                                    <th scope="col">Pontuação</th>
-                                    <th scope="col">Nível atingido</th>
-                                    <th scope="col">Data</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>2x2</td>
-                                    <td>Explosivo</td>
-                                    <td>30</td>
-                                    <td>5</td>
-                                    <td>20/09/2026 Às 21:26</td>
-                                </tr>
-                                <tr>
-                                    <td>4x4</td>
-                                    <td>Clássico</td>
-                                    <td>45</td>
-                                    <td>6</td>
-                                    <td>19/09/2026 Às 18:10</td>
-                                </tr>
-                                <tr>
-                                    <td>3x3</td>
-                                    <td>Explosivo</td>
-                                    <td>12</td>
-                                    <td>2</td>
-                                    <td>18/09/2026 Às 14:05</td>
-                                </tr>
-                                <tr>
-                                    <td>5x5</td>
-                                    <td>Clássico</td>
-                                    <td>50</td>
-                                    <td>6</td>
-                                    <td>17/09/2026 Às 11:30</td>
-                                </tr>
-                                <tr>
-                                    <td>3x3</td>
-                                    <td>Clássico</td>
-                                    <td>28</td>
-                                    <td>4</td>
-                                    <td>16/09/2026 Às 19:40</td>
-                                </tr>
-                                <tr>
-                                    <td>4x4</td>
-                                    <td>Explosivo</td>
-                                    <td>35</td>
-                                    <td>5</td>
-                                    <td>16/09/2026 Às 14:10</td>
-                                </tr>
-                                <tr>
-                                    <td>2x2</td>
-                                    <td>Clássico</td>
-                                    <td>19</td>
-                                    <td>3</td>
-                                    <td>15/09/2026 Às 10:05</td>
-                                </tr>
-                                <tr>
-                                    <td>6x6</td>
-                                    <td>Explosivo</td>
-                                    <td>72</td>
-                                    <td>8</td>
-                                    <td>14/09/2026 Às 22:00</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        </div>
-        
-                    <!-- Lado Direito: Tabela preenchendo a página inteira + Seta para Página 2 -->
-                    <div class="overlay-right">
-                        <table class="notebook-table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Tabuleiro</th>
-                                    <th scope="col">Modo de jogo</th>
-                                    <th scope="col">Pontuação</th>
-                                    <th scope="col">Nível atingido</th>
-                                    <th scope="col">Data</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>6x6</td>
-                                    <td>Explosivo</td>
-                                    <td>65</td>
-                                    <td>8</td>
-                                    <td>13/09/2026 Às 22:15</td>
-                                </tr>
-                                <tr>
-                                    <td>4x4</td>
-                                    <td>Explosivo</td>
-                                    <td>33</td>
-                                    <td>5</td>
-                                    <td>13/09/2026 Às 16:00</td>
-                                </tr>
-                                <tr>
-                                    <td>2x2</td>
-                                    <td>Clássico</td>
-                                    <td>18</td>
-                                    <td>3</td>
-                                    <td>12/09/2026 Às 10:20</td>
-                                </tr>
-                                <tr>
-                                    <td>7x7</td>
-                                    <td>Explosivo</td>
-                                    <td>80</td>
-                                    <td>9</td>
-                                    <td>11/09/2026 Às 21:05</td>
-                                </tr>
-                                <tr>
-                                    <td>5x5</td>
-                                    <td>Clássico</td>
-                                    <td>42</td>
-                                    <td>5</td>
-                                    <td>10/09/2026 Às 18:50</td>
-                                </tr>
-                                <tr>
-                                    <td>3x3</td>
-                                    <td>Explosivo</td>
-                                    <td>22</td>
-                                    <td>3</td>
-                                    <td>09/09/2026 Às 14:12</td>
-                                </tr>
-                                <tr>
-                                    <td>4x4</td>
-                                    <td>Clássico</td>
-                                    <td>37</td>
-                                    <td>5</td>
-                                    <td>09/09/2026 Às 13:00</td>
-                                </tr>
-                                <tr>
-                                    <td>2x2</td>
-                                    <td>Explosivo</td>
-                                    <td>26</td>
-                                    <td>4</td>
-                                    <td>09/09/2026 Às 11:20</td>
-                                </tr>
-                                <tr>
-                                    <td>5x5</td>
-                                    <td>Explosivo</td>
-                                    <td>55</td>
-                                    <td>6</td>
-                                    <td>09/09/2026 Às 09:05</td>
-                                </tr>
-                                <tr>
-                                    <td>3x3</td>
-                                    <td>Clássico</td>
-                                    <td>31</td>
-                                    <td>4</td>
-                                    <td>08/09/2026 Às 23:10</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <label for="pag-2" class="nav-arrow next-arrow" title="Ir para a página 2">&rarr;</label>
-                        </div>
-                </div>
-            </div>
-
-            <!-- PÁGINA 2: Fundo historico3.jpg -->
-            <div class="page-view page-view-2">
-                <div class="notebook-spread">
-                    <!-- Lado Esquerdo da Página 2 -->
                     <div class="overlay-left">
-                        <label for="pag-1" class="nav-arrow prev-arrow" title="Voltar para a página 1">&larr;</label>
-                        <table class="notebook-table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Tabuleiro</th>
-                                    <th scope="col">Modo de jogo</th>
-                                    <th scope="col">Pontuação</th>
-                                    <th scope="col">Nível atingido</th>
-                                    <th scope="col">Data</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>5x5</td>
-                                    <td>Clássico</td>
-                                    <td>60</td>
-                                    <td>7</td>
-                                    <td>08/09/2026 Às 20:15</td>
-                                </tr>
-                                <tr>
-                                    <td>6x6</td>
-                                    <td>Explosivo</td>
-                                    <td>18</td>
-                                    <td>3</td>
-                                    <td>07/09/2026 Às 15:30</td>
-                                </tr>
-                                <tr>
-                                    <td>4x4</td>
-                                    <td>Explosivo</td>
-                                    <td>25</td>
-                                    <td>4</td>
-                                    <td>06/09/2026 Às 11:45</td>
-                                </tr>
-                                <tr>
-                                    <td>2x2</td>
-                                    <td>Clássico</td>
-                                    <td>15</td>
-                                    <td>2</td>
-                                    <td>05/09/2026 Às 17:10</td>
-                                </tr>
-                                <tr>
-                                    <td>8x8</td>
-                                    <td>Explosivo</td>
-                                    <td>92</td>
-                                    <td>10</td>
-                                    <td>04/09/2026 Às 23:00</td>
-                                </tr>
-                                <tr>
-                                    <td>3x3</td>
-                                    <td>Clássico</td>
-                                    <td>30</td>
-                                    <td>4</td>
-                                    <td>03/09/2026 Às 13:25</td>
-                                </tr>
-                                <tr>
-                                    <td>4x4</td>
-                                    <td>Clássico</td>
-                                    <td>38</td>
-                                    <td>5</td>
-                                    <td>02/09/2026 Às 19:40</td>
-                                </tr>
-                                <tr>
-                                    <td>7x7</td>
-                                    <td>Explosivo</td>
-                                    <td>68</td>
-                                    <td>8</td>
-                                    <td>02/09/2026 Às 16:20</td>
-                                </tr>
-                                <tr>
-                                    <td>3x3</td>
-                                    <td>Explosivo</td>
-                                    <td>21</td>
-                                    <td>3</td>
-                                    <td>02/09/2026 Às 12:05</td>
-                                </tr>
-                                <tr>
-                                    <td>2x2</td>
-                                    <td>Clássico</td>
-                                    <td>17</td>
-                                    <td>2</td>
-                                    <td>02/09/2026 Às 09:30</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        </div>
-                
+                        <?php renderizarTabela($partidasEsquerda, $totalPartidas === 0); ?>
+                        <?php if ($pagina > 1): ?>
+                            <a class="nav-arrow prev-arrow" href="?pagina=<?= $pagina - 1 ?>" aria-label="Página anterior">&larr;</a>
+                        <?php endif; ?>
+                    </div>
 
-                    <!-- Lado Direito da Página 2 -->
-                    
                     <div class="overlay-right">
-                        <table class="notebook-table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Tabuleiro</th>
-                                    <th scope="col">Modo de jogo</th>
-                                    <th scope="col">Pontuação</th>
-                                    <th scope="col">Nível atingido</th>
-                                    <th scope="col">Data</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>2x2</td>
-                                    <td>Clássico</td>
-                                    <td>35</td>
-                                    <td>5</td>
-                                    <td>01/09/2026 Às 19:22</td>
-                                </tr>
-                                <tr>
-                                    <td>3x3</td>
-                                    <td>Clássico</td>
-                                    <td>40</td>
-                                    <td>5</td>
-                                    <td>31/08/2026 Às 17:00</td>
-                                </tr>
-                                <tr>
-                                    <td>8x8</td>
-                                    <td>Explosivo</td>
-                                    <td>05</td>
-                                    <td>1</td>
-                                    <td>30/08/2026 Às 10:10</td>
-                                </tr>
-                                <tr>
-                                    <td>5x5</td>
-                                    <td>Explosivo</td>
-                                    <td>48</td>
-                                    <td>6</td>
-                                    <td>29/08/2026 Às 21:15</td>
-                                </tr>
-                                <tr>
-                                    <td>6x6</td>
-                                    <td>Clássico</td>
-                                    <td>52</td>
-                                    <td>7</td>
-                                    <td>28/08/2026 Às 16:30</td>
-                                </tr>
-                                <tr>
-                                    <td>2x2</td>
-                                    <td>Explosivo</td>
-                                    <td>20</td>
-                                    <td>3</td>
-                                    <td>27/08/2026 Às 14:00</td>
-                                </tr>
-                                <tr>
-                                    <td>4x4</td>
-                                    <td>Clássico</td>
-                                    <td>41</td>
-                                    <td>5</td>
-                                    <td>26/08/2026 Às 11:10</td>
-                                </tr>
-                                <tr>
-                                    <td>4x4</td>
-                                    <td>Explosivo</td>
-                                    <td>29</td>
-                                    <td>4</td>
-                                    <td>25/08/2026 Às 22:10</td>
-                                </tr>
-                                <tr>
-                                    <td>3x3</td>
-                                    <td>Clássico</td>
-                                    <td>34</td>
-                                    <td>4</td>
-                                    <td>25/08/2026 Às 18:30</td>
-                                </tr>
-                                <tr>
-                                    <td>6x6</td>
-                                    <td>Explosivo</td>
-                                    <td>63</td>
-                                    <td>7</td>
-                                    <td>24/08/2026 Às 20:45</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <?php if ($partidasDireita): ?>
+                            <?php renderizarTabela($partidasDireita); ?>
+                        <?php endif; ?>
+                        <?php if ($pagina < $totalPaginas): ?>
+                            <a class="nav-arrow next-arrow" href="?pagina=<?= $pagina + 1 ?>" aria-label="Próxima página">&rarr;</a>
+                        <?php endif; ?>
                     </div>
                 </div>
-            </div>
-
+            <?php endif; ?>
         </div>
-
     </main>
-
 </body>
 </html>

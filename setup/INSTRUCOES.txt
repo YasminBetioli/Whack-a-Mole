@@ -1,122 +1,186 @@
-WHACK-A-ANOMALY - INSTRUÇÕES DE CONFIGURAÇÃO E USO
-Projeto Final SI401 - Programação para a Web | Entrega Parcial 3 (Back-end)
+WHACK-A-ANOMALY
+MANUAL DE CONFIGURAÇÃO E USO
+Projeto Final SI401 - Parcial 3
 
-Link do vídeo de apresentação: [COLAR AQUI O LINK DO VÍDEO NO YOUTUBE]
+Link do vídeo de apresentação: [INSERIR O LINK DO VÍDEO]
 
 
 ======================================================================
 1. REQUISITOS
 ======================================================================
-- XAMPP (Apache + MySQL/MariaDB + PHP 8.x) instalado.
-  Testado com: Apache 2.4.58 e PHP 8.2.12 (XAMPP 3.3.0, Windows).
+- Windows com XAMPP instalado (Apache, MySQL/MariaDB e PHP 8.x).
 - Navegador atualizado (Chrome, Edge ou Firefox).
 
+O Apache executa as páginas PHP, e o MySQL/MariaDB armazena as contas
+e o histórico das partidas.
+
 
 ======================================================================
-2. INSTALAÇÃO
+2. INSTALAÇÃO E CONFIGURAÇÃO INICIAL
 ======================================================================
-2.1  Copie a pasta do projeto (a pasta que contém o arquivo index.php)
-     para dentro de:   C:\xampp\htdocs\
-     Exemplo:          C:\xampp\htdocs\Whack-a-Mole-main\
+2.1  Extraia ou copie a pasta completa do projeto para:
 
-     ATENÇÃO: o index.php deve ficar direto dentro dessa pasta, sem uma
-     segunda pasta com o mesmo nome por cima.
+     C:\xampp\htdocs\
+
+     A pasta do projeto deve conter o arquivo index.php diretamente.
+     Exemplo:
+     C:\xampp\htdocs\Whack-a-Mole\index.php
+
+     Evite deixar uma pasta duplicada, como:
+     C:\xampp\htdocs\Whack-a-Mole\Whack-a-Mole\index.php
 
 2.2  Abra o XAMPP Control Panel e clique em "Start" nos módulos
-     Apache e MySQL. Os dois devem ficar com fundo verde.
+     Apache e MySQL. Os dois devem ficar ativos (verdes).
+
+2.3  No navegador, acesse a página inicial:
+
+     http://localhost/Whack-a-Mole/
+
+     Se a pasta do projeto tiver outro nome, substitua "Whack-a-Mole"
+     pelo nome usado dentro de C:\xampp\htdocs\.
+     Não abra os arquivos PHP com duplo clique: acesse-os pelo localhost.
 
 
 ======================================================================
-3. CRIAÇÃO DO BANCO DE DADOS E DAS TABELAS
+3. CRIAÇÃO DO BANCO E DAS TABELAS
 ======================================================================
-O banco é criado por um script PHP, sem precisar do phpMyAdmin.
+3.1  Com Apache e MySQL ativos, abra uma vez:
 
-3.1  Abra no navegador (ajuste o nome da pasta, se for diferente):
+     http://localhost/Whack-a-Mole/setup/criar_tabelas.php
 
-     http://localhost/Whack-a-Mole-main/setup/criar_tabelas.php
+3.2  A página deve informar que o banco "whack_a_anomaly" e as tabelas
+     "usuarios" e "partidas" estão prontos.
 
-3.2  Deve aparecer:
+     O script pode ser executado novamente sem apagar dados existentes.
 
-     Banco 'whack_a_anomaly' pronto.
-     Tabela 'usuarios' pronta.
-     Tabela 'partidas' pronta.
+3.3  A configuração padrão do XAMPP usada pelo sistema é:
+     servidor: localhost
+     usuário:  root
+     senha:    vazia
+     banco:    whack_a_anomaly
 
-     Tudo certo! Banco e tabelas criados.
-
-     O script pode ser executado mais de uma vez: ele usa IF NOT EXISTS
-     e não apaga nenhum dado existente.
-
-3.3  Configuração da conexão (opcional):
-     Os dados de acesso ao MySQL ficam em config/config.php.
-     Valores padrão do XAMPP: servidor "localhost", usuário "root",
-     senha vazia, banco "whack_a_anomaly".
-     Se o seu MySQL for diferente, altere somente esse arquivo.
+     Se o MySQL/MariaDB usar outros dados de acesso, ajuste-os em:
+     config/config.php
 
 
 ======================================================================
 4. PRIMEIRO ACESSO
 ======================================================================
-4.1  Abra a página inicial (login):
+4.1  Acesse:
 
-     http://localhost/Whack-a-Mole-main/
+     http://localhost/Whack-a-Mole/
 
-4.2  Para criar uma conta, use o link "Crie sua conta" na tela de login.
-     [CONFERIR COM O GRUPO: ajustar este item conforme a implementação
-     final da tela de cadastro]
+4.2  Para criar uma conta, clique em "Crie sua conta". Preencha nome
+     completo, data de nascimento, CPF, telefone, e-mail, username e
+     senha. Depois de criar a conta, volte ao login e entre com seu
+     username e senha.
 
-4.3  Usuário de teste (opcional): para ter uma conta pronta sem passar
-     pelo cadastro, abra uma vez:
+4.3  Opcionalmente, é possível criar uma conta de teste abrindo:
 
-     http://localhost/Whack-a-Mole-main/setup/criar_usuario_teste.php
+     http://localhost/Whack-a-Mole/setup/criar_usuario_teste.php
 
-     Isso cria o usuário  teste  com a senha  teste123.
+     Credenciais:
+     username: teste
+     senha:    teste123
 
-
-======================================================================
-5. COMO USAR
-======================================================================
-1. Faça login com seu username e senha.
-2. Na tela inicial, escolha: Jogar, Editar Perfil, Ranking Global,
-   Histórico ou Sair da conta.
-3. Em "Jogar", escolha o modo (Clássico ou Explosivo) e o tamanho do
-   tabuleiro.
-4. Para encerrar a sessão, use o botão "Sair da conta" (na tela inicial
-   ou na tela de edição de perfil). Você volta para a tela de login.
+     Se o usuário de teste já existir, o script informará isso. Para o
+     uso normal do sistema, recomenda-se criar uma conta pela tela de
+     cadastro.
 
 
 ======================================================================
-6. CONTROLE DE ACESSO
+5. COMO USAR O SISTEMA
 ======================================================================
-- Apenas a página de login (index.php) e a de cadastro ficam abertas.
-- Todas as demais páginas (pasta pages/) exigem usuário autenticado,
-  usando sessões PHP. Quem tentar abri-las sem estar logado é
-  redirecionado automaticamente para a tela de login.
-- As senhas são guardadas criptografadas (password_hash), nunca em
-  texto puro.
+5.1  Menu inicial
+
+     Depois do login, o menu permite abrir:
+     - Jogar
+     - Editar Perfil
+     - Ranking Global
+     - Histórico
+
+5.2  Iniciar uma partida
+
+     1. Clique em "Jogar".
+     2. Escolha a modalidade: "Clássico" ou "Explosivo".
+     3. Escolha o tamanho do tabuleiro, de 2x2 a 8x8.
+     4. Clique em "Jogar" para iniciar.
+
+     No modo Clássico, clique nas toupeiras que aparecerem.
+     No modo Explosivo, acerte as toupeiras e evite clicar nas bombas.
+     Cada acerto vale 10 pontos; cada bomba clicada desconta 15 pontos.
+
+     Cada nível dura 50 segundos. É necessário atingir pelo menos 70%
+     de acertos para avançar. Ao atingir a meta, clique em "Próximo
+     nível". Se não atingir a meta, a partida termina.
+
+5.3  Desistir ou encerrar uma partida
+
+     Clique em "Sair" no tabuleiro para desistir a qualquer momento.
+     O sistema salva o resultado parcial no histórico e retorna ao menu
+     com a seleção de configurações aberta.
+
+     Partidas encerradas por derrota também são salvas automaticamente.
+
+5.4  Consultar o histórico
+
+     No menu inicial, clique em "Histórico". A página mostra as partidas
+     do usuário conectado, da mais recente para a mais antiga, com:
+     nome do jogador (na moldura), dimensões do tabuleiro, modalidade,
+     pontuação, nível atingido e data/hora. Use as setas para navegar
+     pelas páginas do histórico.
+
+5.5  Editar perfil
+
+     No menu inicial, clique em "Editar Perfil". É possível alterar
+     nome completo, telefone, e-mail e senha. Data de nascimento, CPF
+     e username não podem ser alterados.
+     Clique em "Salvar alterações" para confirmar.
+
+5.6  Ranking Global
+
+     No menu inicial, clique em "Ranking Global" para abrir a tela de
+     ranking. Na versão atual, os nomes e pontuações exibidos nessa tela
+     são dados demonstrativos.
+
+5.7  Sair da conta
+
+     Acesse "Editar Perfil" e clique em "Sair da conta". A sessão será
+     encerrada e o sistema voltará para a tela de login.
 
 
 ======================================================================
-7. TABELAS DO BANCO
+6. ACESSO E DADOS
+======================================================================
+- É necessário estar conectado para acessar as páginas do jogo.
+- O histórico é individual: cada usuário vê apenas as próprias partidas.
+- As partidas ficam na tabela "partidas", associadas ao usuário que as
+  jogou. O horário é registrado automaticamente pelo banco de dados.
+- As páginas de configuração inicial em "setup/" devem ser usadas
+  somente para preparar o sistema ou criar a conta de teste.
+
+
+======================================================================
+7. SOLUÇÃO DE PROBLEMAS
+======================================================================
+- Se o site não abrir, confirme que o Apache está ativo no XAMPP e use
+  um endereço iniciado por http://localhost/.
+- Se a tela inicial abrir, mas a conexão com o banco falhar, confirme
+  que o MySQL está ativo e revise config/config.php.
+- Se o histórico estiver vazio, termine uma partida ou clique em "Sair"
+  durante uma partida; esses resultados são registrados no histórico.
+
+
+======================================================================
+8. ESTRUTURA DE DADOS
 ======================================================================
 usuarios
-  id, nome_completo, data_nascimento, cpf (único), telefone, email,
-  username (único), senha_hash, criado_em
+  id, nome_completo, data_nascimento, cpf, telefone, email, username,
+  senha_hash, criado_em
 
 partidas
-  id, usuario_id (chave estrangeira para usuarios), linhas, colunas,
-  modalidade (classica/explosiva), pontuacao, nivel_atingido,
-  total_acertos, data_hora
+  id, usuario_id, linhas, colunas, modalidade, pontuacao,
+  nivel_atingido, total_acertos, data_hora
 
-
-======================================================================
-8. ESTRUTURA DE ARQUIVOS (BACK-END)
-======================================================================
-index.php                    tela de login
-login.php                    valida username/senha e abre a sessão
-logout.php                   encerra a sessão e volta ao login
-config/config.php            dados de acesso ao MySQL
-config/conexao.php           função conectar() usada pelas páginas PHP
-config/verificar_sessao.php  guarda de acesso (incluída nas páginas
-                             protegidas)
-setup/criar_tabelas.php      cria o banco e as tabelas
-setup/criar_usuario_teste.php  cria o usuário de teste (teste/teste123)
+Os valores de modalidade armazenados são "classica" e "explosiva".
+As senhas são armazenadas como hash, não em texto puro.
