@@ -1,0 +1,261 @@
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "VT323", monospace;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  background-color: #1a2f33;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.jogo h1 {
+  margin: 0;
+  font-size: 42px;
+}
+
+.botoes {
+  margin-top: 20px;
+}
+
+.botao {
+  display: inline-block;
+  background-color: #555;
+  color: white;
+  padding: 10px 20px;
+  margin: 0 10px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.botao:hover {
+  background-color: #777;
+}
+
+
+.quadro {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.quadro:target {
+  display: flex;
+}
+
+#vitoria.quadro,
+#derrota.quadro {
+  flex-direction: column;
+  gap: 20px;
+}
+
+.btn-proximo-nivel,
+.btn-tentar-novamente,
+#btn-tentar-novamente {
+  padding: 8px 28px;
+  border: 3px solid #53f2b8;
+  border-radius: 15px;
+  color: #53f2b8;
+  background-color: #051218 ;
+  font-family: "VT323", monospace;
+  font-size: 32px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s ease-in-out;
+  max-width: 280px;              
+  width: 100%;                   
+  margin-top: 10px;
+}
+
+.btn-proximo-nivel:hover,
+.btn-tentar-novamente:hover,
+#btn-tentar-novamente:hover {
+    border-color: #53f2b8 !important;             
+    box-shadow: 0 0 16px rgba(83, 242, 184, 0.6);   
+    text-shadow: 0 0 14px rgba(83, 242, 184, 0.8);  
+    transform: scale(1.02);
+}
+
+/*fundo de vitória e derrota*/
+.resultado {
+  position: relative;
+  width: 660px;
+  height: 535px;
+  background-image: url("../img/Quadro.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 105px 40px 20px 40px;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+}
+
+.linha-dado {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  line-height: 30px;
+  margin-bottom: 34px;
+  padding-top: 20px;
+  font-size: 28pt;
+  margin-left: 20px;
+}
+
+.linha-dado.pontuacao {
+  padding-right: 180px; 
+}
+
+.etiqueta {
+  white-space: nowrap;
+  margin-right: 15px;
+}
+
+.campo-linha {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+}
+
+.valor {
+  font-size: 48pt;
+  line-height: 52px;
+  margin: 0;
+}
+
+.linha-tracejada {
+  width: 70%;
+  border-bottom: 2px dashed #1a2f33;
+  margin-top: -1px;
+  margin-left: 0px;
+}
+
+.bloco-desempenho {
+  text-align: center;
+  margin-top: 65px;
+}
+
+.etiqueta-centro {
+  font-size: 32px;
+  line-height: 40px;
+  margin: 0;
+}
+
+.valor-centro {
+  font-size: 42px;
+  line-height: 50px;
+  margin-top: 15px;
+}
+
+.linha-tracejada-centro {
+  width: 63%;
+  border-bottom: 2px dashed #1a2f33;
+  margin: 5px auto 0 auto;
+}
+
+.cor-verde {
+  color: #2e8b57;
+}
+
+.cor-azul {
+  color: #0000ff;
+}
+
+.cor-roxa {
+  color: #da70d6;
+}
+
+.cor-vermelha {
+  color: #dc143c;
+}
+
+/*derrota*/
+.mensagem-derrota {
+  margin-top: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  color: #000;
+}
+
+.img-perder {
+  position: absolute;
+  width: 160px;
+  height: auto;
+  right: 5px;
+  bottom: 5px;
+  z-index: 10;
+}
+
+/*selo com a taxa de acertos*/
+.selo-acertos {
+  position: absolute;
+  top: 60px;
+  right: 50px;
+  width: 145px;
+  height: 145px;
+  z-index: 10;
+}
+
+.imagem-selo {
+  width: 120%;
+  height: 120%;
+  display: block;
+}
+
+.porcentagem-acerto {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  top: 8px;
+  left: 8px;
+  width: 100%;
+  font-weight: bold;
+  transform: rotate(8deg);
+  pointer-events: none;
+}
+
+.porcentagem-acerto p {
+  margin: 0;
+  padding: 0;
+}
+
+.porcentagem-acerto p:first-child {
+  font-size: 23px;
+  line-height: 40px;
+  margin-left: 15px;
+}
+
+.porcentagem-acerto p:last-child {
+  font-size: 70px;
+  line-height: 34px;
+}
+
