@@ -87,7 +87,7 @@ try {
     $conexao->close();
 }
 
-$nomeJogador = $_SESSION['nome'] ?? $_SESSION['username'] ?? '';
+$usernameJogador = $_SESSION['username'] ?? '';
 $partidasEsquerda = array_slice($partidas, 0, $itensPorLado);
 $partidasDireita = array_slice($partidas, $itensPorLado, $itensPorLado);
 ?>
@@ -113,7 +113,7 @@ $partidasDireita = array_slice($partidas, $itensPorLado, $itensPorLado);
         </div>
 
         <img src="../assets/img/foto_historico.png" alt="Foto de perfil" class="polaroid-foto">
-        <span class="polaroid-name"><?= escapar($nomeJogador) ?></span>
+        <span class="polaroid-name"><?= escapar($usernameJogador) ?></span>
 
         <div class="notebook-overlay">
             <?php if ($erroHistorico !== null): ?>
