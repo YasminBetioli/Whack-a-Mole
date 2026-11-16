@@ -121,6 +121,11 @@ function alterarTamanhoTabuleiro(lado, jaCriado) {
 function sairDoJogo() {
   pararAparicoes();
 
+  // Sair = desistir da partida: ela também vai para o histórico
+  if (typeof salvarPartidaNoServidor === 'function') {
+    salvarPartidaNoServidor();
+  }
+
   if (typeof tempoRestante !== 'undefined') {
     localStorage.setItem('tempoRestante', tempoRestante);
   }
@@ -134,7 +139,7 @@ function sairDoJogo() {
     intervalo = null;
   }
 
-  window.location.href = 'home.html?abrirModal=true';
+  window.location.href = 'home.php?abrirModal=true';
 }
 
 /* --------------------------- Aparição das anomalias ----------------------- */

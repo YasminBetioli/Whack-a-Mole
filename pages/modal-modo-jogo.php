@@ -1,0 +1,61 @@
+<?php require_once __DIR__ . '/../config/verificar_sessao.php'; ?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Whack-a-Anomaly </title>
+    <link rel="stylesheet" href="../assets/css/modo-jogo.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Handjet:wght,ELSH@100..900,2&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="borda">
+        <div id="bordaMenor">
+            <div id="content">
+
+                <button onclick="window.location.href='home.php'" class="btn-voltar" > ← </button>
+
+                <h1>Escolha o modo de jogo</h1>
+                    <div id="gameMode">
+                        <div id="classico">
+                            <button id="modoClassicoBtn">
+                                <img src="../assets/img/xicaraBranca.png" alt="imagem png de três xícaras" id="xicara">
+                                Clássico
+                            </button>
+                        </div>
+                        <div id="explosivo">
+                            <button id="modoExplosivoBtn">
+                                <img src="../assets/img/stalker.png" id="stalker" alt="">
+                                Explosivo
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="opcoesBaixo">
+                        <div id="tabuleiro">
+                            <h2>Escolha seu tabuleiro</h2>
+                            <select name="tabuleiro" id="tabuleiroSelect">
+                                <option value="">2x2</option>
+                                <option value="">3x3</option>
+                                <option value="">4x4</option>
+                                <option value="">5x5</option>
+                                <option value="">6x6</option>
+                                <option value="">7x7</option>
+                                <option value="">8x8</option>
+                            </select>
+                        </div>
+
+                        <div class="jogar">
+                            <button class="btnJogar" type="button" onclick="window.location.href='tabuleiro.php'"> Jogar </button>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+        <script src="../assets/js/modo-jogo.js"></script>
+
+</body>
+</html>

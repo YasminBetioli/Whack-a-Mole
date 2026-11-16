@@ -1,0 +1,122 @@
+WHACK-A-ANOMALY - INSTRUÇÕES DE CONFIGURAÇÃO E USO
+Projeto Final SI401 - Programação para a Web | Entrega Parcial 3 (Back-end)
+
+Link do vídeo de apresentação: [COLAR AQUI O LINK DO VÍDEO NO YOUTUBE]
+
+
+======================================================================
+1. REQUISITOS
+======================================================================
+- XAMPP (Apache + MySQL/MariaDB + PHP 8.x) instalado.
+  Testado com: Apache 2.4.58 e PHP 8.2.12 (XAMPP 3.3.0, Windows).
+- Navegador atualizado (Chrome, Edge ou Firefox).
+
+
+======================================================================
+2. INSTALAÇÃO
+======================================================================
+2.1  Copie a pasta do projeto (a pasta que contém o arquivo index.php)
+     para dentro de:   C:\xampp\htdocs\
+     Exemplo:          C:\xampp\htdocs\Whack-a-Mole-main\
+
+     ATENÇÃO: o index.php deve ficar direto dentro dessa pasta, sem uma
+     segunda pasta com o mesmo nome por cima.
+
+2.2  Abra o XAMPP Control Panel e clique em "Start" nos módulos
+     Apache e MySQL. Os dois devem ficar com fundo verde.
+
+
+======================================================================
+3. CRIAÇÃO DO BANCO DE DADOS E DAS TABELAS
+======================================================================
+O banco é criado por um script PHP, sem precisar do phpMyAdmin.
+
+3.1  Abra no navegador (ajuste o nome da pasta, se for diferente):
+
+     http://localhost/Whack-a-Mole-main/setup/criar_tabelas.php
+
+3.2  Deve aparecer:
+
+     Banco 'whack_a_anomaly' pronto.
+     Tabela 'usuarios' pronta.
+     Tabela 'partidas' pronta.
+
+     Tudo certo! Banco e tabelas criados.
+
+     O script pode ser executado mais de uma vez: ele usa IF NOT EXISTS
+     e não apaga nenhum dado existente.
+
+3.3  Configuração da conexão (opcional):
+     Os dados de acesso ao MySQL ficam em config/config.php.
+     Valores padrão do XAMPP: servidor "localhost", usuário "root",
+     senha vazia, banco "whack_a_anomaly".
+     Se o seu MySQL for diferente, altere somente esse arquivo.
+
+
+======================================================================
+4. PRIMEIRO ACESSO
+======================================================================
+4.1  Abra a página inicial (login):
+
+     http://localhost/Whack-a-Mole-main/
+
+4.2  Para criar uma conta, use o link "Crie sua conta" na tela de login.
+     [CONFERIR COM O GRUPO: ajustar este item conforme a implementação
+     final da tela de cadastro]
+
+4.3  Usuário de teste (opcional): para ter uma conta pronta sem passar
+     pelo cadastro, abra uma vez:
+
+     http://localhost/Whack-a-Mole-main/setup/criar_usuario_teste.php
+
+     Isso cria o usuário  teste  com a senha  teste123.
+
+
+======================================================================
+5. COMO USAR
+======================================================================
+1. Faça login com seu username e senha.
+2. Na tela inicial, escolha: Jogar, Editar Perfil, Ranking Global,
+   Histórico ou Sair da conta.
+3. Em "Jogar", escolha o modo (Clássico ou Explosivo) e o tamanho do
+   tabuleiro.
+4. Para encerrar a sessão, use o botão "Sair da conta" (na tela inicial
+   ou na tela de edição de perfil). Você volta para a tela de login.
+
+
+======================================================================
+6. CONTROLE DE ACESSO
+======================================================================
+- Apenas a página de login (index.php) e a de cadastro ficam abertas.
+- Todas as demais páginas (pasta pages/) exigem usuário autenticado,
+  usando sessões PHP. Quem tentar abri-las sem estar logado é
+  redirecionado automaticamente para a tela de login.
+- As senhas são guardadas criptografadas (password_hash), nunca em
+  texto puro.
+
+
+======================================================================
+7. TABELAS DO BANCO
+======================================================================
+usuarios
+  id, nome_completo, data_nascimento, cpf (único), telefone, email,
+  username (único), senha_hash, criado_em
+
+partidas
+  id, usuario_id (chave estrangeira para usuarios), linhas, colunas,
+  modalidade (classica/explosiva), pontuacao, nivel_atingido,
+  total_acertos, data_hora
+
+
+======================================================================
+8. ESTRUTURA DE ARQUIVOS (BACK-END)
+======================================================================
+index.php                    tela de login
+login.php                    valida username/senha e abre a sessão
+logout.php                   encerra a sessão e volta ao login
+config/config.php            dados de acesso ao MySQL
+config/conexao.php           função conectar() usada pelas páginas PHP
+config/verificar_sessao.php  guarda de acesso (incluída nas páginas
+                             protegidas)
+setup/criar_tabelas.php      cria o banco e as tabelas
+setup/criar_usuario_teste.php  cria o usuário de teste (teste/teste123)

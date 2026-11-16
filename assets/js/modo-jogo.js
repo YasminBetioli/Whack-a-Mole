@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.warn("Erro ao salvar storage:", erro);
       }
 
-      window.location.href = "tabuleiro.html";
+      window.location.href = "tabuleiro.php";
     });
   }
 });

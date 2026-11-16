@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Avançar para o próximo nível (Vitória)
     if (btnProximoNivel) {
         btnProximoNivel.addEventListener('click', () => {
-            window.location.href = 'tabuleiro.html?proximoNivel=true';
+            window.location.href = 'tabuleiro.php?proximoNivel=true';
         });
     }
 
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnTentarNovamente.addEventListener('click', () => {
             localStorage.removeItem('tempoRestante');
             localStorage.removeItem('placarAtual');
-            window.location.href = 'tabuleiro.html';
+            window.location.href = 'tabuleiro.php';
         });
     }
 
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             localStorage.removeItem('tempoRestante');
             localStorage.removeItem('placarAtual');
-            window.location.href = 'home.html?abrirModal=true';
+            window.location.href = 'home.php?abrirModal=true';
         });
     });
 });

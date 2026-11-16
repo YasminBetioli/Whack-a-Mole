@@ -26,7 +26,7 @@
             <div class="secao-formulario">
                 <h1> Cadastro </h1>
 
-                <form>
+                <form id="form-cadastro" novalidate method="post" action="../cadastrar.php">
                     <div class="campo-input-texto linha-completa">
                         <label for="nome"> Nome Completo </label>
                         <input type="text" id="nome" name="nome">
@@ -64,12 +64,19 @@
 
                         <div class="campo-input-texto metade">
                             <label for="senha-cadastro"> Senha </label>
-                            <input type="password" id="senha-cadastro" name="senha-cadastro">
+                            <input type="password" id="senha-cadastro" name="senha-cadastro" autocomplete="new-password">
                         </div>
                     </div>
 
-                    <button type="button" onclick="window.location.href='../index.html'"> Criar conta </button>
+                    <p id="erro-formulario" class="mensagem-erro" role="alert"></p>
+
+                    <button type="submit"> Criar conta </button>
                 </form>
+
+                <div class="link-cadastro">
+                    <span class="texto-vermelho-login"> Já tem uma conta? </span>
+                    <a href="../index.php"> Voltar para o login </a>
+                </div>
 
             </div>
             
@@ -78,5 +85,7 @@
         <img src="../assets/img/Canto_Inferior_Direito_Login.png" alt="Personagem decorativo">
 
     </div>
+
+    <script src="../assets/js/validacao.js"></script>
 </body>
 </html>

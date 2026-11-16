@@ -19,27 +19,35 @@ const placar = {
     // Métricas Acumuladas de Níveis Concluídos
     toupeirasConcluidas: 0,
     acertosConcluidos: 0,
+    bombasConcluidas: 0,
     pontosConcluidos: 0,
 
     // Métricas Totais do Jogo
     toupeirasExibidasTotal: 0,
     acertosTotal: 0,
+    bombasTotal: 0,
     pontosTotal: 0
 };
 
 /* -------------------------- Funções de Cálculo -------------------------- */
 
-/* Calcula a taxa de acerto do nível atual em porcentagem (0 a 100%) */
+/*
+ * Calcula a taxa de acerto do nível atual em porcentagem (0 a 100%).
+ * Cada bomba clicada desconta um acerto (acertos líquidos = toupeiras - bombas),
+ * então acertar bombas nunca ajuda a passar de nível.
+ */
 function calcularTaxaAcertoNivel() {
     if (placar.toupeirasExibidasNivel === 0) return 0;
-    const taxa = (placar.acertosNivel / placar.toupeirasExibidasNivel) * 100;
+    const acertosLiquidos = placar.acertosNivel - placar.bombasNivel;
+    const taxa = (acertosLiquidos / placar.toupeirasExibidasNivel) * 100;
     return Math.max(0, Math.round(taxa));
 }
 
-/* Calcula a taxa de acerto acumulada da partida inteira (0 a 100%) */
+/* Calcula a taxa de acerto acumulada da partida inteira (0 a 100%), também descontando as bombas */
 function calcularTaxaAcertoTotal() {
     if (placar.toupeirasExibidasTotal === 0) return 0;
-    const taxa = (placar.acertosTotal / placar.toupeirasExibidasTotal) * 100;
+    const acertosLiquidos = placar.acertosTotal - placar.bombasTotal;
+    const taxa = (acertosLiquidos / placar.toupeirasExibidasTotal) * 100;
     return Math.max(0, Math.round(taxa));
 }
 
@@ -53,6 +61,7 @@ function atualizarPontuacao() {
 function atualizarEstatisticas() {
     placar.toupeirasExibidasTotal = placar.toupeirasConcluidas + placar.toupeirasExibidasNivel;
     placar.acertosTotal = placar.acertosConcluidos + placar.acertosNivel;
+    placar.bombasTotal = placar.bombasConcluidas + placar.bombasNivel;
     placar.pontosTotal = placar.pontosConcluidos + placar.pontosNivel;
 }
 
@@ -83,10 +92,13 @@ function atualizarPainel() {
     definirTexto('porcentagem-vitoria', taxaTotal + '%');
     definirTexto('porcentagem-derrota', taxaTotal + '%');
 
-    // 4. Cor dinâmica da taxa: Verde se estiver atingindo a meta (>=70%), Vermelho se estiver abaixo
+    // Meta de acertos para mudar de nível (vem das regras, para não ficar fixa no HTML)
+    definirTexto('meta-nivel', REGRAS_PLACAR.porcentagemMinimaNivel);
+
+    // 4. Cor dinâmica da taxa: Verde se estiver atingindo a meta, Vermelho se estiver abaixo
     const elTaxa = document.getElementById('taxa-acerto-nivel');
     if (elTaxa) {
-        elTaxa.style.color = taxaNivel >= 70 ? '#53f2b8' : '#ff6b6b';
+        elTaxa.style.color = taxaNivel >= REGRAS_PLACAR.porcentagemMinimaNivel ? '#53f2b8' : '#ff6b6b';
     }
 }
 
@@ -144,10 +156,49 @@ function avaliarFimDoNivel() {
     return passouDeNivel;
 }
 
+/* -------------------------- Histórico: gravar a partida no servidor -------------------------- */
+
+let partidaJaSalva = false; // garante que cada partida seja gravada uma única vez
+
+/*
+ * Envia o resultado da partida para pages/salvar_partida.php, que grava na tabela 'partidas'.
+ * Deve ser chamada quando a partida TERMINA (derrota) ou o jogador DESISTE (botão Sair).
+ * Passar de nível NÃO encerra a partida, então ali ela não é chamada.
+ */
+function salvarPartidaNoServidor() {
+    if (partidaJaSalva) return;
+    partidaJaSalva = true;
+
+    const config = (typeof configTabuleiro !== 'undefined') ? configTabuleiro : { lado: 3, modo: 'classico' };
+
+    const dados = {
+        linhas: config.lado,
+        colunas: config.lado,
+        modalidade: config.modo,
+        pontuacao: placar.pontosConcluidos + placar.pontosNivel,
+        nivel: placar.nivel,
+        total_acertos: placar.acertosConcluidos + placar.acertosNivel
+    };
+
+    try {
+        // keepalive: o envio continua mesmo que a página mude logo em seguida
+        fetch('salvar_partida.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dados),
+            credentials: 'same-origin',
+            keepalive: true
+        }).catch((erro) => console.warn('Não foi possível salvar a partida:', erro));
+    } catch (erro) {
+        console.warn('Não foi possível salvar a partida:', erro);
+    }
+}
+
 /* -------------------------- Progressão de Nível -------------------------- */
 function avancarNivel() {
     placar.toupeirasConcluidas += placar.toupeirasExibidasNivel;
     placar.acertosConcluidos += placar.acertosNivel;
+    placar.bombasConcluidas += placar.bombasNivel;
     placar.pontosConcluidos += placar.pontosNivel;
 
     placar.nivel++;

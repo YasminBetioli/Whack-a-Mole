@@ -1,0 +1,51 @@
+<?php require_once __DIR__ . '/../config/verificar_sessao.php'; ?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whack-a-Anomaly</title>
+    <link rel="stylesheet" href="../assets/css/derrota-vitoria.css">
+    <link rel="stylesheet" href="../assets/css/tabuleiro.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+    <main class="tela-tabuleiro">
+
+        <header class="informacoes-topo">
+            <button id="btn-sair" class="btn-sair" onclick="sairDoJogo()">
+                <span class="seta-voltar">←</span> Sair
+            </button>
+            <div class="nivel">Nível <span id="nivel-atual">1</span></div>
+            <div class="tempo">
+                <img src="../assets/img/relogio.png" alt="Imagem de um relogio">
+                <div id="time"><strong>00:00:00</strong></div>
+            </div>
+            <div class="pontos">Pontos: <span id="pontos-nivel">0</span></div>
+            <div class="modo">Clássico</div>
+        </header>
+
+        <div class="estatisticas">
+            <p>Acertos no nível: <span id="acertos-nivel">0</span></p>
+            <p>Acertos na partida: <span id="acertos-total">0</span></p>
+            <p>Pontos na partida: <span id="pontos-total">0</span></p>
+        </div>
+
+        <div class="tabuleiro-container">
+            <section class="tabuleiro" aria-label="Tabuleiro do jogo"></section>
+            
+            <div class="indicador-taxa-inferior">
+                Taxa de acertos: <span id="taxa-acerto-nivel">0%</span> / <span id="meta-nivel">70</span>%
+            </div>
+        </div>
+
+    </main>
+
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/placar.js"></script>
+    <script src="../assets/js/tabuleiro.js"></script>
+    <script src="../assets/js/progressao.js"></script>
+
+</body>
+</html>

@@ -115,12 +115,16 @@ function finalizarPartida(resultado) {
     }
 
     if (resultado === 'derrota') {
-        window.location.href = 'modal-derrota-vitoria.html#derrota';
+        // A partida acabou: grava no histórico antes de mostrar a tela de derrota
+        if (typeof salvarPartidaNoServidor === 'function') {
+            salvarPartidaNoServidor();
+        }
+        window.location.href = 'modal-derrota-vitoria.php#derrota';
     } else if (resultado === 'vitoria') {
         if (typeof placar !== 'undefined') {
             localStorage.setItem('placarParaAvancar', JSON.stringify(placar));
         }
-        window.location.href = 'modal-derrota-vitoria.html#vitoria';
+        window.location.href = 'modal-derrota-vitoria.php#vitoria';
     }
 }
 

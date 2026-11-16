@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.removeItem('placarAtual');
 
             // Redireciona para o tabuleiro
-            window.location.href = 'tabuleiro.html';
+            window.location.href = 'tabuleiro.php';
         });
     }
 
