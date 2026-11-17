@@ -14,7 +14,6 @@ Link do vídeo de apresentação: [INSERIR O LINK DO VÍDEO]
 O Apache executa as páginas PHP, e o MySQL/MariaDB armazena as contas
 e o histórico das partidas.
 
-
 ======================================================================
 2. INSTALAÇÃO E CONFIGURAÇÃO INICIAL
 ======================================================================
