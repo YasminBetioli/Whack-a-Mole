@@ -217,7 +217,7 @@ $usernameLogado = $_SESSION['username'] ?? '';
                                 <td><?= escapar(formatar_posicao((int) $linha['posicao'])) ?></td>
                                 <td>
                                     <div class="avatar-polaroid">
-                                        <img src="../assets/img/polaroid.png" alt="Avatar Polaroid de <?= escapar($linha['username']) ?>">
+                                        <img src="../assets/img/anomaliaFoto.png" alt="Avatar Polaroid de <?= escapar($linha['username']) ?>">
                                     </div>
                                 </td>
                                 <td class="col-usuario"><?= escapar($linha['username']) ?></td>
@@ -236,7 +236,7 @@ $usernameLogado = $_SESSION['username'] ?? '';
             <footer class="user-rank-bar">
                 <div class="user-position"><?= $minhaLinha ? escapar(formatar_posicao((int) $minhaLinha['posicao'])) : '—' ?></div>
                 <div class="user-avatar-box">
-                    <img src="../assets/img/polaroid.png" alt="Avatar Polaroid de <?= escapar($usernameLogado) ?>">
+                    <img src="../assets/img/anomaliaFoto.png" alt="Avatar Polaroid de <?= escapar($usernameLogado) ?>">
                 </div>
                 <div class="user-info">
                     <div class="user-name"><?= escapar($usernameLogado) ?></div>
