@@ -3,7 +3,6 @@ require_once __DIR__ . '/../config/verificar_sessao.php';
 require_once __DIR__ . '/../config/conexao.php';
 require_once __DIR__ . '/../config/validacao.php';
 
-/* Escapa texto antes de colocar dentro do HTML (evita que o conteúdo vire código) */
 function h(string $texto): string
 {
     return htmlspecialchars($texto, ENT_QUOTES, 'UTF-8');
@@ -12,7 +11,6 @@ function h(string $texto): string
 $usuarioId = (int) $_SESSION['usuario_id'];
 $conexao = conectar();
 
-// Dados atuais da conta
 $consulta = $conexao->prepare(
     'SELECT nome_completo, data_nascimento, cpf, telefone, email, username FROM usuarios WHERE id = ?'
 );
@@ -22,28 +20,24 @@ $usuario = $consulta->get_result()->fetch_assoc();
 $consulta->close();
 
 if (!$usuario) {
-    // A conta não existe mais: encerra a sessão
     $conexao->close();
     header('Location: ../logout.php');
     exit;
 }
 
-$salvo     = isset($_GET['salvo']);   // vem do redirecionamento depois de salvar
-$erros     = [];                      // mensagens de erro por campo (chave = id do input)
+$salvo     = isset($_GET['salvo']);   
+$erros     = [];                      
 $erroGeral = '';
 
-// Valores mostrados nos campos que podem ser editados
 $nome     = $usuario['nome_completo'];
 $telefone = formatar_telefone($usuario['telefone']);
 $email    = $usuario['email'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // IMPORTANTE: data de nascimento, CPF e username NÃO podem ser alterados.
-    // Eles nem são lidos do formulário: valem sempre os que estão no banco.
     $nome      = preg_replace('/\s+/u', ' ', trim(valor_post('nome')));
     $telefone  = trim(valor_post('telefone'));
     $email     = trim(valor_post('email'));
-    $senhaNova = valor_post('senha-cadastro');      // em branco = manter a senha atual
+    $senhaNova = valor_post('senha-cadastro');      
 
     $erros = array_filter([
         'nome'            => validar_nome($nome),
@@ -76,7 +70,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $_SESSION['nome'] = $nome;
 
-            // Redireciona para evitar reenvio do formulário se a pessoa atualizar a página
             header('Location: editar-perfil.php?salvo=1');
             exit;
         } catch (mysqli_sql_exception $erro) {

@@ -1,12 +1,4 @@
 <?php
-// Grava no histórico (tabela 'partidas') uma partida que terminou (derrota) ou da qual
-// o jogador desistiu (botão "Sair" do jogo).
-//
-// É chamada pelo JavaScript do jogo (função salvarPartidaNoServidor, em assets/js/placar.js),
-// que envia os dados da partida em JSON. Não é uma página para abrir no navegador.
-//
-// SEGURANÇA: o usuário vem SEMPRE da sessão ($_SESSION['usuario_id']). Nunca confiamos em um
-// "usuario_id" enviado pelo navegador, senão alguém poderia gravar partidas em nome de outra pessoa.
 
 require_once __DIR__ . '/../config/verificar_sessao.php';
 require_once __DIR__ . '/../config/conexao.php';
@@ -31,7 +23,6 @@ if (!is_array($dados)) {
 
 /* -------------------------- Validação dos dados recebidos -------------------------- */
 
-// O JavaScript usa "classico"/"explosivo"; no banco o ENUM é 'classica'/'explosiva'
 $modalidades = ['classico' => 'classica', 'explosivo' => 'explosiva'];
 $modoRecebido = $dados['modalidade'] ?? '';
 if (!is_string($modoRecebido) || !isset($modalidades[$modoRecebido])) {
@@ -49,7 +40,6 @@ if (in_array(false, [$linhas, $colunas, $pontuacao, $nivel, $totalAcertos], true
     responder(400, ['ok' => false, 'erro' => 'dados_invalidos']);
 }
 
-// Tabuleiro retangular com no mínimo 4 e no máximo 64 buracos
 $buracos = $linhas * $colunas;
 if ($linhas < 1 || $colunas < 1 || $buracos < 4 || $buracos > 64) {
     responder(400, ['ok' => false, 'erro' => 'tabuleiro_invalido']);

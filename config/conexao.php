@@ -1,9 +1,5 @@
 <?php
-// Conexão com o banco de dados.
-// Como usar nas outras páginas PHP:
-//
-//     require_once __DIR__ . '/../config/conexao.php';
-//     $conexao = conectar();
+// Configurações do banco de dados.
 
 require_once __DIR__ . '/config.php';
 
@@ -16,7 +12,6 @@ function conectar(): mysqli
         $conexao->set_charset('utf8mb4');
         return $conexao;
     } catch (mysqli_sql_exception $erro) {
-        // Não mostra detalhes técnicos para o usuário
         http_response_code(500);
         header('Content-Type: text/plain; charset=utf-8');
         exit('Não foi possível conectar ao banco de dados.');

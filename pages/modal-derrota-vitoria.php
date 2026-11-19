@@ -101,7 +101,8 @@
                 
             </div>
 
-            <button type="button" id="btn-tentar-novamente" class="btn-tentar-novamente" onclick="localStorage.clear(); window.location.href='home.php?abrirModal=true'"> Tentar novamente </button> 
+            <button type="button" id="btn-tentar-novamente" class="btn-tentar-novamente"> Tentar novamente </button>
+            <button type="button" class="btn-tentar-novamente btn-menu-principal"> Voltar ao menu </button>
             
         </div>
     </main>

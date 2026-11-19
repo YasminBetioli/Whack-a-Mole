@@ -1,14 +1,5 @@
 <?php
 // Validação dos dados de cadastro e de edição de perfil NO SERVIDOR.
-//
-// São as mesmas regras do arquivo assets/js/validacao.js. O JavaScript só ajuda quem
-// usa o site normalmente; esta validação é a que vale de verdade, porque o navegador
-// pode ser contornado.
-//
-// Como usar:
-//
-//     require_once __DIR__ . '/../config/validacao.php';
-//     $erro = validar_cpf(valor_post('cpf'));   // '' = tudo certo; senão, a mensagem de erro
 
 /* -------------------------- Utilitários -------------------------- */
 
@@ -24,7 +15,7 @@ function somente_digitos(string $texto): string
     return preg_replace('/\D/', '', $texto);
 }
 
-/* "15/11/2000" -> "2000-11-15" (formato do MySQL). Só chamar depois de validar a data. */
+/* "15/11/2000" -> "2000-11-15" */
 function data_br_para_iso(string $data): string
 {
     [$dia, $mes, $ano] = explode('/', trim($data));
@@ -194,7 +185,7 @@ function validar_username(string $valor): string
     return '';
 }
 
-/* Na edição de perfil a senha é opcional: em branco = manter a senha atual */
+/* na edição de perfil a senha é opcional, em branco = manter a senha atual */
 function validar_senha(string $valor, bool $opcional = false): string
 {
     if ($valor === '') {
