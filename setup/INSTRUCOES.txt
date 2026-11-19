@@ -2,7 +2,7 @@ WHACK-A-ANOMALY
 MANUAL DE CONFIGURAÇÃO E USO
 Projeto Final SI401 - Parcial 3
 
-Link do vídeo de apresentação: [INSERIR O LINK DO VÍDEO]
+Link do vídeo de apresentação: https://youtu.be/aSKJk0HzX90?is=vca3OfKrhq4gBoXY
 
 
 ======================================================================
