@@ -4,10 +4,17 @@ Projeto Final SI401 - Parcial 3
 
 Link do vídeo de apresentação: https://youtu.be/aSKJk0HzX90?is=vca3OfKrhq4gBoXY
 
+=====================================================================
+ Imagens
+=======================================================================
 
-======================================================================
+- acesse o link: https://drive.google.com/drive/folders/16_9qCAOgzFalJyfxXlQshRohoueDLpDk?usp=sharing
+
+- baixe as imagens e adicione-as no caminho Whack-a-Mole/assets/img
+
+=====================================================================
 1. REQUISITOS
-======================================================================
+=======================================================================
 - Windows com XAMPP instalado (Apache, MySQL/MariaDB e PHP 8.x).
 - Navegador atualizado (Chrome, Edge ou Firefox).
 
