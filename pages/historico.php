@@ -96,6 +96,7 @@ $partidasDireita = array_slice($partidas, $itensPorLado, $itensPorLado);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../assets/img/monstrinho.png">
     <title>Whack-a-Anomaly | Histórico</title>
     <link rel="stylesheet" href="../assets/css/base.css">
     <link rel="stylesheet" href="../assets/css/historico.css">
